@@ -1,0 +1,349 @@
+{
+  "name": "ETF bot: daily paper run",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "15 17 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "6f1fa0b7-3040-4382-8a20-8236ff97e7d9",
+      "name": "Weekdays 17:15 UK",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /opt/etf-bot && /opt/etf-bot/.venv/bin/python -m etfbot market-status 2>/dev/null || true"
+      },
+      "id": "6b15cc28-0edb-41f6-b8fe-8d733ecce515",
+      "name": "Market status",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = $input.first().json.stdout || '{}';\nlet data;\ntry { data = JSON.parse(out); } catch (e) { data = { ok: false, error: 'could not parse bot output', raw: out.slice(0, 500) }; }\nreturn [{ json: data }];"
+      },
+      "id": "47cec0dd-8b18-41e0-b494-c2076df5ed2f",
+      "name": "Parse status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "8328e464-3af9-4042-9d85-843b2671e033",
+              "leftValue": "={{ $json.is_trading_day }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        }
+      },
+      "id": "36eaf2aa-b56d-4afc-8669-242eaa7081ff",
+      "name": "London open today?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /opt/etf-bot && /opt/etf-bot/.venv/bin/python -m etfbot check-data 2>/dev/null || true"
+      },
+      "id": "70df8830-ae39-4d25-9d43-f25635d2c433",
+      "name": "Check data",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        880,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = $input.first().json.stdout || '{}';\nlet data;\ntry { data = JSON.parse(out); } catch (e) { data = { ok: false, error: 'could not parse bot output', raw: out.slice(0, 500) }; }\nreturn [{ json: data }];"
+      },
+      "id": "35085445-f434-47dd-bdb0-e42f0a0b1321",
+      "name": "Parse data check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c1288c60-6033-4f60-9e00-3707bb546638",
+              "leftValue": "={{ $json.quality.ok }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        }
+      },
+      "id": "7da3ed9d-9738-4943-bc43-07598cfc5d7a",
+      "name": "Data OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /opt/etf-bot && /opt/etf-bot/.venv/bin/python -m etfbot paper 2>/dev/null || true"
+      },
+      "id": "05ef0225-4ac0-416d-bf49-f9bc5b2b9d7b",
+      "name": "Run paper trade",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = $input.first().json.stdout || '{}';\nlet data;\ntry { data = JSON.parse(out); } catch (e) { data = { ok: false, error: 'could not parse bot output', raw: out.slice(0, 500) }; }\nreturn [{ json: data }];"
+      },
+      "id": "509a0cdd-d682-4ce5-9cdc-525a199e9336",
+      "name": "Parse paper result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nif (!r.ok) return [{ json: { text: `⚠️ <b>ETF bot run failed</b>\\n${r.error || r.blocked_by || 'unknown'}` } }];\nconst a = r.account || {};\nconst fills = (r.fills || []).map(f => `${f.side.toUpperCase()} ${f.sleeve} £${Math.round(f.value_gbp)}`).join('\\n') || 'No trades';\nconst rej = (r.rejected || []).map(x => `${x.order.sleeve}: ${x.reasons.join(', ')}`).join('\\n');\nconst text = `📈 <b>ETF bot (paper) ${r.as_of}</b>\\nEquity £${Math.round(a.equity_gbp || 0)} · cash £${Math.round(a.cash_gbp || 0)}\\n\\n${fills}` + (rej ? `\\n\\n🚫 Rejected by risk:\\n${rej}` : '');\nreturn [{ json: { text } }];"
+      },
+      "id": "08be81dc-b8c9-45aa-adc7-10044197db7f",
+      "name": "Build summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1980,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "d0d6387a-46d3-406c-a751-a0f23419fef6",
+      "name": "Send summary",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2200,
+        100
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=⚠️ <b>ETF bot skipped today: data check failed</b>\n{{ ($json.quality.issues || []).slice(0, 5).join('\\n') }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "9830a1df-e9a4-44c3-a2c8-7f8f24880925",
+      "name": "Alert: data problem",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1540,
+        320
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Weekdays 17:15 UK": {
+      "main": [
+        [
+          {
+            "node": "Market status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Market status": {
+      "main": [
+        [
+          {
+            "node": "Parse status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse status": {
+      "main": [
+        [
+          {
+            "node": "London open today?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check data": {
+      "main": [
+        [
+          {
+            "node": "Parse data check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse data check": {
+      "main": [
+        [
+          {
+            "node": "Data OK?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run paper trade": {
+      "main": [
+        [
+          {
+            "node": "Parse paper result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse paper result": {
+      "main": [
+        [
+          {
+            "node": "Build summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build summary": {
+      "main": [
+        [
+          {
+            "node": "Send summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "London open today?": {
+      "main": [
+        [
+          {
+            "node": "Check data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data OK?": {
+      "main": [
+        [
+          {
+            "node": "Run paper trade",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Alert: data problem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/London"
+  },
+  "pinData": {}
+}

@@ -112,6 +112,8 @@ Emergency stop: create the file `state/KILL`. Nothing trades while it exists.
 
 ## n8n
 
+**Ready-made setup:** see [`deploy/README.md`](deploy/README.md) for a VPS setup script, an importable daily workflow (`deploy/n8n_etfbot_workflow.json`) and an error-alert workflow, with Telegram summaries.
+
 Use an **Execute Command** node, for example `cd /path/to/ETF-bot- && python -m etfbot paper`. Parse stdout as JSON. Exit code 1 means blocked or failed, so route it to an alert.
 
 Suggested flow: weekday schedule after the London close → `check-data` → `signal` → `paper` → Telegram/email summary → log. Add a separate error workflow.
