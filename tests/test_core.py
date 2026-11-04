@@ -163,3 +163,21 @@ def test_combine_auto_pick_and_chart(cfg, tmp_path):
     assert "Out-of-sample" in open(out).read()
     with pytest.raises(ValueError):
         combine.run(p, cfg, "US_EQ", ["trend", "faber", "tsmom", "rsi2"])  # more than 3
+
+
+def test_calendar_rules():
+    from etfbot import strategies as st
+    idx = pd.bdate_range("2026-12-01", "2027-01-29").drop(pd.Timestamp("2026-12-25")).drop(pd.Timestamp("2026-12-28"))
+    ph = st._pre_holiday_days(idx)
+    assert ph.loc["2026-12-24"] and not ph.loc["2026-12-23"]
+    opex = st._opex_week_days(idx)
+    assert opex.loc["2026-12-14":"2026-12-18"].all() and not opex.loc["2026-12-21"]  # 3rd Fri = 18 Dec 2026
+    p = pd.DataFrame({"X": np.linspace(100, 120, len(idx))}, index=idx)
+    w = st.pre_holiday(p)["X"]
+    assert w.loc["2026-12-23"] == 1 and w.loc["2026-12-24"] == 0  # signal the day before, held on the 24th
+
+
+def test_manual_csv_source(tmp_path):
+    (tmp_path / "SPY.csv").write_text("Date,Open,Close,Adj Close\n2020-01-03,1,2,1.9\n2020-01-02,1,2,1.8\n")
+    s = data.read_manual_csv("SPY", tmp_path)
+    assert list(s) == [1.8, 1.9] and s.index.is_monotonic_increasing

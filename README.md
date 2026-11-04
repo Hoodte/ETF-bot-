@@ -41,8 +41,8 @@ python -m etfbot check-data                 # download + data quality report
 python -m etfbot backtest --strategy trend  # writes reports/trend.md and .json
 python -m etfbot backtest --html            # also a QuantStats HTML tearsheet
 python -m etfbot crosscheck                 # compare our backtester with vectorbt
-python -m etfbot discover                   # rank all 11 pre-registered strategy candidates
-python -m etfbot discover --etf US_EQ       # rank the 7 single-ETF strategies on one ETF
+python -m etfbot discover                   # rank all 14 pre-registered strategy candidates
+python -m etfbot discover --etf US_EQ       # rank the 10 single-ETF strategies on one ETF
 python -m etfbot combine --etf US_EQ        # blend the top 3 (picked in-sample) + interactive chart
 python -m etfbot combine --etf US_EQ --strategies trend,faber,tsmom
 python -m etfbot simulate --strategy trend  # Time Machine: 10,000 simulated years + every real past year
@@ -56,9 +56,17 @@ python -m pytest                            # tests
 
 Add `--synthetic` to run any command offline on random-walk data. Synthetic results mean nothing about real markets; they only prove the code runs.
 
+## Data source
+
+By default prices come from Yahoo Finance via `yfinance`. Yahoo has reportedly restricted free end-of-day downloads, so if `check-data` fails, switch to your own files:
+
+1. Set `data.source: csv` in `config.yaml`.
+2. Save one CSV per ticker in `data/manual/`, named like `SPY.csv`, `GBPUSD_X.csv`, `SWDA.L.csv`, with a `Date` column and an `Adj Close` (or `Close`) column. You need every proxy ticker (SPY, EFA, AGG, GLD, EEM), each UCITS ticker, and `GBPUSD=X`.
+3. Run `check-data`. It flags gaps, spikes and stale files before anything else runs.
+
 ## Strategy discovery
 
-`discover` runs a fixed list of 11 documented, long-or-cash strategy families. Their parameters were frozen in `config.yaml` on 2026-11-04, before any real-data test:
+`discover` runs a fixed list of 14 documented, long-or-cash strategy families. Their parameters were frozen in `config.yaml` on 2026-11-04, before any real-data test:
 
 | Candidate | Idea | Rebalance |
 | --- | --- | --- |
@@ -73,8 +81,11 @@ Add `--synthetic` to run any command offline on random-walk data. Synthetic resu
 | sma_cross | hold while 50-day average > 200-day average | weekly |
 | turn_of_month | hold last trading day of month to 3rd trading day of next, cash otherwise | daily |
 | rsi2 | buy 2-day RSI < 10 dips inside a 200-day uptrend, sell above the 5-day average (Connors) | daily |
+| pre_holiday | hold only on the trading day before a market holiday (Quantpedia, free) | daily |
+| options_expiry_week | hold during the week of the month's third Friday (Quantpedia, free; a US effect) | daily |
+| calendar_composite | turn-of-month (last 4 / first 3 days) or pre-holiday or option-expiry week, only above the 200-day average (Quantpedia composite with trend filter) | daily |
 
-Strategies marked single-ETF capable (trend, faber, tsmom, sma_cross, turn_of_month, rsi2, trend_voltarget) can be tested on one ETF with `--etf`.
+Strategies marked single-ETF capable (trend, faber, tsmom, sma_cross, turn_of_month, rsi2, trend_voltarget, pre_holiday, options_expiry_week, calendar_composite) can be tested on one ETF with `--etf`.
 
 ### Blending strategies on one ETF
 

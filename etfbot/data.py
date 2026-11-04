@@ -13,8 +13,25 @@ import numpy as np
 import pandas as pd
 
 
-def download_close(ticker: str, start: str, cache_dir: str | Path) -> pd.Series:
-    """Adjusted close for one ticker, cached to CSV. Needs internet + yfinance."""
+def read_manual_csv(ticker: str, csv_dir: str | Path) -> pd.Series:
+    """Load a price CSV you downloaded yourself: needs a Date column and an 'Adj Close' or 'Close' column."""
+    path = Path(csv_dir) / f"{ticker.replace('=', '_')}.csv"
+    if not path.exists():
+        raise FileNotFoundError(f"missing {path}: save daily prices for {ticker} there (Date, Adj Close/Close)")
+    df = pd.read_csv(path)
+    date_col = next(c for c in df.columns if c.strip().lower() in ("date", "datetime", "time"))
+    px_col = next((c for c in df.columns if c.strip().lower() in ("adj close", "adj_close", "adjclose")),
+                  next(c for c in df.columns if c.strip().lower() == "close"))
+    s = pd.Series(pd.to_numeric(df[px_col], errors="coerce").to_numpy(),
+                  index=pd.to_datetime(df[date_col]), name=ticker).dropna().sort_index()
+    return s[~s.index.duplicated(keep="last")]
+
+
+def download_close(ticker: str, start: str, cache_dir: str | Path, source: str = "yahoo",
+                   csv_dir: str | Path = "data/manual") -> pd.Series:
+    """Adjusted close for one ticker. source='yahoo' downloads (cached daily); 'csv' reads your own files."""
+    if source == "csv":
+        return read_manual_csv(ticker, csv_dir)
     cache = Path(cache_dir) / f"{ticker.replace('=', '_')}.csv"
 
     def from_cache() -> pd.Series:
@@ -75,11 +92,14 @@ def splice(proxy_rets: pd.Series, ucits_rets: pd.Series | None) -> tuple[pd.Seri
 def quote_gbp(cfg: dict, sleeve: str, fx_last: float | None = None) -> float:
     """Latest price per unit of the UCITS line in GBP (for order sizing only)."""
     inst = cfg["instruments"][sleeve]
-    px = float(download_close(inst["ucits"], cfg["data"]["start"], cfg["data"]["cache_dir"]).iloc[-1])
+    d = cfg["data"]
+    px = float(download_close(inst["ucits"], d["start"], d["cache_dir"], d.get("source", "yahoo"),
+                              d.get("csv_dir", "data/manual")).iloc[-1])
     px *= inst.get("price_scale", 1.0)
     if inst.get("ucits_currency", "GBP") == "USD":
         if fx_last is None:
-            fx_last = float(download_close(cfg["fx_ticker"], cfg["data"]["start"], cfg["data"]["cache_dir"]).iloc[-1])
+            fx_last = float(download_close(cfg["fx_ticker"], d["start"], d["cache_dir"], d.get("source", "yahoo"),
+                                           d.get("csv_dir", "data/manual")).iloc[-1])
         px /= fx_last
     return px
 
@@ -97,10 +117,12 @@ def build_universe(cfg: dict, closes: dict[str, pd.Series] | None = None) -> tup
     cache = cfg["data"]["cache_dir"]
     insts = cfg["instruments"]
 
+    src, csv_dir = cfg["data"].get("source", "yahoo"), cfg["data"].get("csv_dir", "data/manual")
+
     def get(t: str) -> pd.Series:
         if closes is not None:
             return closes[t]
-        return download_close(t, start, cache)
+        return download_close(t, start, cache, src, csv_dir)
 
     fx = get(cfg["fx_ticker"])
     series, info = {}, {}

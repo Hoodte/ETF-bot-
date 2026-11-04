@@ -30,7 +30,8 @@ from .config import load_config
 
 MIN_ORDER_GBP = 50.0
 STRATS = ["trend", "rotation", "dip", "faber", "dual_momentum", "inverse_vol", "trend_inverse_vol", "trend_voltarget",
-          "tsmom", "sma_cross", "turn_of_month", "rsi2"]
+          "tsmom", "sma_cross", "turn_of_month", "rsi2", "pre_holiday", "options_expiry_week",
+          "calendar_composite"]
 
 
 def _prices(cfg, synthetic: bool):

@@ -155,18 +155,62 @@ def sma_cross(prices: pd.DataFrame, fast_days: int = 50, slow_days: int = 200) -
     return _hold_between_checks(on, "weekly")
 
 
-def turn_of_month(prices: pd.DataFrame, days_before: int = 1, days_after: int = 3) -> pd.DataFrame:
-    """Turn-of-the-month effect: hold from the last `days_before` trading days of a month
-    to the first `days_after` of the next, cash otherwise. Uses the calendar only."""
-    idx = prices.index
+def _tom_days(idx: pd.DatetimeIndex, days_before: int, days_after: int) -> pd.Series:
     s = pd.Series(range(len(idx)), index=idx)
     per = idx.to_period("M")
     from_start = s.groupby(per).rank(method="first") - 1
     from_end = s.groupby(per).rank(method="first", ascending=False) - 1
-    window = (from_end < days_before) | (from_start < days_after)
-    # target on day t = hold during t+1 (the backtester trades on the next bar)
-    hold_next = window.shift(-1, fill_value=False).astype(float)
-    return pd.DataFrame({c: hold_next for c in prices.columns}) / prices.shape[1]
+    return (from_end < days_before) | (from_start < days_after)
+
+
+def _pre_holiday_days(idx: pd.DatetimeIndex) -> pd.Series:
+    """Trading days followed by a market holiday (a missing weekday before the next session)."""
+    nxt = pd.Series(idx, index=idx).shift(-1)
+    gap_weekdays = pd.Series([len(pd.bdate_range(a, b)) - 2 if pd.notna(b) else 0
+                              for a, b in zip(idx, nxt)], index=idx)
+    return gap_weekdays > 0
+
+
+def _opex_week_days(idx: pd.DatetimeIndex) -> pd.Series:
+    """Days in the Monday-Friday week that contains the month's third Friday (US option expiry)."""
+    d = pd.Series(idx, index=idx)
+    first = d.dt.to_period("M").dt.to_timestamp()
+    third_fri = first + pd.to_timedelta((4 - first.dt.weekday) % 7 + 14, unit="D")
+    monday = third_fri - pd.Timedelta(days=4)
+    return (d >= monday) & (d <= third_fri)
+
+
+def _hold_on(days: pd.Series, columns) -> pd.DataFrame:
+    """Target on day t = hold during day t+1 (the backtester trades on the next bar)."""
+    nxt = days.shift(-1, fill_value=False).astype(float)
+    return pd.DataFrame({c: nxt for c in columns}) / len(columns)
+
+
+def turn_of_month(prices: pd.DataFrame, days_before: int = 1, days_after: int = 3) -> pd.DataFrame:
+    """Turn-of-the-month effect: hold from the last `days_before` trading days of a month
+    to the first `days_after` of the next, cash otherwise. Uses the calendar only."""
+    return _hold_on(_tom_days(prices.index, days_before, days_after), prices.columns)
+
+
+def pre_holiday(prices: pd.DataFrame) -> pd.DataFrame:
+    """Pre-holiday effect (Quantpedia, free): hold only on the trading day before a market holiday."""
+    return _hold_on(_pre_holiday_days(prices.index), prices.columns)
+
+
+def options_expiry_week(prices: pd.DataFrame) -> pd.DataFrame:
+    """Option-expiration week effect (Quantpedia, free): hold during the week of the third Friday."""
+    return _hold_on(_opex_week_days(prices.index), prices.columns)
+
+
+def calendar_composite(prices: pd.DataFrame, trend_sma_days: int = 200, tom_before: int = 4,
+                       tom_after: int = 3) -> pd.DataFrame:
+    """Quantpedia-style composite: hold on turn-of-month, pre-holiday or option-expiry-week days,
+    but only while the ETF is above its long moving average (trend filter)."""
+    days = (_tom_days(prices.index, tom_before, tom_after) | _pre_holiday_days(prices.index)
+            | _opex_week_days(prices.index))
+    cal = _hold_on(days, prices.columns)
+    sma = prices.rolling(trend_sma_days, min_periods=trend_sma_days).mean()
+    return cal.where((prices > sma) & sma.notna(), 0.0)
 
 
 def rsi2(prices: pd.DataFrame, entry_below: float = 10.0, trend_sma_days: int = 200,
@@ -192,7 +236,8 @@ def rsi2(prices: pd.DataFrame, entry_below: float = 10.0, trend_sma_days: int = 
 
 
 # Strategies that work on a single ETF (the rest need several ETFs to compare).
-SINGLE_ASSET = ["trend", "faber", "tsmom", "sma_cross", "turn_of_month", "rsi2", "trend_voltarget"]
+SINGLE_ASSET = ["trend", "faber", "tsmom", "sma_cross", "turn_of_month", "rsi2", "trend_voltarget",
+                "pre_holiday", "options_expiry_week", "calendar_composite"]
 
 
 def build_weights(prices: pd.DataFrame, cfg: dict, name: str) -> pd.DataFrame:
@@ -221,6 +266,12 @@ def build_weights(prices: pd.DataFrame, cfg: dict, name: str) -> pd.DataFrame:
         return turn_of_month(prices, s["days_before"], s["days_after"])
     if name == "rsi2":
         return rsi2(prices, s["entry_below"], s["trend_sma_days"], s["exit_sma_days"])
+    if name == "pre_holiday":
+        return pre_holiday(prices)
+    if name == "options_expiry_week":
+        return options_expiry_week(prices)
+    if name == "calendar_composite":
+        return calendar_composite(prices, s["trend_sma_days"], s["tom_before"], s["tom_after"])
     if name == "blend":
         parts = [build_weights(prices, cfg, c) for c in s["components"]]
         return sum(parts) / len(parts)

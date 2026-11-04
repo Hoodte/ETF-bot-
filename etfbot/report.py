@@ -21,7 +21,7 @@ MAIN_PARAM = {"trend": "sma_days", "rotation": "lookback_days", "dip": "drop_pct
               "dual_momentum": "lookback_days", "inverse_vol": "vol_days",
               "trend_inverse_vol": "sma_days", "trend_voltarget": "target_vol",
               "tsmom": "lookback_days", "sma_cross": "slow_days", "turn_of_month": "days_after",
-              "rsi2": "entry_below"}
+              "rsi2": "entry_below", "calendar_composite": "trend_sma_days"}
 
 
 def _nudged(cfg: dict, name: str, f: float) -> dict:
@@ -29,7 +29,9 @@ def _nudged(cfg: dict, name: str, f: float) -> dict:
     c2 = copy.deepcopy(cfg)
     names = cfg["strategies"][name]["components"] if name == "blend" else [name]
     for n in names:
-        p = MAIN_PARAM[n]
+        p = MAIN_PARAM.get(n)
+        if p is None:  # parameter-free strategy (pure calendar rule): nothing to nudge
+            continue
         v = cfg["strategies"][n][p]
         c2["strategies"][n][p] = max(1, int(round(v * f))) if isinstance(v, int) else v * f
     return c2
@@ -90,7 +92,7 @@ def evaluate(prices: pd.DataFrame, cfg: dict, name: str) -> dict:
     so = backtest.period_metrics(stressed.equity, oos, None)
     checks["survives_2x_costs"] = bool(so.get("cagr", -1) > 0)
 
-    p = "all components" if name == "blend" else MAIN_PARAM[name]
+    p = "all components" if name == "blend" else MAIN_PARAM.get(name, "no_parameters")
     nudges = {}
     for f in (0.8, 1.2):
         r2 = _run(prices, _nudged(cfg, name, f), name)

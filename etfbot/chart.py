@@ -15,7 +15,8 @@ import pandas as pd
 LIGHT = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
 DARK = ["#3987e5", "#d95926", "#199e70", "#c98500"]
 NAMES = {"trend": "Trend 200d", "faber": "Faber 10m", "tsmom": "12m momentum", "sma_cross": "50/200 cross",
-         "turn_of_month": "Turn of month", "rsi2": "RSI(2) dips", "trend_voltarget": "Trend + vol target",
+         "turn_of_month": "Turn of month", "rsi2": "RSI(2) dips", "trend_voltarget": "Trend + vol target", "pre_holiday": "Pre-holiday",
+         "options_expiry_week": "Option-expiry week", "calendar_composite": "Calendar composite",
          "blend": "Blend", "buy_hold": "Buy & hold"}
 
 

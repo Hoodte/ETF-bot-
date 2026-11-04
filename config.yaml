@@ -63,6 +63,8 @@ fx_ticker: GBPUSD=X
 data:
   start: "2004-01-01"
   cache_dir: data
+  source: yahoo            # yahoo | csv. If Yahoo downloads stop working, put CSVs in csv_dir (see README)
+  csv_dir: data/manual
 
 strategies:
   trend:
@@ -121,6 +123,16 @@ strategies:
     entry_below: 10.0
     trend_sma_days: 200
     exit_sma_days: 5
+  # Added 2026-11-04 from Quantpedia's free strategies (frozen before any real-data test):
+  pre_holiday:             # hold only on the trading day before a market holiday
+    enabled: false
+  options_expiry_week:     # hold during the week containing the month's third Friday
+    enabled: false
+  calendar_composite:      # turn-of-month (last 4 / first 3 days) OR pre-holiday OR opex week, only above 200-day SMA
+    enabled: false
+    trend_sma_days: 200
+    tom_before: 4
+    tom_after: 3
   blend:                   # set by `combine`: equal-weight average of up to 3 strategies on one ETF
     enabled: false
     components: [trend, faber, tsmom]
@@ -133,7 +145,7 @@ costs:
 
 discovery:
   candidates: [trend, faber, rotation, dual_momentum, inverse_vol, trend_inverse_vol, trend_voltarget,
-               tsmom, sma_cross, turn_of_month, rsi2]
+               tsmom, sma_cross, turn_of_month, rsi2, pre_holiday, options_expiry_week, calendar_composite]
   deflated_sharpe_min: 0.95   # probability the best OOS Sharpe is real, after correcting for the number tried
   timemachine_paths: 2000
 
