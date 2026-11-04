@@ -77,6 +77,41 @@ def usd_to_gbp_returns(usd_rets: pd.Series, gbpusd: pd.Series) -> pd.Series:
     return (1 + usd_rets) / (1 + usd_per_gbp_change) - 1
 
 
+def clean_ucits(prices: pd.Series, spike=0.20, revert=0.05, stale_days=4) -> tuple[pd.Series, pd.Timestamp, list]:
+    """Clean a UK-listed fund's price history from Yahoo.
+
+    1. One-day spikes that immediately reverse (a bad tick) are replaced by the previous price.
+    2. The fund is only trusted AFTER its last remaining big jump (>spike, e.g. a unit switch
+       between pence and pounds) and after its last stale run (stale_days+ identical prices,
+       typical of an illiquid newly-launched fund). Before that date the proxy is used.
+    Returns cleaned prices, the trusted-from date, and a list of what was fixed.
+    """
+    p = prices.dropna().astype(float).copy()
+    notes = []
+    for _ in range(3):
+        prev, nxt = p.shift(1), p.shift(-1)
+        is_spike = ((p / prev - 1).abs() > spike) & ((nxt / prev - 1).abs() < revert)
+        if not is_spike.any():
+            break
+        for d in p.index[is_spike]:
+            notes.append(f"removed one-day spike on {d.date()}")
+        p[is_spike] = float("nan")
+        p = p.ffill()
+    trusted = p.index[0]
+    jumps = p.index[(p.pct_change().abs() > spike)]
+    if len(jumps):
+        trusted = max(trusted, jumps[-1])
+        notes.append(f"unit/level jump(s) up to {jumps[-1].date()}: fund trusted only after that")
+    same = p.diff() == 0
+    run_id = (~same).cumsum()
+    run_len = same.groupby(run_id).transform("sum")
+    stale_end = p.index[same & (run_len >= stale_days)]
+    if len(stale_end):
+        trusted = max(trusted, stale_end[-1])
+        notes.append(f"stale prices up to {stale_end[-1].date()}: fund trusted only after that")
+    return p, trusted, notes
+
+
 def splice(proxy_rets: pd.Series, ucits_rets: pd.Series | None) -> tuple[pd.Series, pd.Timestamp | None]:
     """Use proxy returns before the UCITS fund's first date, real returns after."""
     if ucits_rets is None or ucits_rets.dropna().empty:
@@ -131,15 +166,23 @@ def build_universe(cfg: dict, closes: dict[str, pd.Series] | None = None) -> tup
         p_rets = blend_returns(proxy, inst["proxy"])
         if inst.get("fx_to_gbp", False):
             p_rets = usd_to_gbp_returns(p_rets, fx)
+        notes = []
         try:
-            u = get(inst["ucits"]).pct_change()
+            raw = get(inst["ucits"])
+            cleaned, trusted, notes = clean_ucits(raw)
+            if inst.get("ucits_trusted_from"):
+                trusted = max(trusted, pd.Timestamp(inst["ucits_trusted_from"]))
+            u = cleaned.pct_change()
+            u = u[u.index > trusted]
             if inst.get("ucits_currency", "GBP") == "USD":
                 u = usd_to_gbp_returns(u, fx)
-        except Exception:  # UCITS line unavailable -> proxy only
+        except Exception as e:  # UCITS line unavailable -> proxy only
             u = None
+            notes.append(f"UCITS data unavailable ({type(e).__name__}); proxy only")
         rets, first = splice(p_rets, u)
         series[name] = rets
-        info[name] = {"ucits": inst["ucits"], "ucits_from": None if first is None else str(first.date())}
+        info[name] = {"ucits": inst["ucits"], "ucits_from": None if first is None else str(first.date()),
+                      "cleaning": notes}
     rets = pd.concat(series, axis=1).dropna()
     prices = rets.apply(returns_to_index)
     return prices, info

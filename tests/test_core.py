@@ -181,3 +181,12 @@ def test_manual_csv_source(tmp_path):
     (tmp_path / "SPY.csv").write_text("Date,Open,Close,Adj Close\n2020-01-03,1,2,1.9\n2020-01-02,1,2,1.8\n")
     s = data.read_manual_csv("SPY", tmp_path)
     assert list(s) == [1.8, 1.9] and s.index.is_monotonic_increasing
+
+
+def test_clean_ucits_spike_and_unit_switch():
+    idx = pd.bdate_range("2011-01-03", periods=12)
+    px = pd.Series([100, 101, 102, 160, 103, 104, 60, 61, 62, 62.5, 63, 64], index=idx, dtype=float)
+    cleaned, trusted, notes = data.clean_ucits(px)
+    assert cleaned.iloc[3] == 102            # one-day spike removed
+    assert trusted == idx[6]                  # level jump (unit switch) -> trust only after it
+    assert any("spike" in n for n in notes) and any("jump" in n for n in notes)
