@@ -3,7 +3,11 @@
     python -m etfbot check-data
     python -m etfbot backtest --strategy trend
     python -m etfbot signal
-    python -m etfbot paper
+    python -m etfbot paper              # built-in simulator
+    python -m etfbot trade              # configured broker (Trading 212 demo by default)
+    python -m etfbot approve <id>       # human approval for a real-money order
+    python -m etfbot market-status      # is the London market open today?
+    python -m etfbot crosscheck         # compare our backtester with vectorbt
 
 Add --synthetic to any command to use random-walk test data (no internet needed).
 """
@@ -57,14 +61,22 @@ def cmd_backtest(cfg, a):
     if not q["ok"] and not a.force:
         return {"ok": False, "blocked_by": "data_quality", "quality": q}
     rep = report.evaluate(prices, cfg, a.strategy)
+    eq, bh_eq = rep.pop("_equity"), rep.pop("_bh_equity")
     rep["data"] = {"splice": info, "quality": q}
     out = Path("reports")
     out.mkdir(exist_ok=True)
     (out / f"{a.strategy}.json").write_text(json.dumps(rep, indent=2, default=str))
     (out / f"{a.strategy}.md").write_text(report.to_markdown(rep))
-    return {"ok": True, "strategy": a.strategy, "skeptic_verdict": rep["skeptic_verdict"],
-            "checks": rep["checks"], "out_of_sample": rep["out_of_sample"],
-            "buy_hold_oos": rep["buy_hold_oos"], "report": str(out / f"{a.strategy}.md")}
+    res = {"ok": True, "strategy": a.strategy, "skeptic_verdict": rep["skeptic_verdict"],
+           "checks": rep["checks"], "out_of_sample": rep["out_of_sample"],
+           "buy_hold_oos": rep["buy_hold_oos"], "trade_stats": rep["trade_stats"],
+           "backtest_expert_command": rep["backtest_expert_command"],
+           "report": str(out / f"{a.strategy}.md")}
+    if a.html:
+        from . import tearsheet
+        res["tearsheet"] = tearsheet.write_html(eq, bh_eq, out / f"{a.strategy}_tearsheet.html",
+                                                f"ETF bot: {a.strategy} vs buy & hold")
+    return res
 
 
 def cmd_simulate(cfg, a):
@@ -106,19 +118,9 @@ def cmd_signal(cfg, a):
     return out
 
 
-def cmd_paper(cfg, a):
-    if cfg["mode"] != "paper":
-        return {"ok": False, "error": "paper command requires mode: paper"}
-    sig = cmd_signal(cfg, a)
-    if not sig["ok"]:
-        return sig
-    prices, _ = _prices(cfg, a.synthetic)
-    last = {k: float(v) for k, v in prices.iloc[-1].items()}
-    b = broker.PaperBroker(cfg["paths"]["state_dir"], cfg["account"]["starting_equity_gbp"],
-                           cfg["costs"]["spread_bps"])
-    snap = b.snapshot(last)
+def build_orders(cfg, target_weights: dict, snap: dict) -> list:
     orders = []
-    for sleeve, w in sig["target_weights"].items():
+    for sleeve, w in target_weights.items():
         delta = w * snap["equity_gbp"] - snap["positions_gbp"].get(sleeve, 0.0)
         if abs(delta) < MIN_ORDER_GBP:
             continue
@@ -128,6 +130,94 @@ def cmd_paper(cfg, a):
             value = min(value, cfg["risk"]["max_order_gbp"])  # fills over several runs
         orders.append(risk.Order(sleeve, cfg["instruments"][sleeve]["ucits"], side, round(value, 2)))
     orders.sort(key=lambda o: o.side != "sell")  # sells first to free cash
+    return orders
+
+
+def _market_closed(a) -> dict | None:
+    if a.synthetic or getattr(a, "force", False):
+        return None
+    from . import market_calendar
+    st = market_calendar.status()
+    if not st["is_trading_day"]:
+        return {"ok": True, "skipped": "London market closed today", "calendar": st}
+    return None
+
+
+def cmd_market_status(cfg, a):
+    from . import market_calendar
+    return {"ok": True, **market_calendar.status(a.date)}
+
+
+def cmd_crosscheck(cfg, a):
+    from . import crosscheck
+    prices, _ = _prices(cfg, a.synthetic)
+    w = strategies.build_weights(prices, cfg, a.strategy)
+    return {"ok": True, "strategy": a.strategy,
+            **crosscheck.run(prices, w, cfg["costs"], cfg["risk"]["max_position_frac"],
+                             cfg["account"]["starting_equity_gbp"])}
+
+
+def cmd_approve(cfg, a):
+    from . import live_brokers
+    return live_brokers.approve(cfg, a.order_id)
+
+
+def cmd_trade(cfg, a):
+    """Run the signal against the configured broker (demo/paper first!)."""
+    from . import live_brokers
+    closed = _market_closed(a)
+    if closed:
+        return closed
+    sig = cmd_signal(cfg, a)
+    if not sig["ok"]:
+        return sig
+    fx = None
+    quote = lambda sleeve: data.quote_gbp(cfg, sleeve, fx)  # noqa: E731
+    b = live_brokers.make_broker(cfg, quote)
+    gate = live_brokers.ApprovalGate(cfg)
+    snap = b.snapshot()
+    snap["peak_equity_gbp"] = _peak(cfg, snap["equity_gbp"])
+    sent, rejected, waiting = [], [], []
+    for o in build_orders(cfg, sig["target_weights"], snap):
+        rv = risk.review([o], snap, cfg)
+        if not rv["approved"]:
+            rejected += rv["rejected"]
+            continue
+        order = rv["approved"][0]["order"]
+        ok, why = gate.check(order)
+        if not ok:
+            waiting.append({"order": order, "reason": why})
+            continue
+        sent.append(b.execute(order))
+        snap = b.snapshot()
+        snap["peak_equity_gbp"] = _peak(cfg, snap["equity_gbp"])
+    out = {"ok": True, "broker": cfg["broker"]["name"], "as_of": sig["as_of"], "sent": sent,
+           "rejected": rejected, "awaiting_approval": waiting, "account_after": snap}
+    _log(cfg, "trades", out)
+    return out
+
+
+def _peak(cfg, equity: float) -> float:
+    p = Path(cfg["paths"]["state_dir"]) / "broker_peak.json"
+    peak = max(equity, json.loads(p.read_text())["peak"] if p.exists() else equity)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps({"peak": peak}))
+    return peak
+
+
+def cmd_paper(cfg, a):
+    closed = _market_closed(a)
+    if closed:
+        return closed
+    sig = cmd_signal(cfg, a)
+    if not sig["ok"]:
+        return sig
+    prices, _ = _prices(cfg, a.synthetic)
+    last = {k: float(v) for k, v in prices.iloc[-1].items()}
+    b = broker.PaperBroker(cfg["paths"]["state_dir"], cfg["account"]["starting_equity_gbp"],
+                           cfg["costs"]["spread_bps"])
+    snap = b.snapshot(last)
+    orders = build_orders(cfg, sig["target_weights"], snap)
 
     fills, rejected = [], []
     for o in orders:
@@ -148,13 +238,22 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="etfbot")
     p.add_argument("--config", default="config.yaml")
     sub = p.add_subparsers(dest="cmd", required=True)
-    for name in ("check-data", "signal", "paper"):
+    for name in ("check-data", "signal", "paper", "trade"):
         s = sub.add_parser(name)
         s.add_argument("--synthetic", action="store_true")
+        s.add_argument("--force", action="store_true", help="run even if the London market is closed")
+    s = sub.add_parser("market-status")
+    s.add_argument("--date", default=None)
+    s = sub.add_parser("crosscheck")
+    s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
+    s.add_argument("--synthetic", action="store_true")
+    s = sub.add_parser("approve")
+    s.add_argument("order_id")
     s = sub.add_parser("backtest")
     s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
     s.add_argument("--synthetic", action="store_true")
     s.add_argument("--force", action="store_true", help="run even if data quality fails")
+    s.add_argument("--html", action="store_true", help="also write a QuantStats HTML tearsheet")
     s = sub.add_parser("simulate", help="Time Machine: thousands of simulated years")
     s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
     s.add_argument("--horizon-days", type=int, default=252)
@@ -165,7 +264,9 @@ def main(argv=None) -> int:
     a = p.parse_args(argv)
     cfg = load_config(a.config)
     fn = {"check-data": cmd_check_data, "backtest": cmd_backtest, "simulate": cmd_simulate,
-          "signal": cmd_signal, "paper": cmd_paper}[a.cmd]
+          "signal": cmd_signal, "paper": cmd_paper, "trade": cmd_trade,
+          "market-status": cmd_market_status, "crosscheck": cmd_crosscheck,
+          "approve": cmd_approve}[a.cmd]
     try:
         out = fn(cfg, a)
     except Exception as e:  # report failures as JSON so the workflow can alert

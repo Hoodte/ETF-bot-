@@ -14,8 +14,13 @@ A rules-based, long-or-cash ETF strategy engine for a UK retail account, with ba
 | `etfbot/backtest.py` | — | Holdings-based daily backtest, next-bar execution, spread + commission costs |
 | `etfbot/report.py` | Skeptic | Out-of-sample metrics, stress periods (2008, 2020, 2022), cost x2 stress, parameter nudge ±20%, bootstrap Sharpe → PASS/FAIL |
 | `etfbot/timemachine.py` | Skeptic | Replays 10,000 possible one-year futures from the strategy's own history, plus every real past year: odds of a loss, of hitting the drawdown pause, of beating buy-and-hold. Idea adapted from trader-timemachine in [Jakeschincariol/day-trader-skill](https://github.com/Jakeschincariol/day-trader-skill) (MIT) |
+| `etfbot/trades.py` | Skeptic | Round-trip trade stats (win rate, average win/loss) and the ready-made command for the backtest-expert skill |
+| `etfbot/crosscheck.py` | Skeptic | Re-runs the same strategy in vectorbt; if the two engines disagree by more than 2%, don't trust the backtest |
+| `etfbot/tearsheet.py` | Head of Desk | QuantStats HTML report, strategy vs buy-and-hold |
+| `etfbot/market_calendar.py` | Scanner | London Stock Exchange calendar, so nothing runs on weekends or UK market holidays |
 | `etfbot/risk.py` | Risk Guardian | Hard limits in code: position cap, order cap, daily order limit, drawdown pause, kill switch, no shorting, no leverage |
-| `etfbot/broker.py` | Execution | Paper broker with state on disk; live broker raises an error |
+| `etfbot/broker.py` | Execution | Built-in paper simulator with state on disk |
+| `etfbot/live_brokers.py` | Execution | Trading 212 (pyt212) and IBKR (ib_async) adapters, demo/paper by default. Real money needs three gates: `mode: live`, `broker.allow_real_money: true`, and a human `approve` for each order (pattern from trader-broker in day-trader-skill, MIT) |
 | `etfbot/cli.py` | Head of Desk input | Every command prints JSON for n8n |
 
 The signals come from Python only. AI agents read the JSON output and report on it. They must not calculate or override signals.
@@ -26,6 +31,7 @@ The signals come from Python only. AI agents read the JSON output and report on 
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+pip install -r requirements-extras.txt   # tearsheets, London calendar, vectorbt, broker clients
 ```
 
 ## Commands
@@ -33,13 +39,29 @@ pip install -r requirements.txt
 ```
 python -m etfbot check-data                 # download + data quality report
 python -m etfbot backtest --strategy trend  # writes reports/trend.md and .json
+python -m etfbot backtest --html            # also a QuantStats HTML tearsheet
+python -m etfbot crosscheck                 # compare our backtester with vectorbt
 python -m etfbot simulate --strategy trend  # Time Machine: 10,000 simulated years + every real past year
 python -m etfbot signal                     # today's target weights (JSON)
-python -m etfbot paper                      # signal -> risk review -> paper fills
+python -m etfbot paper                      # signal -> risk review -> built-in paper fills
+python -m etfbot market-status              # is the London market open today?
+python -m etfbot trade                      # same, but through the configured broker (Trading 212 demo by default)
+python -m etfbot approve <order-id>         # human approval for one real-money order
 python -m pytest                            # tests
 ```
 
 Add `--synthetic` to run any command offline on random-walk data. Synthetic results mean nothing about real markets; they only prove the code runs.
+
+## Claude skill: backtest-expert
+
+`.claude/skills/backtest-expert/` is vendored from [tradermonty/claude-trading-skills](https://github.com/tradermonty/claude-trading-skills) (MIT, commit d8e71ce). Claude Code picks it up automatically when you open this repo. Every backtest report ends with the exact command to run it, giving a 0-100 quality score and a Deploy/Refine/Abandon verdict as a second opinion next to our own Skeptic check. It uses only the Python standard library and makes no network calls.
+
+## Broker setup (demo first)
+
+1. Fill in `t212_ticker` (Trading 212) or `ibkr` (IBKR) for each instrument in `config.yaml`, and check each `price_scale` and `ucits_currency` against real quotes. These are marked VERIFY.
+2. Trading 212: create an API key in the app, then `export T212_API_KEY=... T212_API_SECRET=...`. IBKR: run TWS or IB Gateway with the API enabled on the paper port 7497.
+3. Run `python -m etfbot trade` against the demo/paper account for the full paper-trade period.
+4. Real money only after the gates in the plan, by changing `broker.name`, `mode`, and `allow_real_money`.
 
 Emergency stop: create the file `state/KILL`. Nothing trades while it exists.
 
@@ -61,6 +83,8 @@ Suggested flow: weekday schedule after the London close → `check-data` → `si
 - Proxy history (SPY, EFA, AGG, GLD, EEM) is an approximation of each UCITS fund before launch. The bond proxy is a USD aggregate, not GBP-hedged global.
 - Yahoo data can contain errors. The quality check catches the common ones, not all.
 - The paper broker fills at the last close plus a spread. Real fills will differ.
+- The Trading 212 and IBKR adapters and the vectorbt cross-check were written against each library's source code and tested with fakes, not yet against real accounts or a real vectorbt install. Run them on demo/paper first.
+- Order sizing uses the last Yahoo close of the UCITS line, not a live quote.
 - Order sizes over the £1,000 cap are filled over several runs, so a new position can take a few weeks to fully build.
 - Tickers (e.g. `SWDA.L`) must be checked against what your broker actually offers.
 
@@ -69,4 +93,4 @@ Suggested flow: weekday schedule after the London close → `check-data` → `si
 1. Run `check-data` on your machine and fix any data issues it reports.
 2. Run `backtest --strategy trend` and review `reports/trend.md`.
 3. If the Skeptic verdict is PASS, start the paper schedule in n8n for 1–2 months.
-4. Only then build the live broker adapter (Trading 212 or IBKR).
+4. Then run `trade` on the Trading 212 demo (or IBKR paper) account and confirm the orders match `paper`.

@@ -1,0 +1,6 @@
+# Optional extras. Install with: pip install -r requirements-extras.txt
+quantstats>=0.0.81          # HTML tearsheets (backtest --html)
+exchange_calendars>=4.5     # London Stock Exchange trading days (XLON)
+vectorbt>=1.0               # independent backtest cross-check (crosscheck). Licence: Apache 2.0 + Commons Clause
+pyt212>=0.1.0               # Trading 212 Invest / ISA API (broker t212_demo / t212_live). Unofficial, new: test on demo
+ib_async>=1.0               # Interactive Brokers (broker ibkr_paper / ibkr_live). Needs TWS or IB Gateway running

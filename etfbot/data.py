@@ -16,14 +16,24 @@ import pandas as pd
 def download_close(ticker: str, start: str, cache_dir: str | Path) -> pd.Series:
     """Adjusted close for one ticker, cached to CSV. Needs internet + yfinance."""
     cache = Path(cache_dir) / f"{ticker.replace('=', '_')}.csv"
-    if cache.exists():
+
+    def from_cache() -> pd.Series:
         s = pd.read_csv(cache, index_col=0, parse_dates=True).iloc[:, 0]
         s.name = ticker
         return s
-    import yfinance as yf  # optional dependency, only needed to fetch
 
-    df = yf.download(ticker, start=start, auto_adjust=True, progress=False)
+    # Cache is reused only on the day it was written; otherwise re-download.
+    if cache.exists() and pd.Timestamp(cache.stat().st_mtime, unit="s").date() == pd.Timestamp.now().date():
+        return from_cache()
+    try:
+        import yfinance as yf  # optional dependency, only needed to fetch
+
+        df = yf.download(ticker, start=start, auto_adjust=True, progress=False)
+    except Exception:
+        df = pd.DataFrame()
     if df.empty:
+        if cache.exists():  # offline: fall back; the stale-data check will flag it
+            return from_cache()
         raise RuntimeError(f"No data returned for {ticker}")
     close = df["Close"]
     if isinstance(close, pd.DataFrame):
@@ -62,6 +72,18 @@ def splice(proxy_rets: pd.Series, ucits_rets: pd.Series | None) -> tuple[pd.Seri
     return out, first
 
 
+def quote_gbp(cfg: dict, sleeve: str, fx_last: float | None = None) -> float:
+    """Latest price per unit of the UCITS line in GBP (for order sizing only)."""
+    inst = cfg["instruments"][sleeve]
+    px = float(download_close(inst["ucits"], cfg["data"]["start"], cfg["data"]["cache_dir"]).iloc[-1])
+    px *= inst.get("price_scale", 1.0)
+    if inst.get("ucits_currency", "GBP") == "USD":
+        if fx_last is None:
+            fx_last = float(download_close(cfg["fx_ticker"], cfg["data"]["start"], cfg["data"]["cache_dir"]).iloc[-1])
+        px /= fx_last
+    return px
+
+
 def returns_to_index(rets: pd.Series, base: float = 100.0) -> pd.Series:
     return base * (1 + rets.fillna(0)).cumprod()
 
@@ -89,6 +111,8 @@ def build_universe(cfg: dict, closes: dict[str, pd.Series] | None = None) -> tup
             p_rets = usd_to_gbp_returns(p_rets, fx)
         try:
             u = get(inst["ucits"]).pct_change()
+            if inst.get("ucits_currency", "GBP") == "USD":
+                u = usd_to_gbp_returns(u, fx)
         except Exception:  # UCITS line unavailable -> proxy only
             u = None
         rets, first = splice(p_rets, u)

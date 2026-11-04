@@ -91,6 +91,17 @@ def evaluate(prices: pd.DataFrame, cfg: dict, name: str) -> dict:
     rep["warnings"] = [] if (lo == lo and lo > 0) else ["bootstrap 5th-percentile OOS Sharpe <= 0: edge not statistically clear"]
     rep["checks"] = checks
     rep["skeptic_verdict"] = "PASS" if all(checks.values()) else "FAIL"
+
+    from . import trades
+    ts = trades.summary(trades.round_trips(prices, base.weights))
+    years = (prices.index[-1] - prices.index[0]).days / 365.25
+    n_params = sum(isinstance(v, (int, float)) and not isinstance(v, bool)
+                   for k, v in cfg["strategies"][name].items() if k != "enabled")
+    rep["trade_stats"] = ts
+    rep["backtest_expert_command"] = trades.backtest_expert_command(
+        ts, base.metrics.get("max_drawdown", 0.0), years, n_params)
+    rep["_equity"] = base.equity        # used for the HTML tearsheet, not saved to JSON
+    rep["_bh_equity"] = bh.equity
     return rep
 
 
@@ -119,6 +130,11 @@ def to_markdown(rep: dict) -> str:
     lines += ["", f"Robustness: `{rep['robustness']}`"]
     if rep["warnings"]:
         lines += ["", "Warnings:"] + [f"- {w}" for w in rep["warnings"]]
+    if rep.get("trade_stats", {}).get("total_trades"):
+        t = rep["trade_stats"]
+        lines += ["", f"Round-trip trades: {t['total_trades']}, win rate {t['win_rate_pct']}%, "
+                      f"avg win {t['avg_win_pct']}%, avg loss {t['avg_loss_pct']}%, avg hold {t['avg_hold_days']} days",
+                  "", "Second opinion (backtest-expert skill):", "", f"```\n{rep['backtest_expert_command']}\n```"]
     if "orders_per_year" in rep["full"]:
         lines += ["", f"Orders per year: {rep['full']['orders_per_year']:.1f}; total costs £{rep['full']['costs_gbp']:.0f}"]
     return "\n".join(lines) + "\n"

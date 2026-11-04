@@ -1,7 +1,17 @@
 # ETF bot configuration. Freeze strategy parameters BEFORE out-of-sample testing.
 # Changing a parameter after seeing results invalidates the test.
 
-mode: paper            # paper | live  (live is not implemented yet and is blocked)
+mode: paper            # paper | live. Real-money brokers also need broker.allow_real_money + per-order approval
+
+# Broker used by `python -m etfbot trade`. (`python -m etfbot paper` always uses the built-in simulator.)
+# t212_demo | t212_live | ibkr_paper | ibkr_live
+broker:
+  name: t212_demo
+  allow_real_money: false
+  quantity_decimals: 2     # Trading 212 fractional shares; IBKR always whole shares
+  ibkr_host: 127.0.0.1
+  ibkr_port: 7497          # 7497 = TWS paper, 7496 = TWS live
+  ibkr_client_id: 1
 
 account:
   starting_equity_gbp: 5000
@@ -10,25 +20,42 @@ account:
 # Five sleeves. `ucits` is the instrument traded live (Yahoo ticker).
 # `proxy` provides history before the UCITS fund existed, so backtests cover 2008.
 # Proxy weights must sum to 1. `fx_to_gbp: true` converts USD proxy returns to GBP.
+# `ucits_currency` (default GBP) is the currency the UCITS line is QUOTED in; USD lines are converted too.
 instruments:
   GLOBAL_EQ:
     ucits: SWDA.L
+    price_scale: 0.01        # VERIFY: 0.01 if Yahoo quotes this line in pence (GBp), 1.0 if in pounds
+    t212_ticker: null        # VERIFY: Trading 212 ticker, e.g. from `get_instruments()`
+    ibkr: null               # VERIFY: {symbol: ..., exchange: LSEETF, currency: GBP}
     proxy: {SPY: 0.65, EFA: 0.35}   # rough MSCI World stand-in
     fx_to_gbp: true
   US_EQ:
     ucits: CSPX.L
+    ucits_currency: USD      # VERIFY: CSPX is believed to be the USD-quoted line; returns are converted to GBP
+    price_scale: 0.01        # VERIFY: 0.01 if Yahoo quotes this line in pence (GBp), 1.0 if in pounds
+    t212_ticker: null        # VERIFY: Trading 212 ticker, e.g. from `get_instruments()`
+    ibkr: null               # VERIFY: {symbol: ..., exchange: LSEETF, currency: GBP}
     proxy: {SPY: 1.0}
     fx_to_gbp: true
   BONDS:
     ucits: VAGS.L                   # GBP-hedged global aggregate
+    price_scale: 0.01        # VERIFY: 0.01 if Yahoo quotes this line in pence (GBp), 1.0 if in pounds
+    t212_ticker: null        # VERIFY: Trading 212 ticker, e.g. from `get_instruments()`
+    ibkr: null               # VERIFY: {symbol: ..., exchange: LSEETF, currency: GBP}
     proxy: {AGG: 1.0}               # USD aggregate; hedged fund ~ local return, so no FX
     fx_to_gbp: false
   GOLD:
     ucits: SGLN.L
+    price_scale: 0.01        # VERIFY: 0.01 if Yahoo quotes this line in pence (GBp), 1.0 if in pounds
+    t212_ticker: null        # VERIFY: Trading 212 ticker, e.g. from `get_instruments()`
+    ibkr: null               # VERIFY: {symbol: ..., exchange: LSEETF, currency: GBP}
     proxy: {GLD: 1.0}
     fx_to_gbp: true
   EM_EQ:
     ucits: EMIM.L
+    price_scale: 0.01        # VERIFY: 0.01 if Yahoo quotes this line in pence (GBp), 1.0 if in pounds
+    t212_ticker: null        # VERIFY: Trading 212 ticker, e.g. from `get_instruments()`
+    ibkr: null               # VERIFY: {symbol: ..., exchange: LSEETF, currency: GBP}
     proxy: {EEM: 1.0}
     fx_to_gbp: true
 

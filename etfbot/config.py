@@ -20,6 +20,9 @@ def validate(cfg: dict[str, Any]) -> None:
         w = sum(inst["proxy"].values())
         if abs(w - 1.0) > 1e-9:
             raise ValueError(f"{name}: proxy weights sum to {w}, must be 1")
+    b = cfg.get("broker", {}).get("name", "t212_demo")
+    if b not in ("t212_demo", "t212_live", "ibkr_paper", "ibkr_live"):
+        raise ValueError(f"unknown broker.name {b}")
     r = cfg["risk"]
     if not 0 < r["max_position_frac"] <= 1:
         raise ValueError("risk.max_position_frac must be in (0, 1]")
