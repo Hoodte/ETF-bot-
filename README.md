@@ -41,6 +41,7 @@ python -m etfbot check-data                 # download + data quality report
 python -m etfbot backtest --strategy trend  # writes reports/trend.md and .json
 python -m etfbot backtest --html            # also a QuantStats HTML tearsheet
 python -m etfbot crosscheck                 # compare our backtester with vectorbt
+python -m etfbot discover                   # rank all 7 pre-registered strategy candidates
 python -m etfbot simulate --strategy trend  # Time Machine: 10,000 simulated years + every real past year
 python -m etfbot signal                     # today's target weights (JSON)
 python -m etfbot paper                      # signal -> risk review -> built-in paper fills
@@ -51,6 +52,24 @@ python -m pytest                            # tests
 ```
 
 Add `--synthetic` to run any command offline on random-walk data. Synthetic results mean nothing about real markets; they only prove the code runs.
+
+## Strategy discovery
+
+`discover` runs a fixed list of 7 documented, long-or-cash strategy families. Their parameters were frozen in `config.yaml` on 2026-11-04, before any real-data test:
+
+| Candidate | Idea | Rebalance |
+| --- | --- | --- |
+| trend | hold each ETF while above its 200-day average | weekly |
+| faber | hold each ETF while above its 10-month average (Faber) | monthly |
+| rotation | hold the top 3 by 6-month return, only if positive | weekly |
+| dual_momentum | top 3 by 12-month return; negative picks go to bonds or cash (Antonacci-style) | monthly |
+| inverse_vol | always invested, more weight in calmer ETFs | monthly |
+| trend_inverse_vol | inverse-vol weights, ETFs below their 200-day average go to cash | weekly |
+| trend_voltarget | trend, scaled down when portfolio volatility is above 8% (never levered) | weekly |
+
+A **survivor** must pass every Skeptic check and have a **deflated Sharpe** of at least 95%: the probability its out-of-sample result is genuine after correcting for the fact that 7 strategies were tried. The report also shows whether each beats buy-and-hold on Sharpe, the 2008 result, and the Time Machine odds of a losing year. Results go to `reports/discovery.md`.
+
+Rule: never edit a candidate's parameters after seeing results. To try a variation, add it as a new, separately named candidate, so the deflated Sharpe correction counts it.
 
 ## Claude skill: backtest-expert
 

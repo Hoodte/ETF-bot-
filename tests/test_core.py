@@ -107,3 +107,29 @@ def test_timemachine_reproducible_and_sane():
     assert 0 <= a1["prob_loss"] <= 1 and a1["max_drawdown_pct"]["p50"] <= 0
     h = timemachine.history((1 + s).cumprod(), (1 + b).cumprod())
     assert h["windows"] > 100
+
+
+def test_deflated_sharpe_penalises_many_trials():
+    from etfbot import discover
+    idx = pd.bdate_range("2016-01-01", periods=2500)
+    r = pd.Series(np.random.default_rng(3).normal(0.0004, 0.01, len(idx)), index=idx)
+    few = discover.deflated_sharpe(r, discover.expected_max_sharpe(0.0001, 2))
+    many = discover.expected_max_sharpe(0.0001, 1000)
+    assert many > discover.expected_max_sharpe(0.0001, 2)
+    assert discover.deflated_sharpe(r, many) < few
+
+
+def test_cap_weights_redistributes():
+    w = pd.DataFrame([[0.6, 0.2, 0.2]], columns=list("abc"))
+    out = strategies.cap_weights(w, 0.4)
+    assert (out <= 0.4 + 1e-9).all().all() and abs(out.sum(axis=1).iloc[0] - 1.0) < 1e-9
+
+
+def test_new_strategies_no_lookahead(prices, cfg):
+    cut = prices.index[1200]
+    shocked = prices.copy()
+    shocked.loc[shocked.index > cut] *= 0.3
+    for name in ("faber", "dual_momentum", "inverse_vol", "trend_inverse_vol", "trend_voltarget"):
+        a = strategies.build_weights(prices, cfg, name).loc[:cut]
+        b = strategies.build_weights(shocked, cfg, name).loc[:cut]
+        pd.testing.assert_frame_equal(a, b, check_names=False)

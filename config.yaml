@@ -82,11 +82,39 @@ strategies:
     exit_sma_days: 5       # exit when price closes above this SMA
     sleeves: [GLOBAL_EQ, US_EQ, EM_EQ, GOLD]
 
+  # --- Discovery candidates. Parameters frozen 2026-11-04, BEFORE any real-data test. ---
+  # Do not tune these after seeing results; add a new, separately-named candidate instead.
+  faber:                   # Faber 10-month trend filter, monthly check
+    enabled: false
+    months: 10
+  dual_momentum:           # Antonacci-style relative + absolute momentum, monthly
+    enabled: false
+    lookback_days: 252
+    top_n: 3
+    safe: BONDS
+  inverse_vol:             # always invested, weights ~ 1/volatility, monthly
+    enabled: false
+    vol_days: 63
+  trend_inverse_vol:       # inverse-vol weights, sleeves below 200-day SMA go to cash, weekly
+    enabled: false
+    sma_days: 200
+    vol_days: 63
+  trend_voltarget:         # trend, scaled down when portfolio vol > target (no leverage), weekly
+    enabled: false
+    sma_days: 200
+    target_vol: 0.08
+    lookback_days: 63
+
 costs:
   spread_bps: 10           # half-spread + slippage per side, in basis points
   commission_gbp: 0.0      # per order (Trading 212 ETFs ~0; IBKR set your value)
   fx_fee_bps: 15           # applied to USD-listed trades only (not used for GBP lines)
   cash_rate: 0.0           # annual return on idle cash in backtests (conservative)
+
+discovery:
+  candidates: [trend, faber, rotation, dual_momentum, inverse_vol, trend_inverse_vol, trend_voltarget]
+  deflated_sharpe_min: 0.95   # probability the best OOS Sharpe is real, after correcting for the number tried
+  timemachine_paths: 2000
 
 backtest:
   oos_start: "2016-01-01"  # results after this date are the out-of-sample test

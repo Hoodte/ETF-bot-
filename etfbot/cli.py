@@ -8,6 +8,7 @@
     python -m etfbot approve <id>       # human approval for a real-money order
     python -m etfbot market-status      # is the London market open today?
     python -m etfbot crosscheck         # compare our backtester with vectorbt
+    python -m etfbot discover           # rank every pre-registered strategy candidate
 
 Add --synthetic to any command to use random-walk test data (no internet needed).
 """
@@ -25,6 +26,7 @@ from . import broker, data, quality, report, risk, strategies
 from .config import load_config
 
 MIN_ORDER_GBP = 50.0
+STRATS = ["trend", "rotation", "dip", "faber", "dual_momentum", "inverse_vol", "trend_inverse_vol", "trend_voltarget"]
 
 
 def _prices(cfg, synthetic: bool):
@@ -103,6 +105,23 @@ def cmd_simulate(cfg, a):
     mc_short = {k: v for k, v in mc.items() if k != "fan"}
     return {"ok": True, "strategy": a.strategy, "monte_carlo": mc_short, "history": hist,
             "report": str(out_dir / f"timemachine_{a.strategy}.md")}
+
+
+def cmd_discover(cfg, a):
+    from . import discover
+    prices, info = _prices(cfg, a.synthetic)
+    q = quality.check_prices(prices)
+    if not q["ok"] and not a.force:
+        return {"ok": False, "blocked_by": "data_quality", "quality": q}
+    res = discover.run(prices, cfg)
+    out = Path("reports")
+    out.mkdir(exist_ok=True)
+    (out / "discovery.json").write_text(json.dumps(res, indent=2, default=str))
+    (out / "discovery.md").write_text(discover.to_markdown(res, synthetic=bool(a.synthetic)))
+    short = [{k: b[k] for k in ("strategy", "survivor", "oos_cagr", "oos_sharpe", "oos_max_dd",
+                                  "deflated_sharpe", "failed_checks")} for b in res["leaderboard"]]
+    return {"ok": True, "survivors": res["survivors"], "leaderboard": short,
+            "synthetic_data": bool(a.synthetic), "report": str(out / "discovery.md")}
 
 
 def cmd_signal(cfg, a):
@@ -245,17 +264,20 @@ def main(argv=None) -> int:
     s = sub.add_parser("market-status")
     s.add_argument("--date", default=None)
     s = sub.add_parser("crosscheck")
-    s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
+    s.add_argument("--strategy", default="trend", choices=STRATS)
     s.add_argument("--synthetic", action="store_true")
+    s = sub.add_parser("discover", help="rank all pre-registered strategy candidates")
+    s.add_argument("--synthetic", action="store_true")
+    s.add_argument("--force", action="store_true")
     s = sub.add_parser("approve")
     s.add_argument("order_id")
     s = sub.add_parser("backtest")
-    s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
+    s.add_argument("--strategy", default="trend", choices=STRATS)
     s.add_argument("--synthetic", action="store_true")
     s.add_argument("--force", action="store_true", help="run even if data quality fails")
     s.add_argument("--html", action="store_true", help="also write a QuantStats HTML tearsheet")
     s = sub.add_parser("simulate", help="Time Machine: thousands of simulated years")
-    s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
+    s.add_argument("--strategy", default="trend", choices=STRATS)
     s.add_argument("--horizon-days", type=int, default=252)
     s.add_argument("--paths", type=int, default=10_000)
     s.add_argument("--seed", type=int, default=19)
@@ -266,7 +288,7 @@ def main(argv=None) -> int:
     fn = {"check-data": cmd_check_data, "backtest": cmd_backtest, "simulate": cmd_simulate,
           "signal": cmd_signal, "paper": cmd_paper, "trade": cmd_trade,
           "market-status": cmd_market_status, "crosscheck": cmd_crosscheck,
-          "approve": cmd_approve}[a.cmd]
+          "approve": cmd_approve, "discover": cmd_discover}[a.cmd]
     try:
         out = fn(cfg, a)
     except Exception as e:  # report failures as JSON so the workflow can alert

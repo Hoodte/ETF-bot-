@@ -17,7 +17,9 @@ import pandas as pd
 
 from . import backtest, strategies
 
-MAIN_PARAM = {"trend": "sma_days", "rotation": "lookback_days", "dip": "drop_pct"}
+MAIN_PARAM = {"trend": "sma_days", "rotation": "lookback_days", "dip": "drop_pct", "faber": "months",
+              "dual_momentum": "lookback_days", "inverse_vol": "vol_days",
+              "trend_inverse_vol": "sma_days", "trend_voltarget": "target_vol"}
 
 
 def _run(prices, cfg, name, cost_mult=1.0):
