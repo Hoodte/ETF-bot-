@@ -163,7 +163,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const r = $input.first().json;\nif (!r.ok) return [{ json: { text: `⚠️ <b>ETF bot run failed</b>\\n${r.error || r.blocked_by || 'unknown'}` } }];\nconst a = r.account || {};\nconst fills = (r.fills || []).map(f => `${f.side.toUpperCase()} ${f.sleeve} £${Math.round(f.value_gbp)}`).join('\\n') || 'No trades';\nconst rej = (r.rejected || []).map(x => `${x.order.sleeve}: ${x.reasons.join(', ')}`).join('\\n');\nconst text = `📈 <b>ETF bot (paper) ${r.as_of}</b>\\nEquity £${Math.round(a.equity_gbp || 0)} · cash £${Math.round(a.cash_gbp || 0)}\\n\\n${fills}` + (rej ? `\\n\\n🚫 Rejected by risk:\\n${rej}` : '');\nreturn [{ json: { text } }];"
+        "jsCode": "const r = $input.first().json;\nif (!r.ok) return [{ json: { text: `⚠️ <b>ETF bot run failed</b>\\n${r.error || r.blocked_by || 'unknown'}` } }];\nconst a = r.account || {};\nconst fills = (r.fills || []).map(f => `${f.side.toUpperCase()} ${f.sleeve} £${Math.round(f.value_gbp)}`).join('\\n') || 'No trades';\nconst rej = (r.rejected || []).map(x => `${x.order.sleeve}: ${x.reasons.join(', ')}`).join('\\n');\nconst text = `📈 <b>ETF bot (paper) ${r.as_of}</b>\\nEquity £${Math.round(a.equity_gbp || 0)} · cash £${Math.round(a.cash_gbp || 0)}\\n\\n${fills}` + (rej ? `\\n\\n🚫 Rejected by risk:\\n${rej}` : '') + (r.scaling && ['step_up','step_down'].includes(r.scaling.action) ? `\\n\\n📏 Trade size ${r.scaling.action.replace('_',' ')}: cap now £${Math.round(r.scaling.order_cap_gbp)}` : '');\nreturn [{ json: { text } }];"
       },
       "id": "08be81dc-b8c9-45aa-adc7-10044197db7f",
       "name": "Build summary",

@@ -97,6 +97,14 @@ A **survivor** must pass every Skeptic check and have a **deflated Sharpe** of a
 
 Rule: never edit a candidate's parameters after seeing results. To try a variation, add it as a new, separately named candidate, so the deflated Sharpe correction counts it.
 
+## Trade-size scaling
+
+Every 8 weeks the bot reviews the account. If it is less than 7.5% below its peak, the order-size cap rises by 10% (£1,000 → £1,100 → £1,210 …). If the 15% drawdown pause was hit, it falls by 10%, never below the starting £1,000. The cap never exceeds `risk.max_order_gbp` (£10,000). Positions are a share of equity, so money you add is invested automatically; the cap only limits how much goes in per order, so a large top-up is invested over several runs. Settings are under `scaling:` in `config.yaml`.
+
+## Leverage research
+
+`python -m etfbot leverage --etf US_EQ` simulates 1x, 2x and 3x daily-reset leveraged versions with real borrowing costs (US T-bill + 0.5%) and a 0.75% fund fee, for buy-and-hold, Faber and trend, and projects 10 years with monthly top-ups (`--monthly 200`). Research only: live trading stays unleveraged.
+
 ## Claude skill: backtest-expert
 
 `.claude/skills/backtest-expert/` is vendored from [tradermonty/claude-trading-skills](https://github.com/tradermonty/claude-trading-skills) (MIT, commit d8e71ce). Claude Code picks it up automatically when you open this repo. Every backtest report ends with the exact command to run it, giving a 0-100 quality score and a Deploy/Refine/Abandon verdict as a second opinion next to our own Skeptic check. It uses only the Python standard library and makes no network calls.
@@ -123,7 +131,7 @@ Suggested flow: weekday schedule after the London close → `check-data` → `si
 - Parameters in `config.yaml` are frozen before the out-of-sample run. Changing them after seeing results invalidates the test.
 - Out-of-sample period starts at `backtest.oos_start` (2016-01-01). Judge strategies on that period only.
 - Rotation and dip stay disabled until trend passes the paper-trade gate.
-- Long-or-cash only. No shorting, no leverage.
+- Long-or-cash only. No shorting, no leverage (the `leverage` command is research only).
 
 ## Known limitations
 

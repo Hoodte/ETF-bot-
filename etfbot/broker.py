@@ -26,7 +26,7 @@ class PaperBroker:
         self.state["peak_equity_gbp"] = max(self.state["peak_equity_gbp"], equity)
         return {"cash_gbp": self.state["cash_gbp"], "positions_gbp": pos, "equity_gbp": equity,
                 "peak_equity_gbp": self.state["peak_equity_gbp"],
-                "size_multiplier": self.state["size_multiplier"]}
+                "size_multiplier": self.state.get("size_multiplier", 1.0)}
 
     def execute(self, order: dict, price: float) -> dict:
         value = order["value_gbp"]

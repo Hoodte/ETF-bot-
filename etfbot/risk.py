@@ -24,7 +24,8 @@ def review(orders: list[Order], state: dict, cfg: dict) -> dict:
     drawdown = equity / peak - 1 if peak > 0 else 0.0
     killed = Path(r["kill_switch_file"]).exists()
     paused = drawdown <= -r["drawdown_pause_frac"]
-    max_order = min(r["max_order_gbp"], cfg["account"]["base_trade_size_gbp"] * state.get("size_multiplier", 1.0))
+    from .scaling import order_cap
+    max_order = order_cap(cfg, state.get("size_multiplier", 1.0))
 
     for o in orders:
         why = []

@@ -125,3 +125,28 @@ def test_ibkr_adapter_whole_shares(cfg, monkeypatch):
     b.execute({**ORDER, "value_gbp": 1000.0})
     contract, order = ib.placed[0]
     assert order.action == "BUY" and order.totalQuantity == 2 and contract.exchange == "LSEETF"
+
+
+def test_scaling_steps_up_10pct_and_down_on_drawdown(cfg):
+    from etfbot import scaling
+    st = {}
+    t0 = pd.Timestamp("2027-01-04")
+    assert scaling.review(st, 5000, 5000, cfg, t0)["action"] == "started"
+    assert scaling.review(st, 5000, 5000, cfg, t0 + pd.Timedelta(weeks=4))["action"] == "none"
+    ev = scaling.review(st, 5200, 5200, cfg, t0 + pd.Timedelta(weeks=8))
+    assert ev["action"] == "step_up" and abs(ev["multiplier"] - 1.10) < 1e-9 and ev["order_cap_gbp"] == 1100
+    ev = scaling.review(st, 4600, 5200, cfg, t0 + pd.Timedelta(weeks=16))   # -11.5%: between limits
+    assert ev["action"] == "hold" and abs(ev["multiplier"] - 1.10) < 1e-9
+    ev = scaling.review(st, 4300, 5200, cfg, t0 + pd.Timedelta(weeks=24))   # -17%: past the pause
+    assert ev["action"] == "step_down" and abs(ev["multiplier"] - 1.0) < 1e-9
+    st["size_multiplier"] = 50
+    assert scaling.order_cap(cfg, 50) == cfg["risk"]["max_order_gbp"]       # hard ceiling holds
+
+
+def test_leveraged_prices_decay_and_cost():
+    from etfbot import leverage
+    idx = pd.bdate_range("2020-01-01", periods=200)
+    up_down = pd.Series([100 * (1.05 if i % 2 else 1 / 1.05) ** 1 for i in range(200)], index=idx)
+    px = pd.DataFrame({"US_EQ": up_down})
+    lev = leverage.leveraged_prices(px, 2, pd.Series(0.0, index=idx), spread=0, fee=0, sleeves=["US_EQ"])
+    assert lev["US_EQ"].iloc[-1] < 100   # choppy, flat market: 2x daily-reset loses value

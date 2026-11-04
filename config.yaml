@@ -158,14 +158,17 @@ backtest:
 
 risk:
   max_position_frac: 0.30      # no sleeve above 30% of equity
-  max_order_gbp: 1000          # hard cap per order
+  max_order_gbp: 10000         # absolute ceiling per order; the working cap starts at base_trade_size_gbp and scales
   max_orders_per_day: 5
   drawdown_pause_frac: 0.15    # pause new buys if equity falls 15% from peak
   kill_switch_file: state/KILL # if this file exists, nothing trades
 
-scaling:
-  review_weeks: 8
-  step_up_frac: 0.25
+scaling:                       # order-size cap = base_trade_size_gbp x multiplier (see etfbot/scaling.py)
+  review_weeks: 8              # review every 8 weeks
+  step_up_frac: 0.10           # +10% to the order cap after a good review
+  step_down_frac: 0.10         # -10% after a review where the drawdown pause was hit (never below 1.0x)
+  max_drawdown_for_step_up: 0.075   # only step up if the account is less than 7.5% below its peak
+  max_multiplier: 10.0         # at most 10x the base size (also limited by risk.max_order_gbp)
   step_down_on_drawdown: true
 
 paths:

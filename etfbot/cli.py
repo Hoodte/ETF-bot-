@@ -152,6 +152,28 @@ def cmd_combine(cfg, a):
             "chart": html_path, "synthetic_data": bool(a.synthetic)}
 
 
+def cmd_leverage(cfg, a):
+    from . import discover, leverage
+    prices, _ = _prices(cfg, a.synthetic)
+    if a.synthetic:
+        rate = pd.Series(2.0, index=prices.index)
+    else:
+        d = cfg["data"]
+        rate = data.download_close("^IRX", d["start"], d["cache_dir"], d.get("source", "yahoo"), d.get("csv_dir", "data/manual"))
+    results = [leverage.study(prices, cfg, rate, label="All 5 ETFs (equity sleeves leveraged; bonds and gold 1x)",
+                              years=a.years, monthly=a.monthly)]
+    if a.etf:
+        px1, c1 = discover.single_etf(prices, cfg, a.etf)
+        results.append(leverage.study(px1, c1, rate, strategies_to_test=("buy_hold", "faber", "trend"),
+                                      sleeves=[a.etf], label=f"{cfg['instruments'][a.etf]['ucits']} only",
+                                      years=a.years, monthly=a.monthly))
+    out = Path("reports")
+    out.mkdir(exist_ok=True)
+    (out / "leverage.md").write_text(leverage.to_markdown(results))
+    (out / "leverage.json").write_text(json.dumps(results, indent=2, default=str))
+    return {"ok": True, "report": str(out / "leverage.md"), "synthetic_data": bool(a.synthetic)}
+
+
 def cmd_signal(cfg, a):
     prices, _ = _prices(cfg, a.synthetic)
     q = quality.check_prices(prices, as_of=None if a.synthetic else pd.Timestamp.now())
@@ -166,6 +188,8 @@ def cmd_signal(cfg, a):
 
 
 def build_orders(cfg, target_weights: dict, snap: dict) -> list:
+    from .scaling import order_cap
+    cap = order_cap(cfg, snap.get("size_multiplier", 1.0))
     orders = []
     for sleeve, w in target_weights.items():
         delta = w * snap["equity_gbp"] - snap["positions_gbp"].get(sleeve, 0.0)
@@ -174,7 +198,7 @@ def build_orders(cfg, target_weights: dict, snap: dict) -> list:
         side = "buy" if delta > 0 else "sell"
         value = abs(delta)
         if side == "buy":
-            value = min(value, cfg["risk"]["max_order_gbp"])  # fills over several runs
+            value = min(value, cap)  # fills over several runs; cap grows with the scaling rule
         orders.append(risk.Order(sleeve, cfg["instruments"][sleeve]["ucits"], side, round(value, 2)))
     orders.sort(key=lambda o: o.side != "sell")  # sells first to free cash
     return orders
@@ -224,6 +248,13 @@ def cmd_trade(cfg, a):
     gate = live_brokers.ApprovalGate(cfg)
     snap = b.snapshot()
     snap["peak_equity_gbp"] = _peak(cfg, snap["equity_gbp"])
+    from . import scaling
+    sc_path = Path(cfg["paths"]["state_dir"]) / "scaling.json"
+    sc_state = json.loads(sc_path.read_text()) if sc_path.exists() else {}
+    scale_event = scaling.review(sc_state, snap["equity_gbp"], snap["peak_equity_gbp"], cfg)
+    sc_path.parent.mkdir(parents=True, exist_ok=True)
+    sc_path.write_text(json.dumps(sc_state))
+    snap["size_multiplier"] = sc_state.get("size_multiplier", 1.0)
     sent, rejected, waiting = [], [], []
     for o in build_orders(cfg, sig["target_weights"], snap):
         rv = risk.review([o], snap, cfg)
@@ -238,8 +269,9 @@ def cmd_trade(cfg, a):
         sent.append(b.execute(order))
         snap = b.snapshot()
         snap["peak_equity_gbp"] = _peak(cfg, snap["equity_gbp"])
+        snap["size_multiplier"] = sc_state.get("size_multiplier", 1.0)
     out = {"ok": True, "broker": cfg["broker"]["name"], "as_of": sig["as_of"], "sent": sent,
-           "rejected": rejected, "awaiting_approval": waiting, "account_after": snap}
+           "rejected": rejected, "awaiting_approval": waiting, "account_after": snap, "scaling": scale_event}
     _log(cfg, "trades", out)
     return out
 
@@ -264,6 +296,9 @@ def cmd_paper(cfg, a):
     b = broker.PaperBroker(cfg["paths"]["state_dir"], cfg["account"]["starting_equity_gbp"],
                            cfg["costs"]["spread_bps"])
     snap = b.snapshot(last)
+    from . import scaling
+    scale_event = scaling.review(b.state, snap["equity_gbp"], snap["peak_equity_gbp"], cfg)
+    snap = b.snapshot(last)
     orders = build_orders(cfg, sig["target_weights"], snap)
 
     fills, rejected = [], []
@@ -276,7 +311,7 @@ def cmd_paper(cfg, a):
             rejected += rv["rejected"]
     b.save()
     out = {"ok": True, "as_of": sig["as_of"], "fills": fills, "rejected": rejected,
-           "account": b.snapshot(last)}
+           "account": b.snapshot(last), "scaling": scale_event}
     _log(cfg, "paper", out)
     return out
 
@@ -303,6 +338,11 @@ def main(argv=None) -> int:
     s.add_argument("--strategies", default="auto", help="comma list of up to 3, or 'auto' (in-sample pick)")
     s.add_argument("--synthetic", action="store_true")
     s.add_argument("--force", action="store_true")
+    s = sub.add_parser("leverage", help="research: 1x/2x/3x leveraged versions with real borrowing costs")
+    s.add_argument("--etf", default="US_EQ")
+    s.add_argument("--years", type=int, default=10)
+    s.add_argument("--monthly", type=float, default=200.0, help="monthly top-up for the projection")
+    s.add_argument("--synthetic", action="store_true")
     s = sub.add_parser("approve")
     s.add_argument("order_id")
     s = sub.add_parser("backtest")
@@ -322,7 +362,8 @@ def main(argv=None) -> int:
     fn = {"check-data": cmd_check_data, "backtest": cmd_backtest, "simulate": cmd_simulate,
           "signal": cmd_signal, "paper": cmd_paper, "trade": cmd_trade,
           "market-status": cmd_market_status, "crosscheck": cmd_crosscheck,
-          "approve": cmd_approve, "discover": cmd_discover, "combine": cmd_combine}[a.cmd]
+          "approve": cmd_approve, "discover": cmd_discover, "combine": cmd_combine,
+          "leverage": cmd_leverage}[a.cmd]
     try:
         out = fn(cfg, a)
     except Exception as e:  # report failures as JSON so the workflow can alert

@@ -6,6 +6,7 @@ Data: Yahoo Finance daily prices to 4 Nov 2026. US proxies (SPY, EFA, AGG, GLD, 
 - `discovery_US_EQ.md`: the 10 single-ETF strategies on CSPX. No survivors.
 - `combine_US_EQ.html`: interactive chart, auto-picked blend (tsmom, sma_cross, faber) vs buy & hold on CSPX.
 - `timemachine_*.md`: 10,000 simulated years for the two leading portfolio strategies.
+- `leverage.md`: 1x/2x/3x leveraged versions with real borrowing costs, plus 10-year projections with £200/month added.
 - `backtest_expert_faber.md`: second opinion from the backtest-expert skill.
 
 Engine check: vectorbt reproduced our results within 0.04% for inverse_vol, faber and trend.
