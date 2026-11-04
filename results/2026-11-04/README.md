@@ -12,3 +12,4 @@ Data: Yahoo Finance daily prices to 4 Nov 2026. US proxies (SPY, EFA, AGG, GLD, 
 Engine check: vectorbt reproduced our results within 0.04% for inverse_vol, faber and trend.
 - `markets.md`: all single-ETF strategies on 13 other markets (FX, metals, indices, crypto).
 - `intraday.md`: 46 intraday long/short combinations on hourly data (about 2.5 years).
+- `crypto.md`: 11 cryptocurrencies incl. smaller coins, judged on 2022 onwards (survivorship-biased).
