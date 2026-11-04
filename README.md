@@ -109,6 +109,10 @@ Every 8 weeks the bot reviews the account. If it is less than 7.5% below its pea
 
 `python -m etfbot markets` runs every single-asset strategy on 13 markets with long daily histories: EURUSD, GBPUSD, USDJPY, AUDUSD, gold, silver, S&P 500, Nasdaq 100, DAX, FTSE 100, Nikkei, Bitcoin and Ethereum. Long-or-cash only (FX is tested on the long side only). The deflated Sharpe is corrected for all 130 combinations. `--only GOLD,BITCOIN` limits the run.
 
+## Intraday lab
+
+`python -m etfbot intraday` tests 7 intraday strategies (Donchian breakout, EMA cross, RSI(2) both ways, Bollinger fade, opening-range breakout, session momentum, overnight hold) long and short on hourly bars for EURUSD, GBPUSD, gold, Nasdaq and S&P futures, DAX and Bitcoin. Yahoo only provides about 2.5 years of hourly bars, so this is a first screen. Serious intraday work belongs in backtest-bot with its 5-minute Dukascopy data.
+
 ## Claude skill: backtest-expert
 
 `.claude/skills/backtest-expert/` is vendored from [tradermonty/claude-trading-skills](https://github.com/tradermonty/claude-trading-skills) (MIT, commit d8e71ce). Claude Code picks it up automatically when you open this repo. Every backtest report ends with the exact command to run it, giving a 0-100 quality score and a Deploy/Refine/Abandon verdict as a second opinion next to our own Skeptic check. It uses only the Python standard library and makes no network calls.
