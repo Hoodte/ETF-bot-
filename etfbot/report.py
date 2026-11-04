@@ -19,7 +19,20 @@ from . import backtest, strategies
 
 MAIN_PARAM = {"trend": "sma_days", "rotation": "lookback_days", "dip": "drop_pct", "faber": "months",
               "dual_momentum": "lookback_days", "inverse_vol": "vol_days",
-              "trend_inverse_vol": "sma_days", "trend_voltarget": "target_vol"}
+              "trend_inverse_vol": "sma_days", "trend_voltarget": "target_vol",
+              "tsmom": "lookback_days", "sma_cross": "slow_days", "turn_of_month": "days_after",
+              "rsi2": "entry_below"}
+
+
+def _nudged(cfg: dict, name: str, f: float) -> dict:
+    """Copy of cfg with the strategy's main parameter (or, for a blend, every component's) scaled by f."""
+    c2 = copy.deepcopy(cfg)
+    names = cfg["strategies"][name]["components"] if name == "blend" else [name]
+    for n in names:
+        p = MAIN_PARAM[n]
+        v = cfg["strategies"][n][p]
+        c2["strategies"][n][p] = max(1, int(round(v * f))) if isinstance(v, int) else v * f
+    return c2
 
 
 def _run(prices, cfg, name, cost_mult=1.0):
@@ -77,18 +90,15 @@ def evaluate(prices: pd.DataFrame, cfg: dict, name: str) -> dict:
     so = backtest.period_metrics(stressed.equity, oos, None)
     checks["survives_2x_costs"] = bool(so.get("cagr", -1) > 0)
 
-    p = MAIN_PARAM[name]
+    p = "all components" if name == "blend" else MAIN_PARAM[name]
     nudges = {}
     for f in (0.8, 1.2):
-        c2 = copy.deepcopy(cfg)
-        v = c2["strategies"][name][p] * f
-        c2["strategies"][name][p] = int(round(v)) if isinstance(cfg["strategies"][name][p], int) else v
-        r2 = _run(prices, c2, name)
-        nudges[str(c2["strategies"][name][p])] = backtest.period_metrics(r2.equity, oos, None).get("cagr")
+        r2 = _run(prices, _nudged(cfg, name, f), name)
+        nudges[f"x{f}"] = backtest.period_metrics(r2.equity, oos, None).get("cagr")
     checks["stable_to_param_nudge"] = all(v is not None and v > 0 for v in nudges.values())
 
     lo, hi = block_bootstrap_sharpe(base.equity.loc[oos:].pct_change())
-    rep["robustness"] = {"oos_cagr_costs_x2": so.get("cagr"), f"oos_cagr_{p}_nudged": nudges,
+    rep["robustness"] = {"oos_cagr_costs_x2": so.get("cagr"), f"oos_cagr_{p}_nudged".replace(" ", "_"): nudges,
                          "oos_sharpe_bootstrap_5_95": [lo, hi]}
     rep["warnings"] = [] if (lo == lo and lo > 0) else ["bootstrap 5th-percentile OOS Sharpe <= 0: edge not statistically clear"]
     rep["checks"] = checks
@@ -97,8 +107,9 @@ def evaluate(prices: pd.DataFrame, cfg: dict, name: str) -> dict:
     from . import trades
     ts = trades.summary(trades.round_trips(prices, base.weights))
     years = (prices.index[-1] - prices.index[0]).days / 365.25
+    comps = cfg["strategies"][name]["components"] if name == "blend" else [name]
     n_params = sum(isinstance(v, (int, float)) and not isinstance(v, bool)
-                   for k, v in cfg["strategies"][name].items() if k != "enabled")
+                   for c in comps for k, v in cfg["strategies"][c].items() if k != "enabled")
     rep["trade_stats"] = ts
     rep["backtest_expert_command"] = trades.backtest_expert_command(
         ts, base.metrics.get("max_drawdown", 0.0), years, n_params)

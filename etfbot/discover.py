@@ -12,6 +12,7 @@ Sharpe is above `discovery.deflated_sharpe_min`. Expect few or none.
 """
 from __future__ import annotations
 
+import copy
 import math
 from statistics import NormalDist
 
@@ -45,6 +46,17 @@ def deflated_sharpe(rets: pd.Series, sr0: float) -> float:
     if t < 3 or denom <= 0:
         return float("nan")
     return N.cdf((sr - sr0) * math.sqrt(t - 1) / math.sqrt(denom))
+
+
+def single_etf(prices: pd.DataFrame, cfg: dict, sleeve: str) -> tuple[pd.DataFrame, dict]:
+    """Restrict to one ETF. That ETF gets 100% of the test capital (the portfolio-level
+    30% cap applies later, when strategies are combined across ETFs)."""
+    if sleeve not in prices.columns:
+        raise ValueError(f"unknown ETF sleeve {sleeve}; choose from {list(prices.columns)}")
+    c = copy.deepcopy(cfg)
+    c["risk"]["max_position_frac"] = 1.0
+    c["discovery"]["candidates"] = [n for n in cfg["discovery"]["candidates"] if n in strategies.SINGLE_ASSET]
+    return prices[[sleeve]], c
 
 
 def run(prices: pd.DataFrame, cfg: dict) -> dict:

@@ -41,7 +41,10 @@ python -m etfbot check-data                 # download + data quality report
 python -m etfbot backtest --strategy trend  # writes reports/trend.md and .json
 python -m etfbot backtest --html            # also a QuantStats HTML tearsheet
 python -m etfbot crosscheck                 # compare our backtester with vectorbt
-python -m etfbot discover                   # rank all 7 pre-registered strategy candidates
+python -m etfbot discover                   # rank all 11 pre-registered strategy candidates
+python -m etfbot discover --etf US_EQ       # rank the 7 single-ETF strategies on one ETF
+python -m etfbot combine --etf US_EQ        # blend the top 3 (picked in-sample) + interactive chart
+python -m etfbot combine --etf US_EQ --strategies trend,faber,tsmom
 python -m etfbot simulate --strategy trend  # Time Machine: 10,000 simulated years + every real past year
 python -m etfbot signal                     # today's target weights (JSON)
 python -m etfbot paper                      # signal -> risk review -> built-in paper fills
@@ -55,7 +58,7 @@ Add `--synthetic` to run any command offline on random-walk data. Synthetic resu
 
 ## Strategy discovery
 
-`discover` runs a fixed list of 7 documented, long-or-cash strategy families. Their parameters were frozen in `config.yaml` on 2026-11-04, before any real-data test:
+`discover` runs a fixed list of 11 documented, long-or-cash strategy families. Their parameters were frozen in `config.yaml` on 2026-11-04, before any real-data test:
 
 | Candidate | Idea | Rebalance |
 | --- | --- | --- |
@@ -66,6 +69,18 @@ Add `--synthetic` to run any command offline on random-walk data. Synthetic resu
 | inverse_vol | always invested, more weight in calmer ETFs | monthly |
 | trend_inverse_vol | inverse-vol weights, ETFs below their 200-day average go to cash | weekly |
 | trend_voltarget | trend, scaled down when portfolio volatility is above 8% (never levered) | weekly |
+| tsmom | time-series momentum: hold while own 12-month return > 0 (Moskowitz, Ooi & Pedersen) | monthly |
+| sma_cross | hold while 50-day average > 200-day average | weekly |
+| turn_of_month | hold last trading day of month to 3rd trading day of next, cash otherwise | daily |
+| rsi2 | buy 2-day RSI < 10 dips inside a 200-day uptrend, sell above the 5-day average (Connors) | daily |
+
+Strategies marked single-ETF capable (trend, faber, tsmom, sma_cross, turn_of_month, rsi2, trend_voltarget) can be tested on one ETF with `--etf`.
+
+### Blending strategies on one ETF
+
+`combine --etf US_EQ` gives up to 3 strategies an equal share of that ETF's capital and averages their positions. The blend goes through the full Skeptic check. It writes `reports/combine_US_EQ.html`, an interactive chart of all three strategies, the blend and buy-and-hold, with a results table.
+
+With `--strategies auto` (the default), the 3 components are picked by **in-sample** Sharpe only (before 2016), so the out-of-sample years stay unseen when the choice is made. Picking them by looking at the out-of-sample results would make that test meaningless. Blending usually smooths drawdowns; it rarely raises return above the best single strategy.
 
 A **survivor** must pass every Skeptic check and have a **deflated Sharpe** of at least 95%: the probability its out-of-sample result is genuine after correcting for the fact that 7 strategies were tried. The report also shows whether each beats buy-and-hold on Sharpe, the 2008 result, and the Time Machine odds of a losing year. Results go to `reports/discovery.md`.
 

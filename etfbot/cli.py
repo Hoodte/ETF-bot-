@@ -9,6 +9,9 @@
     python -m etfbot market-status      # is the London market open today?
     python -m etfbot crosscheck         # compare our backtester with vectorbt
     python -m etfbot discover           # rank every pre-registered strategy candidate
+    python -m etfbot discover --etf US_EQ             # same, on one ETF
+    python -m etfbot combine --etf US_EQ              # blend top 3 (picked in-sample) + chart
+    python -m etfbot combine --etf US_EQ --strategies trend,faber,tsmom
 
 Add --synthetic to any command to use random-walk test data (no internet needed).
 """
@@ -26,7 +29,8 @@ from . import broker, data, quality, report, risk, strategies
 from .config import load_config
 
 MIN_ORDER_GBP = 50.0
-STRATS = ["trend", "rotation", "dip", "faber", "dual_momentum", "inverse_vol", "trend_inverse_vol", "trend_voltarget"]
+STRATS = ["trend", "rotation", "dip", "faber", "dual_momentum", "inverse_vol", "trend_inverse_vol", "trend_voltarget",
+          "tsmom", "sma_cross", "turn_of_month", "rsi2"]
 
 
 def _prices(cfg, synthetic: bool):
@@ -113,15 +117,38 @@ def cmd_discover(cfg, a):
     q = quality.check_prices(prices)
     if not q["ok"] and not a.force:
         return {"ok": False, "blocked_by": "data_quality", "quality": q}
+    tag = ""
+    if a.etf:
+        prices, cfg = discover.single_etf(prices, cfg, a.etf)
+        tag = f"_{a.etf}"
     res = discover.run(prices, cfg)
+    res["etf"] = a.etf or "all five"
     out = Path("reports")
     out.mkdir(exist_ok=True)
-    (out / "discovery.json").write_text(json.dumps(res, indent=2, default=str))
-    (out / "discovery.md").write_text(discover.to_markdown(res, synthetic=bool(a.synthetic)))
+    (out / f"discovery{tag}.json").write_text(json.dumps(res, indent=2, default=str))
+    (out / f"discovery{tag}.md").write_text(discover.to_markdown(res, synthetic=bool(a.synthetic)))
     short = [{k: b[k] for k in ("strategy", "survivor", "oos_cagr", "oos_sharpe", "oos_max_dd",
                                   "deflated_sharpe", "failed_checks")} for b in res["leaderboard"]]
     return {"ok": True, "survivors": res["survivors"], "leaderboard": short,
-            "synthetic_data": bool(a.synthetic), "report": str(out / "discovery.md")}
+            "synthetic_data": bool(a.synthetic), "etf": res["etf"], "report": str(out / f"discovery{tag}.md")}
+
+
+def cmd_combine(cfg, a):
+    from . import chart, combine
+    prices, _ = _prices(cfg, a.synthetic)
+    q = quality.check_prices(prices)
+    if not q["ok"] and not a.force:
+        return {"ok": False, "blocked_by": "data_quality", "quality": q}
+    comps = [x.strip() for x in a.strategies.split(",")] if a.strategies and a.strategies != "auto" else None
+    res = combine.run(prices, cfg, a.etf, comps)
+    res["synthetic"] = bool(a.synthetic)
+    out = Path("reports")
+    out.mkdir(exist_ok=True)
+    html_path = chart.write_html(res, str(out / f"combine_{a.etf}.html"))
+    (out / f"combine_{a.etf}.md").write_text(report.to_markdown(res["blend_report"]))
+    return {"ok": True, "etf": a.etf, "components": res["components"], "picked_by": res["picked_by"],
+            "blend_skeptic_verdict": res["blend_skeptic_verdict"], "table": res["table"],
+            "chart": html_path, "synthetic_data": bool(a.synthetic)}
 
 
 def cmd_signal(cfg, a):
@@ -267,6 +294,12 @@ def main(argv=None) -> int:
     s.add_argument("--strategy", default="trend", choices=STRATS)
     s.add_argument("--synthetic", action="store_true")
     s = sub.add_parser("discover", help="rank all pre-registered strategy candidates")
+    s.add_argument("--etf", default=None, help="test on one ETF sleeve only, e.g. US_EQ")
+    s.add_argument("--synthetic", action="store_true")
+    s.add_argument("--force", action="store_true")
+    s = sub.add_parser("combine", help="blend up to 3 strategies on one ETF + chart")
+    s.add_argument("--etf", required=True, help="ETF sleeve, e.g. US_EQ")
+    s.add_argument("--strategies", default="auto", help="comma list of up to 3, or 'auto' (in-sample pick)")
     s.add_argument("--synthetic", action="store_true")
     s.add_argument("--force", action="store_true")
     s = sub.add_parser("approve")
@@ -288,7 +321,7 @@ def main(argv=None) -> int:
     fn = {"check-data": cmd_check_data, "backtest": cmd_backtest, "simulate": cmd_simulate,
           "signal": cmd_signal, "paper": cmd_paper, "trade": cmd_trade,
           "market-status": cmd_market_status, "crosscheck": cmd_crosscheck,
-          "approve": cmd_approve, "discover": cmd_discover}[a.cmd]
+          "approve": cmd_approve, "discover": cmd_discover, "combine": cmd_combine}[a.cmd]
     try:
         out = fn(cfg, a)
     except Exception as e:  # report failures as JSON so the workflow can alert

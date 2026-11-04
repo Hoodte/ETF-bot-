@@ -104,6 +104,26 @@ strategies:
     sma_days: 200
     target_vol: 0.08
     lookback_days: 63
+  # Added 2026-11-04 (also frozen before any real-data test), from published research:
+  tsmom:                   # time-series momentum: hold while own 12-month return > 0, monthly
+    enabled: false
+    lookback_days: 252
+  sma_cross:               # 50/200-day moving-average crossover, weekly
+    enabled: false
+    fast_days: 50
+    slow_days: 200
+  turn_of_month:           # hold last trading day of month to 3rd trading day of next, else cash
+    enabled: false
+    days_before: 1
+    days_after: 3
+  rsi2:                    # Connors 2-day RSI mean reversion inside a 200-day uptrend
+    enabled: false
+    entry_below: 10.0
+    trend_sma_days: 200
+    exit_sma_days: 5
+  blend:                   # set by `combine`: equal-weight average of up to 3 strategies on one ETF
+    enabled: false
+    components: [trend, faber, tsmom]
 
 costs:
   spread_bps: 10           # half-spread + slippage per side, in basis points
@@ -112,7 +132,8 @@ costs:
   cash_rate: 0.0           # annual return on idle cash in backtests (conservative)
 
 discovery:
-  candidates: [trend, faber, rotation, dual_momentum, inverse_vol, trend_inverse_vol, trend_voltarget]
+  candidates: [trend, faber, rotation, dual_momentum, inverse_vol, trend_inverse_vol, trend_voltarget,
+               tsmom, sma_cross, turn_of_month, rsi2]
   deflated_sharpe_min: 0.95   # probability the best OOS Sharpe is real, after correcting for the number tried
   timemachine_paths: 2000
 

@@ -139,6 +139,62 @@ def trend_voltarget(prices: pd.DataFrame, sma_days: int = 200, target_vol: float
     return _hold_between_checks(base.mul(scale, axis=0), "weekly")
 
 
+def tsmom(prices: pd.DataFrame, lookback_days: int = 252) -> pd.DataFrame:
+    """Time-series momentum (Moskowitz, Ooi & Pedersen 2012): monthly, hold a sleeve
+    while its own trailing 12-month return is positive."""
+    mom = prices.pct_change(lookback_days)
+    on = (mom > 0).astype(float).where(mom.notna(), 0.0) / prices.shape[1]
+    return _hold_between_checks(on, "monthly")
+
+
+def sma_cross(prices: pd.DataFrame, fast_days: int = 50, slow_days: int = 200) -> pd.DataFrame:
+    """Weekly: hold while the fast moving average is above the slow one ("golden cross")."""
+    fast = prices.rolling(fast_days, min_periods=fast_days).mean()
+    slow = prices.rolling(slow_days, min_periods=slow_days).mean()
+    on = (fast > slow).astype(float).where(slow.notna(), 0.0) / prices.shape[1]
+    return _hold_between_checks(on, "weekly")
+
+
+def turn_of_month(prices: pd.DataFrame, days_before: int = 1, days_after: int = 3) -> pd.DataFrame:
+    """Turn-of-the-month effect: hold from the last `days_before` trading days of a month
+    to the first `days_after` of the next, cash otherwise. Uses the calendar only."""
+    idx = prices.index
+    s = pd.Series(range(len(idx)), index=idx)
+    per = idx.to_period("M")
+    from_start = s.groupby(per).rank(method="first") - 1
+    from_end = s.groupby(per).rank(method="first", ascending=False) - 1
+    window = (from_end < days_before) | (from_start < days_after)
+    # target on day t = hold during t+1 (the backtester trades on the next bar)
+    hold_next = window.shift(-1, fill_value=False).astype(float)
+    return pd.DataFrame({c: hold_next for c in prices.columns}) / prices.shape[1]
+
+
+def rsi2(prices: pd.DataFrame, entry_below: float = 10.0, trend_sma_days: int = 200,
+         exit_sma_days: int = 5) -> pd.DataFrame:
+    """Connors-style short-term mean reversion: buy when 2-day RSI < entry_below while in a
+    long uptrend; exit when price closes above its short SMA."""
+    d = prices.diff()
+    up = d.clip(lower=0).ewm(alpha=0.5, adjust=False).mean()
+    dn = (-d.clip(upper=0)).ewm(alpha=0.5, adjust=False).mean()
+    rsi = 100 - 100 / (1 + up / dn.replace(0, float("nan")))
+    long_sma = prices.rolling(trend_sma_days, min_periods=trend_sma_days).mean()
+    short_sma = prices.rolling(exit_sma_days, min_periods=exit_sma_days).mean()
+    entry = (rsi < entry_below) & (prices > long_sma)
+    exit_ = prices > short_sma
+    w = pd.DataFrame(0.0, index=prices.index, columns=prices.columns)
+    for c in prices.columns:
+        h, out = False, []
+        for e, x in zip(entry[c].to_numpy(), exit_[c].to_numpy()):
+            h = (h and not x) or bool(e)
+            out.append(float(h))
+        w[c] = out
+    return w / prices.shape[1]
+
+
+# Strategies that work on a single ETF (the rest need several ETFs to compare).
+SINGLE_ASSET = ["trend", "faber", "tsmom", "sma_cross", "turn_of_month", "rsi2", "trend_voltarget"]
+
+
 def build_weights(prices: pd.DataFrame, cfg: dict, name: str) -> pd.DataFrame:
     s = cfg["strategies"][name]
     if name == "trend":
@@ -157,6 +213,17 @@ def build_weights(prices: pd.DataFrame, cfg: dict, name: str) -> pd.DataFrame:
         return inverse_vol(prices, s["vol_days"], cap)
     if name == "trend_inverse_vol":
         return trend_inverse_vol(prices, s["sma_days"], s["vol_days"], cap)
+    if name == "tsmom":
+        return tsmom(prices, s["lookback_days"])
+    if name == "sma_cross":
+        return sma_cross(prices, s["fast_days"], s["slow_days"])
+    if name == "turn_of_month":
+        return turn_of_month(prices, s["days_before"], s["days_after"])
+    if name == "rsi2":
+        return rsi2(prices, s["entry_below"], s["trend_sma_days"], s["exit_sma_days"])
+    if name == "blend":
+        parts = [build_weights(prices, cfg, c) for c in s["components"]]
+        return sum(parts) / len(parts)
     if name == "trend_voltarget":
         return trend_voltarget(prices, s["sma_days"], s["target_vol"], s["lookback_days"])
     raise ValueError(f"unknown strategy {name}")

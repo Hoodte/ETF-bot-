@@ -133,3 +133,33 @@ def test_new_strategies_no_lookahead(prices, cfg):
         a = strategies.build_weights(prices, cfg, name).loc[:cut]
         b = strategies.build_weights(shocked, cfg, name).loc[:cut]
         pd.testing.assert_frame_equal(a, b, check_names=False)
+
+
+def test_research_strategies_no_lookahead(prices, cfg):
+    cut = prices.index[1200]
+    shocked = prices.copy()
+    shocked.loc[shocked.index > cut] *= 0.3
+    for name in ("tsmom", "sma_cross", "turn_of_month", "rsi2"):
+        a = strategies.build_weights(prices, cfg, name).loc[:cut]
+        b = strategies.build_weights(shocked, cfg, name).loc[:cut]
+        pd.testing.assert_frame_equal(a, b, check_names=False)
+
+
+def test_turn_of_month_window(prices):
+    w = strategies.turn_of_month(prices[["US_EQ"]], 1, 3)["US_EQ"]
+    held_days = w.shift(1).fillna(0)  # what is actually held each day
+    jan = held_days.loc["2011-01"]
+    assert (jan.iloc[:3] == 1).all() and (jan.iloc[3:-1] == 0).all() and jan.iloc[-1] == 1
+
+
+def test_combine_auto_pick_and_chart(cfg, tmp_path):
+    from etfbot import chart, combine
+    p = data.synthetic_universe(list(cfg["instruments"]), start="2008-01-01", end="2020-12-31")
+    res = combine.run(p, cfg, "US_EQ", None)
+    assert len(res["components"]) == 3 and set(res["curves"]) >= {"blend", "buy_hold"}
+    blend = res["curves"]["blend"]
+    assert blend.notna().all()
+    out = chart.write_html(res, str(tmp_path / "c.html"))
+    assert "Out-of-sample" in open(out).read()
+    with pytest.raises(ValueError):
+        combine.run(p, cfg, "US_EQ", ["trend", "faber", "tsmom", "rsi2"])  # more than 3
