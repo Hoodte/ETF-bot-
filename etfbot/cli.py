@@ -174,6 +174,17 @@ def cmd_leverage(cfg, a):
     return {"ok": True, "report": str(out / "leverage.md"), "synthetic_data": bool(a.synthetic)}
 
 
+def cmd_markets(cfg, a):
+    from . import markets
+    names = [x.strip().upper() for x in a.only.split(",")] if a.only else None
+    res = markets.run(cfg, markets.load(cfg, names))
+    out = Path("reports")
+    out.mkdir(exist_ok=True)
+    (out / "markets.md").write_text(markets.to_markdown(res))
+    (out / "markets.json").write_text(json.dumps(res, indent=2, default=str))
+    return {"ok": True, "survivors": res["survivors"], "trials": res["trials"], "report": str(out / "markets.md")}
+
+
 def cmd_signal(cfg, a):
     prices, _ = _prices(cfg, a.synthetic)
     q = quality.check_prices(prices, as_of=None if a.synthetic else pd.Timestamp.now())
@@ -343,6 +354,8 @@ def main(argv=None) -> int:
     s.add_argument("--years", type=int, default=10)
     s.add_argument("--monthly", type=float, default=200.0, help="monthly top-up for the projection")
     s.add_argument("--synthetic", action="store_true")
+    s = sub.add_parser("markets", help="run every single-asset strategy on FX, metals, indices and crypto")
+    s.add_argument("--only", default=None, help="comma list, e.g. GOLD,BITCOIN,SP500")
     s = sub.add_parser("approve")
     s.add_argument("order_id")
     s = sub.add_parser("backtest")
@@ -363,7 +376,7 @@ def main(argv=None) -> int:
           "signal": cmd_signal, "paper": cmd_paper, "trade": cmd_trade,
           "market-status": cmd_market_status, "crosscheck": cmd_crosscheck,
           "approve": cmd_approve, "discover": cmd_discover, "combine": cmd_combine,
-          "leverage": cmd_leverage}[a.cmd]
+          "leverage": cmd_leverage, "markets": cmd_markets}[a.cmd]
     try:
         out = fn(cfg, a)
     except Exception as e:  # report failures as JSON so the workflow can alert

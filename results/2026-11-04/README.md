@@ -10,3 +10,4 @@ Data: Yahoo Finance daily prices to 4 Nov 2026. US proxies (SPY, EFA, AGG, GLD, 
 - `backtest_expert_faber.md`: second opinion from the backtest-expert skill.
 
 Engine check: vectorbt reproduced our results within 0.04% for inverse_vol, faber and trend.
+- `markets.md`: all single-ETF strategies on 13 other markets (FX, metals, indices, crypto).

@@ -105,6 +105,10 @@ Every 8 weeks the bot reviews the account. If it is less than 7.5% below its pea
 
 `python -m etfbot leverage --etf US_EQ` simulates 1x, 2x and 3x daily-reset leveraged versions with real borrowing costs (US T-bill + 0.5%) and a 0.75% fund fee, for buy-and-hold, Faber and trend, and projects 10 years with monthly top-ups (`--monthly 200`). Research only: live trading stays unleveraged.
 
+## Other markets
+
+`python -m etfbot markets` runs every single-asset strategy on 13 markets with long daily histories: EURUSD, GBPUSD, USDJPY, AUDUSD, gold, silver, S&P 500, Nasdaq 100, DAX, FTSE 100, Nikkei, Bitcoin and Ethereum. Long-or-cash only (FX is tested on the long side only). The deflated Sharpe is corrected for all 130 combinations. `--only GOLD,BITCOIN` limits the run.
+
 ## Claude skill: backtest-expert
 
 `.claude/skills/backtest-expert/` is vendored from [tradermonty/claude-trading-skills](https://github.com/tradermonty/claude-trading-skills) (MIT, commit d8e71ce). Claude Code picks it up automatically when you open this repo. Every backtest report ends with the exact command to run it, giving a 0-100 quality score and a Deploy/Refine/Abandon verdict as a second opinion next to our own Skeptic check. It uses only the Python standard library and makes no network calls.
