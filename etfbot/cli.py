@@ -67,6 +67,32 @@ def cmd_backtest(cfg, a):
             "buy_hold_oos": rep["buy_hold_oos"], "report": str(out / f"{a.strategy}.md")}
 
 
+def cmd_simulate(cfg, a):
+    from . import backtest, timemachine
+
+    prices, _ = _prices(cfg, a.synthetic)
+    q = quality.check_prices(prices)
+    if not q["ok"] and not a.force:
+        return {"ok": False, "blocked_by": "data_quality", "quality": q}
+    w = strategies.build_weights(prices, cfg, a.strategy)
+    eq0 = cfg["account"]["starting_equity_gbp"]
+    strat = backtest.run(prices, w, cfg["costs"], cfg["risk"]["max_position_frac"], eq0)
+    bh = backtest.run(prices, strategies.buy_and_hold(prices), cfg["costs"], 1.0, eq0, rebalance="monthly")
+    pause = cfg["risk"]["drawdown_pause_frac"]
+    mc = timemachine.monte_carlo(strat.equity.pct_change(), bh.equity.pct_change(),
+                                 a.horizon_days, a.paths, seed=a.seed, pause=pause)
+    hist = timemachine.history(strat.equity, bh.equity, a.horizon_days, pause=pause)
+    out_dir = Path("reports")
+    out_dir.mkdir(exist_ok=True)
+    md = timemachine.to_markdown(mc, hist, a.strategy, eq0)
+    (out_dir / f"timemachine_{a.strategy}.md").write_text(md)
+    (out_dir / f"timemachine_{a.strategy}.json").write_text(
+        json.dumps({"monte_carlo": mc, "history": hist}, indent=2))
+    mc_short = {k: v for k, v in mc.items() if k != "fan"}
+    return {"ok": True, "strategy": a.strategy, "monte_carlo": mc_short, "history": hist,
+            "report": str(out_dir / f"timemachine_{a.strategy}.md")}
+
+
 def cmd_signal(cfg, a):
     prices, _ = _prices(cfg, a.synthetic)
     q = quality.check_prices(prices, as_of=None if a.synthetic else pd.Timestamp.now())
@@ -129,9 +155,16 @@ def main(argv=None) -> int:
     s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
     s.add_argument("--synthetic", action="store_true")
     s.add_argument("--force", action="store_true", help="run even if data quality fails")
+    s = sub.add_parser("simulate", help="Time Machine: thousands of simulated years")
+    s.add_argument("--strategy", default="trend", choices=["trend", "rotation", "dip"])
+    s.add_argument("--horizon-days", type=int, default=252)
+    s.add_argument("--paths", type=int, default=10_000)
+    s.add_argument("--seed", type=int, default=19)
+    s.add_argument("--synthetic", action="store_true")
+    s.add_argument("--force", action="store_true")
     a = p.parse_args(argv)
     cfg = load_config(a.config)
-    fn = {"check-data": cmd_check_data, "backtest": cmd_backtest,
+    fn = {"check-data": cmd_check_data, "backtest": cmd_backtest, "simulate": cmd_simulate,
           "signal": cmd_signal, "paper": cmd_paper}[a.cmd]
     try:
         out = fn(cfg, a)

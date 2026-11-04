@@ -91,3 +91,19 @@ def test_risk_caps_and_blocks(cfg, tmp_path):
     # kill switch blocks everything
     (tmp_path / "KILL").write_text("stop")
     assert risk.review([ok], _state(), c)["rejected"]
+
+
+def test_timemachine_reproducible_and_sane():
+    from etfbot import timemachine
+    idx = pd.bdate_range("2010-01-01", periods=2000)
+    rng = np.random.default_rng(1)
+    s = pd.Series(rng.normal(0.0003, 0.01, len(idx)), index=idx)
+    b = pd.Series(rng.normal(0.0003, 0.012, len(idx)), index=idx)
+    a1 = timemachine.monte_carlo(s, b, paths=500, seed=7)
+    a2 = timemachine.monte_carlo(s, b, paths=500, seed=7)
+    assert a1["return_pct"] == a2["return_pct"]
+    r = a1["return_pct"]
+    assert r["p5"] <= r["p50"] <= r["p95"]
+    assert 0 <= a1["prob_loss"] <= 1 and a1["max_drawdown_pct"]["p50"] <= 0
+    h = timemachine.history((1 + s).cumprod(), (1 + b).cumprod())
+    assert h["windows"] > 100

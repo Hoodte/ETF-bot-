@@ -13,6 +13,7 @@ A rules-based, long-or-cash ETF strategy engine for a UK retail account, with ba
 | `etfbot/strategies.py` | Trend Engine / Secondary | Trend (on), rotation (off), dip (off). Pure functions, no look-ahead |
 | `etfbot/backtest.py` | — | Holdings-based daily backtest, next-bar execution, spread + commission costs |
 | `etfbot/report.py` | Skeptic | Out-of-sample metrics, stress periods (2008, 2020, 2022), cost x2 stress, parameter nudge ±20%, bootstrap Sharpe → PASS/FAIL |
+| `etfbot/timemachine.py` | Skeptic | Replays 10,000 possible one-year futures from the strategy's own history, plus every real past year: odds of a loss, of hitting the drawdown pause, of beating buy-and-hold. Idea adapted from trader-timemachine in [Jakeschincariol/day-trader-skill](https://github.com/Jakeschincariol/day-trader-skill) (MIT) |
 | `etfbot/risk.py` | Risk Guardian | Hard limits in code: position cap, order cap, daily order limit, drawdown pause, kill switch, no shorting, no leverage |
 | `etfbot/broker.py` | Execution | Paper broker with state on disk; live broker raises an error |
 | `etfbot/cli.py` | Head of Desk input | Every command prints JSON for n8n |
@@ -32,6 +33,7 @@ pip install -r requirements.txt
 ```
 python -m etfbot check-data                 # download + data quality report
 python -m etfbot backtest --strategy trend  # writes reports/trend.md and .json
+python -m etfbot simulate --strategy trend  # Time Machine: 10,000 simulated years + every real past year
 python -m etfbot signal                     # today's target weights (JSON)
 python -m etfbot paper                      # signal -> risk review -> paper fills
 python -m pytest                            # tests
