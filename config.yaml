@@ -1,0 +1,85 @@
+# ETF bot configuration. Freeze strategy parameters BEFORE out-of-sample testing.
+# Changing a parameter after seeing results invalidates the test.
+
+mode: paper            # paper | live  (live is not implemented yet and is blocked)
+
+account:
+  starting_equity_gbp: 5000
+  base_trade_size_gbp: 1000     # max value of any single order
+
+# Five sleeves. `ucits` is the instrument traded live (Yahoo ticker).
+# `proxy` provides history before the UCITS fund existed, so backtests cover 2008.
+# Proxy weights must sum to 1. `fx_to_gbp: true` converts USD proxy returns to GBP.
+instruments:
+  GLOBAL_EQ:
+    ucits: SWDA.L
+    proxy: {SPY: 0.65, EFA: 0.35}   # rough MSCI World stand-in
+    fx_to_gbp: true
+  US_EQ:
+    ucits: CSPX.L
+    proxy: {SPY: 1.0}
+    fx_to_gbp: true
+  BONDS:
+    ucits: VAGS.L                   # GBP-hedged global aggregate
+    proxy: {AGG: 1.0}               # USD aggregate; hedged fund ~ local return, so no FX
+    fx_to_gbp: false
+  GOLD:
+    ucits: SGLN.L
+    proxy: {GLD: 1.0}
+    fx_to_gbp: true
+  EM_EQ:
+    ucits: EMIM.L
+    proxy: {EEM: 1.0}
+    fx_to_gbp: true
+
+fx_ticker: GBPUSD=X
+data:
+  start: "2004-01-01"
+  cache_dir: data
+
+strategies:
+  trend:
+    enabled: true
+    sma_days: 200          # hold sleeve while price > 200-day SMA
+    check: weekly          # signals evaluated on the last trading day of each week
+  rotation:
+    enabled: false         # research only until trend clears the paper gate
+    lookback_days: 126
+    top_n: 3
+    absolute_filter: true  # only hold assets with positive momentum
+  dip:
+    enabled: false
+    drop_pct: 0.05         # 5-day drop that triggers entry
+    lookback_days: 5
+    trend_sma_days: 200    # only buy dips while above this SMA
+    exit_sma_days: 5       # exit when price closes above this SMA
+    sleeves: [GLOBAL_EQ, US_EQ, EM_EQ, GOLD]
+
+costs:
+  spread_bps: 10           # half-spread + slippage per side, in basis points
+  commission_gbp: 0.0      # per order (Trading 212 ETFs ~0; IBKR set your value)
+  fx_fee_bps: 15           # applied to USD-listed trades only (not used for GBP lines)
+  cash_rate: 0.0           # annual return on idle cash in backtests (conservative)
+
+backtest:
+  oos_start: "2016-01-01"  # results after this date are the out-of-sample test
+  stress_periods:
+    gfc_2008: ["2007-10-01", "2009-03-31"]
+    covid_2020: ["2020-02-01", "2020-06-30"]
+    rates_2022: ["2022-01-01", "2022-12-31"]
+
+risk:
+  max_position_frac: 0.30      # no sleeve above 30% of equity
+  max_order_gbp: 1000          # hard cap per order
+  max_orders_per_day: 5
+  drawdown_pause_frac: 0.15    # pause new buys if equity falls 15% from peak
+  kill_switch_file: state/KILL # if this file exists, nothing trades
+
+scaling:
+  review_weeks: 8
+  step_up_frac: 0.25
+  step_down_on_drawdown: true
+
+paths:
+  state_dir: state
+  log_dir: logs
