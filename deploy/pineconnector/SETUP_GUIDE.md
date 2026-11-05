@@ -11,6 +11,18 @@ The news strategy is an MT5 EA, not Pine, because Pine can read economic data bu
 
 ---
 
+## 0. Keeping the strategies separate (do this first)
+| Symbol | Traded by | Opens with | Closed by |
+|---|---|---|---|
+| US100.cash | Nasdaq script (PineConnector) | `buy` + stop/target, comment `NasLunchRSI` | its stop/target, or `closelong` at the end of the day |
+| XAUUSD | Gold script (PineConnector) **and** news EA | gold: comment `GoldMacro`; news: comment `NEWS`, magic 26110510 | gold: `closelong` / 5% stop; news: the EA closes **its own ticket** after 60 min |
+| EURUSD, GBPUSD, AUDUSD, USDJPY, USDCAD | News EA only | comment `NEWS`, magic 26110510 | the EA, by ticket |
+
+Three settings keep them apart:
+1. **Use a HEDGING MT5 account** (MT5: Toolbox → Trade, or ask FTMO). On a netting account, gold trades from both strategies would merge into one position. The news EA detects netting, warns you, and stops trading gold.
+2. **PineConnector EA → "Magic Restriction" ON.** Then `closelong,XAUUSD` from the gold script only closes PineConnector's own gold trades, never the news EA's.
+3. The news EA only manages the tickets it opened (checked by magic number), so it never closes a PineConnector trade. The one exception is the **safety guard**, which closes **everything** on purpose after a -2% day.
+
 ## 1. MT5 + PineConnector
 1. Install the **PineConnector EA** in your FTMO MT5 terminal (EA v3.53.2 or later, for the explicit syntax used here) and enter your licence ID.
 2. Enable *Algo Trading*. Keep MT5 running 24/5 (a VPS is best).

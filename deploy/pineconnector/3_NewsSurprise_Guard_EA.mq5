@@ -56,7 +56,8 @@ input bool   InpGuardAll      = true;     // guard closes ALL positions (incl. P
 
 input group "Time"
 input int    InpServerGMT     = -100;     // server GMT offset; -100 = auto (GMT+2, +3 in US summer time, FTMO style)
-input long   InpMagic         = 26110510;
+input long   InpMagic         = 26110510; // unique ID for news trades (PineConnector uses its own)
+input bool   InpSkipGoldIfNetting = true; // on a NETTING account, don't trade gold (it would merge with the gold strategy)
 
 CTrade trade;
 string g_syms[6];
@@ -64,6 +65,7 @@ int    g_orient[6];          // +1 if USD is the base currency (USD good -> buy)
 datetime g_dayStart = 0;
 double g_dayStartEq = 0;
 bool   g_locked = false;
+bool   g_skip[6];
 
 struct NewsPos { ulong ticket; string sym; datetime opened; double entry; double risk; int dir; bool be; };
 NewsPos g_pos[];
@@ -103,9 +105,18 @@ int OnInit()
    g_syms[3] = InpUSDJPY; g_orient[3] = +1;
    g_syms[4] = InpUSDCAD; g_orient[4] = +1;
    g_syms[5] = InpXAUUSD; g_orient[5] = -1;
+   bool netting = (AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING);
    for(int i = 0; i < 6; i++)
-      if(!SymbolSelect(g_syms[i], true))
-         PrintFormat("WARNING: symbol %s not found - check the symbol inputs", g_syms[i]);
+     {
+      g_skip[i] = (g_syms[i] == "");
+      if(!g_skip[i] && !SymbolSelect(g_syms[i], true))
+        { PrintFormat("WARNING: symbol %s not found - skipped", g_syms[i]); g_skip[i] = true; }
+     }
+   if(netting)
+     {
+      Print("WARNING: this is a NETTING account - positions on the same symbol merge. Use a HEDGING account for this plan.");
+      if(InpSkipGoldIfNetting) { g_skip[5] = true; Print("Gold news trades disabled so they can't merge with the gold strategy."); }
+     }
    trade.SetExpertMagicNumber(InpMagic);
    trade.SetDeviationInPoints(50);
    if(UseCsv() && !LoadCsv())
@@ -237,7 +248,7 @@ void OpenNews(int symIdx, int dir, double units, string tag)
    double risk = InpStopDvol * dvol * price;
    int digits = (int)SymbolInfoInteger(sym, SYMBOL_DIGITS);
    double sl = NormalizeDouble(price - dir * risk, digits);
-   bool ok = (dir > 0) ? trade.Buy(lots, sym, 0, sl, 0, "news " + tag) : trade.Sell(lots, sym, 0, sl, 0, "news " + tag);
+   bool ok = (dir > 0) ? trade.Buy(lots, sym, 0, sl, 0, "NEWS") : trade.Sell(lots, sym, 0, sl, 0, "NEWS");
    if(!ok) { PrintFormat("order failed %s: %d", sym, trade.ResultRetcode()); return; }
    ulong t = trade.ResultOrder();
    if(PositionSelectByTicket(t) == false)
@@ -260,7 +271,8 @@ void ManagePositions()
   {
    for(int i = ArraySize(g_pos) - 1; i >= 0; i--)
      {
-      if(!PositionSelectByTicket(g_pos[i].ticket)) { ArrayRemove(g_pos, i, 1); continue; }
+      if(!PositionSelectByTicket(g_pos[i].ticket) || PositionGetInteger(POSITION_MAGIC) != InpMagic)
+        { ArrayRemove(g_pos, i, 1); continue; }
       if(TimeCurrent() >= g_pos[i].opened + InpHoldMinutes * 60)
         { trade.PositionClose(g_pos[i].ticket); ArrayRemove(g_pos, i, 1); continue; }
       if(!g_pos[i].be)
@@ -284,7 +296,7 @@ void Execute(int kUsd, int kCad, string tag)
      {
       int k = g_orient[i] * kUsd;
       if(i == 4) k = kUsd - kCad;                 // USDCAD: USD good -> up, CAD good -> down
-      if(k == 0) continue;
+      if(k == 0 || g_skip[i]) continue;
       OpenNews(i, k > 0 ? 1 : -1, MathAbs(k), tag);
      }
   }

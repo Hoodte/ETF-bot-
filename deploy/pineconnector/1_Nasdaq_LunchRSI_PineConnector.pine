@@ -13,6 +13,8 @@
 //   • Risk per trade = a % of equity (default 1.1% = plan size 0.75% x 1.5).
 //   • Safety: no new trades after a -2% day; half size when equity < 95% of the start balance.
 //
+//  SEPARATION: PineConnector EA setting "Magic Restriction" must be ON, so its close commands only
+//  touch PineConnector trades (never the news EA's). Each strategy trades its own symbol.
 //  PINECONNECTOR
 //   Create ONE alert on this script: Condition = this strategy -> "alert() function calls only",
 //   Webhook URL = your PineConnector webhook, Message = leave as is (the script writes it).

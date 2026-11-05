@@ -21,6 +21,8 @@
 //  choose Managed Money Positions -> Long / Short and Open Interest, and copy the ticker IDs it
 //  displays into the three inputs below.
 //
+//  SEPARATION: PineConnector EA setting "Magic Restriction" must be ON, so its close commands only
+//  touch PineConnector trades (never the news EA's). Each strategy trades its own symbol.
 //  PINECONNECTOR: one alert on this script, "alert() function calls only", webhook = PineConnector.
 //  Requires an FTMO account type that allows holding over weekends (positions last days/weeks).
 // ============================================================================
