@@ -1,0 +1,97 @@
+//@version=6
+// ============================================================================
+//  Nasdaq Lunch-RSI (1:3)  ·  PineConnector edition
+//  Source: backtest-bot discovery run nas100_m15_histdata_r9 (pattern
+//  rsi_overbought_70 + session_lunch, long), exit study round 11 (1 ATR stop / 3 ATR target).
+//
+//  RULES (identical to the research version)
+//   • Chart: Nasdaq 100 CFD, 15-minute bars (e.g. FOREXCOM:NSXUSD, CAPITALCOM:US100).
+//   • Signal: at the close of a 15m bar that STARTS between 11:30 and 13:29 New York time,
+//     RSI(14) of closes > 70  ->  buy at the next bar's open.
+//   • Stop = 1 x ATR(14) below entry, target = 3 x ATR(14) above entry (ATR of the signal bar).
+//   • Max one trade per day; all positions closed before the US cash close.
+//   • Risk per trade = a % of equity (default 1.1% = plan size 0.75% x 1.5).
+//   • Safety: no new trades after a -2% day; half size when equity < 95% of the start balance.
+//
+//  PINECONNECTOR
+//   Create ONE alert on this script: Condition = this strategy -> "alert() function calls only",
+//   Webhook URL = your PineConnector webhook, Message = leave as is (the script writes it).
+//   Uses PineConnector explicit syntax (EA v3.53.2+): vol_pct_eq_loss, sl_pct, tp_pct.
+// ============================================================================
+strategy("Nasdaq Lunch-RSI 1:3 [PineConnector]", overlay = true,
+     initial_capital = 100000, currency = currency.USD, pyramiding = 0,
+     commission_type = strategy.commission.cash_per_contract, commission_value = 0.75,   // ~1.5 pt spread split over entry+exit
+     slippage = 0, process_orders_on_close = false, calc_on_every_tick = false)
+
+// ---------------------------------------------------------------- inputs
+grpPC   = "PineConnector"
+licId   = input.string("YOUR_LICENSE_ID", "PineConnector License ID", group = grpPC)
+mt5Sym  = input.string("US100.cash", "MT5 symbol name (FTMO)", group = grpPC)
+cmt     = input.string("NasLunchRSI", "Order comment (no spaces)", group = grpPC)
+
+grpS    = "Strategy (frozen research settings)"
+rsiLen  = input.int(14, "RSI length", group = grpS)
+rsiLvl  = input.float(70, "RSI threshold", group = grpS)
+atrLen  = input.int(14, "ATR length", group = grpS)
+stopAtr = input.float(1.0, "Stop (x ATR)", group = grpS)
+tgtAtr  = input.float(3.0, "Target (x ATR)", group = grpS)
+sessStart = input.int(11 * 60 + 30, "Session start (minutes after NY midnight)", group = grpS)
+sessEnd   = input.int(13 * 60 + 30, "Session end (minutes, exclusive)", group = grpS)
+flatMin   = input.int(15 * 60 + 30, "Flatten: close on the bar starting at (NY minutes)", group = grpS)
+
+grpR    = "Risk & FTMO safety"
+riskPct = input.float(1.1, "Risk per trade (% of equity)", step = 0.05, group = grpR)
+dayStop = input.float(2.0, "Stop trading for the day after a loss of (%)", group = grpR)
+halfDD  = input.float(5.0, "Half size when equity is below start by (%)", group = grpR)
+fromDate = input.time(timestamp("2016-01-01T00:00:00"), "Backtest from", group = grpR)
+
+// ---------------------------------------------------------------- calculations
+tz      = "America/New_York"
+nyMin   = hour(time, tz) * 60 + minute(time, tz)
+inLunch = nyMin >= sessStart and nyMin < sessEnd
+r       = ta.rsi(close, rsiLen)
+atr     = ta.atr(atrLen)
+
+dayKey  = year(time, tz) * 10000 + month(time, tz) * 100 + dayofmonth(time, tz)
+newDay  = dayKey != nz(dayKey[1])
+var float dayStartEq = strategy.initial_capital
+var int   tradedDay  = -1
+var float sStop = na
+var float sTgt  = na
+if newDay
+    dayStartEq := strategy.equity
+
+dayLossHit  = (strategy.equity - dayStartEq) / dayStartEq * 100 <= -dayStop
+sizeMult    = strategy.equity < strategy.initial_capital * (1 - halfDD / 100) ? 0.5 : 1.0
+effRisk     = riskPct * sizeMult
+
+signal = time >= fromDate and inLunch and r > rsiLvl and strategy.position_size == 0 and
+         tradedDay != dayKey and not dayLossHit and barstate.isconfirmed and atr > 0
+
+stopDist = stopAtr * atr
+tgtDist  = tgtAtr * atr
+
+if signal
+    qty = (strategy.equity * effRisk / 100) / (stopDist * syminfo.pointvalue)
+    strategy.entry("L", strategy.long, qty = qty)
+    sStop := stopDist
+    sTgt  := tgtDist
+    tradedDay := dayKey
+    slPct = stopDist / close * 100
+    tpPct = tgtDist / close * 100
+    msg = licId + ",buy," + mt5Sym + ",vol_pct_eq_loss=" + str.tostring(effRisk, "#.##") +
+          ",sl_pct=" + str.tostring(slPct, "#.####") + ",tp_pct=" + str.tostring(tpPct, "#.####") + ",comment=" + cmt
+    alert(msg, alert.freq_once_per_bar_close)
+
+// stop / target relative to the actual entry price, using the signal bar's ATR
+if not na(sStop)
+    strategy.exit("LX", "L", loss = sStop / syminfo.mintick, profit = sTgt / syminfo.mintick)
+
+// flatten before the US cash close
+if strategy.position_size > 0 and nyMin >= flatMin and barstate.isconfirmed
+    strategy.close("L", comment = "EOD")
+    alert(licId + ",closelong," + mt5Sym + ",comment=" + cmt, alert.freq_once_per_bar_close)
+
+// ---------------------------------------------------------------- visuals
+bgcolor(inLunch ? color.new(color.blue, 92) : na)
+plotshape(signal, "Signal", shape.triangleup, location.belowbar, color.green, size = size.small)

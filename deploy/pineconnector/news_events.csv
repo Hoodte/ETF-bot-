@@ -1,0 +1,2856 @@
+time_utc,currency,z,title
+2016.03.28 12:30,USD,-0.866,Personal Income MoM
+2016.03.28 12:30,USD,0.0,Core PCE Price Index MoM
+2016.03.28 12:30,USD,3.3129,Personal Spending MoM
+2016.04.01 12:30,USD,-0.8519,Unemployment Rate
+2016.04.01 12:30,USD,0.6652,Non Farm Payrolls
+2016.04.01 14:00,USD,0.3033,ISM Manufacturing PMI
+2016.04.05 14:00,USD,0.8649,ISM Services PMI
+2016.04.08 12:30,CAD,0.8808,Unemployment Rate
+2016.04.13 12:30,USD,-0.6842,Retail Sales MoM
+2016.04.13 12:30,USD,-0.7126,PPI MoM
+2016.04.14 12:30,USD,1.0056,Inflation Rate MoM
+2016.04.14 12:30,USD,-2.8604,Inflation Rate YoY
+2016.04.14 12:30,USD,0.0,Core Inflation Rate MoM
+2016.04.14 12:30,USD,-1.3553,Core Inflation Rate YoY
+2016.04.15 14:00,USD,-0.8567,Michigan Consumer Sentiment Prel
+2016.04.19 12:30,USD,-0.8387,Housing Starts
+2016.04.19 12:30,USD,-1.1151,Building Permits Prel
+2016.04.20 14:00,USD,0.1883,Existing Home Sales
+2016.04.22 12:30,CAD,0.7772,Inflation Rate YoY
+2016.04.26 12:30,USD,-0.5021,Durable Goods Orders MoM
+2016.04.29 12:30,USD,-1.3693,Personal Spending MoM
+2016.04.29 12:30,USD,-0.9129,Personal Income MoM
+2016.04.29 12:30,USD,0.0,Core PCE Price Index MoM
+2016.05.02 14:00,USD,-0.1019,ISM Manufacturing PMI
+2016.05.04 14:00,USD,0.3112,ISM Services PMI
+2016.05.06 12:30,USD,-0.8397,Unemployment Rate
+2016.05.06 12:30,CAD,-0.7906,Unemployment Rate
+2016.05.06 12:30,USD,-0.136,Non Farm Payrolls
+2016.05.10 14:00,USD,2.4465,JOLTs Job Openings
+2016.05.13 12:30,USD,-0.5329,Retail Sales MoM
+2016.05.13 12:30,USD,-0.3654,PPI MoM
+2016.05.13 14:00,USD,2.2246,Michigan Consumer Sentiment Prel
+2016.05.17 12:30,USD,-0.1311,Building Permits Prel
+2016.05.17 12:30,USD,0.0,Inflation Rate YoY
+2016.05.17 12:30,USD,1.0,Inflation Rate MoM
+2016.05.17 12:30,USD,0.5245,Housing Starts
+2016.05.17 12:30,USD,0.0,Core Inflation Rate YoY
+2016.05.17 12:30,USD,1.854,Core Inflation Rate MoM
+2016.05.20 12:30,CAD,0.0,Inflation Rate YoY
+2016.05.20 14:00,USD,0.3438,Existing Home Sales
+2016.05.26 12:30,USD,1.5088,Durable Goods Orders MoM
+2016.05.31 12:30,USD,-0.4422,Personal Spending MoM
+2016.05.31 12:30,USD,0.0,Core PCE Price Index MoM
+2016.05.31 12:30,USD,-1.9149,Personal Income MoM
+2016.06.01 14:00,USD,1.0582,ISM Manufacturing PMI
+2016.06.03 12:30,USD,0.8379,Unemployment Rate
+2016.06.03 12:30,USD,-1.6716,Non Farm Payrolls
+2016.06.03 14:00,USD,-0.9093,ISM Services PMI
+2016.06.07 14:00,CAD,-0.3324,Ivey PMI s.a
+2016.06.08 14:00,USD,0.4417,JOLTs Job Openings
+2016.06.10 12:30,CAD,-0.0,Unemployment Rate
+2016.06.10 14:00,USD,0.0968,Michigan Consumer Sentiment Prel
+2016.06.14 12:30,USD,0.0,Retail Sales MoM
+2016.06.15 12:30,USD,-0.3813,PPI MoM
+2016.06.16 12:30,USD,0.0,Core Inflation Rate YoY
+2016.06.16 12:30,USD,0.0,Core Inflation Rate MoM
+2016.06.16 12:30,USD,-1.0038,Inflation Rate MoM
+2016.06.16 12:30,USD,-1.0667,Inflation Rate YoY
+2016.06.17 12:30,USD,-0.1173,Building Permits Prel
+2016.06.17 12:30,USD,-0.0299,Housing Starts
+2016.06.17 12:30,CAD,-0.8292,Inflation Rate YoY
+2016.06.22 14:00,USD,-0.5074,Existing Home Sales
+2016.06.24 12:30,USD,-0.8469,Durable Goods Orders MoM
+2016.06.29 12:30,USD,0.0,Core PCE Price Index MoM
+2016.06.29 12:30,USD,-0.4598,Personal Spending MoM
+2016.06.29 12:30,USD,-1.9272,Personal Income MoM
+2016.07.01 14:00,USD,0.801,ISM Manufacturing PMI
+2016.07.06 14:00,USD,1.6387,ISM Services PMI
+2016.07.07 14:00,CAD,0.1145,Ivey PMI s.a
+2016.07.08 12:30,CAD,-0.0,Unemployment Rate
+2016.07.08 12:30,USD,0.9338,Non Farm Payrolls
+2016.07.08 12:30,USD,-0.8578,Unemployment Rate
+2016.07.12 14:00,USD,0.2667,JOLTs Job Openings
+2016.07.14 12:30,USD,0.7931,PPI MoM
+2016.07.15 12:30,USD,-1.4142,Core Inflation Rate YoY
+2016.07.15 12:30,USD,0.0,Inflation Rate MoM
+2016.07.15 12:30,USD,1.9314,Retail Sales MoM
+2016.07.15 12:30,USD,0.0,Core Inflation Rate MoM
+2016.07.15 12:30,USD,-1.0481,Inflation Rate YoY
+2016.07.15 14:00,USD,-1.3467,Michigan Consumer Sentiment Prel
+2016.07.19 12:30,USD,0.0305,Building Permits Prel
+2016.07.19 12:30,USD,0.5158,Housing Starts
+2016.07.21 14:00,USD,-0.0528,Existing Home Sales
+2016.07.22 12:30,CAD,0.8421,Inflation Rate YoY
+2016.07.27 12:30,USD,-1.4498,Durable Goods Orders MoM
+2016.08.01 14:00,USD,-0.2963,ISM Manufacturing PMI
+2016.08.02 12:30,USD,0.0,Core PCE Price Index MoM
+2016.08.02 12:30,USD,0.0,Personal Income MoM
+2016.08.02 12:30,USD,1.43,Personal Spending MoM
+2016.08.03 14:00,USD,0.1234,ISM Services PMI
+2016.08.05 12:30,USD,-0.0,Unemployment Rate
+2016.08.05 12:30,USD,2.5334,Non Farm Payrolls
+2016.08.05 12:30,CAD,-0.8567,Unemployment Rate
+2016.08.05 14:00,CAD,1.0453,Ivey PMI s.a
+2016.08.10 14:00,USD,0.5911,JOLTs Job Openings
+2016.08.12 12:30,USD,-0.8622,Retail Sales MoM
+2016.08.12 12:30,USD,-0.8016,PPI MoM
+2016.08.12 14:00,USD,-0.3616,Michigan Consumer Sentiment Prel
+2016.08.16 12:30,USD,-0.0846,Building Permits Prel
+2016.08.16 12:30,USD,0.946,Housing Starts
+2016.08.16 12:30,USD,-1.0408,Inflation Rate YoY
+2016.08.16 12:30,USD,-1.0408,Inflation Rate MoM
+2016.08.16 12:30,USD,-1.3698,Core Inflation Rate YoY
+2016.08.16 12:30,USD,-1.8028,Core Inflation Rate MoM
+2016.08.19 12:30,CAD,0.0,Inflation Rate YoY
+2016.08.24 14:00,USD,-0.7682,Existing Home Sales
+2016.08.25 12:30,USD,0.527,Durable Goods Orders MoM
+2016.08.29 12:30,USD,0.0,Core PCE Price Index MoM
+2016.08.29 12:30,USD,-0.4546,Personal Spending MoM
+2016.08.29 12:30,USD,0.0,Personal Income MoM
+2016.09.01 14:00,USD,-2.2551,ISM Manufacturing PMI
+2016.09.02 12:30,USD,-0.8885,Unemployment Rate
+2016.09.02 12:30,USD,-0.4469,Non Farm Payrolls
+2016.09.06 14:00,USD,-1.536,ISM Services PMI
+2016.09.07 14:00,CAD,-0.5408,Ivey PMI s.a
+2016.09.09 12:30,CAD,-0.0,Unemployment Rate
+2016.09.15 12:30,USD,0.175,Retail Sales MoM
+2016.09.15 12:30,USD,-1.2218,PPI MoM
+2016.09.16 12:30,USD,1.0404,Inflation Rate MoM
+2016.09.16 12:30,USD,1.0404,Inflation Rate YoY
+2016.09.16 12:30,USD,1.3455,Core Inflation Rate YoY
+2016.09.16 12:30,USD,0.0,Core Inflation Rate MoM
+2016.09.16 14:00,USD,-0.3403,Michigan Consumer Sentiment Prel
+2016.09.20 12:30,USD,-0.3053,Housing Starts
+2016.09.20 12:30,USD,-0.3396,Building Permits Prel
+2016.09.22 14:00,USD,-0.2817,Existing Home Sales
+2016.09.23 12:30,CAD,-2.6458,Inflation Rate YoY
+2016.09.28 12:30,USD,0.6884,Durable Goods Orders MoM
+2016.09.30 12:30,USD,0.4682,Personal Spending MoM
+2016.09.30 12:30,USD,0.0,Core PCE Price Index MoM
+2016.09.30 12:30,USD,0.9682,Personal Income MoM
+2016.10.03 14:00,USD,0.7596,ISM Manufacturing PMI
+2016.10.05 14:00,USD,1.469,ISM Services PMI
+2016.10.07 12:30,USD,1.5287,Non Farm Payrolls
+2016.10.07 12:30,CAD,-0.0,Unemployment Rate
+2016.10.07 12:30,USD,-0.89,Unemployment Rate
+2016.10.12 14:00,USD,-0.1708,JOLTs Job Openings
+2016.10.14 12:30,USD,0.4043,PPI MoM
+2016.10.14 12:30,USD,0.1806,Retail Sales MoM
+2016.10.14 14:00,USD,-1.407,Michigan Consumer Sentiment Prel
+2016.10.18 12:30,USD,-1.2955,Core Inflation Rate YoY
+2016.10.18 12:30,USD,0.0,Core Inflation Rate MoM
+2016.10.18 12:30,USD,0.0,Inflation Rate MoM
+2016.10.18 12:30,USD,0.0,Inflation Rate YoY
+2016.10.19 12:30,USD,-1.7738,Housing Starts
+2016.10.19 12:30,USD,0.675,Building Permits Prel
+2016.10.19 14:00,CAD,0.0,Interest Rate
+2016.10.20 14:00,USD,0.6997,Existing Home Sales
+2016.10.21 12:30,CAD,-1.5065,Inflation Rate YoY
+2016.10.27 12:30,USD,-0.1102,Durable Goods Orders MoM
+2016.10.31 12:30,USD,0.0,Core PCE Price Index MoM
+2016.10.31 12:30,USD,0.4789,Personal Spending MoM
+2016.10.31 12:30,USD,0.0,Personal Income MoM
+2016.11.01 14:00,USD,0.0941,ISM Manufacturing PMI
+2016.11.03 14:00,USD,-1.0057,ISM Services PMI
+2016.11.04 12:30,USD,-0.8817,Non Farm Payrolls
+2016.11.04 12:30,USD,-0.0,Unemployment Rate
+2016.11.04 12:30,CAD,0.9162,Unemployment Rate
+2016.11.08 15:00,USD,1.2904,JOLTs Job Openings
+2016.11.11 15:00,USD,1.4207,Michigan Consumer Sentiment Prel
+2016.11.15 13:30,USD,-0.7442,Retail Sales MoM
+2016.11.16 13:30,USD,0.0,PPI MoM
+2016.11.17 13:30,USD,-1.2801,Core Inflation Rate YoY
+2016.11.17 13:30,USD,-1.7995,Core Inflation Rate MoM
+2016.11.17 13:30,USD,-2.1381,Inflation Rate MoM
+2016.11.17 13:30,USD,2.4588,Housing Starts
+2016.11.17 13:30,USD,0.0,Inflation Rate YoY
+2016.11.17 13:30,USD,0.3567,Building Permits Prel
+2016.11.18 13:30,CAD,0.0,Inflation Rate YoY
+2016.11.22 15:00,USD,0.7606,Existing Home Sales
+2016.11.23 13:30,USD,1.7066,Durable Goods Orders MoM
+2016.11.30 13:30,USD,0.0,Personal Income MoM
+2016.11.30 13:30,USD,0.0,Core PCE Price Index MoM
+2016.11.30 13:30,USD,-1.4685,Personal Spending MoM
+2016.12.01 15:00,USD,0.9643,ISM Manufacturing PMI
+2016.12.02 13:30,USD,-0.6471,Non Farm Payrolls
+2016.12.02 13:30,CAD,1.7581,Unemployment Rate
+2016.12.02 13:30,USD,1.8439,Unemployment Rate
+2016.12.05 15:00,USD,0.5906,ISM Services PMI
+2016.12.07 15:00,CAD,0.0,Interest Rate
+2016.12.07 15:00,USD,0.3364,JOLTs Job Openings
+2016.12.09 15:00,USD,1.1612,Michigan Consumer Sentiment Prel
+2016.12.14 13:30,USD,0.4261,PPI MoM
+2016.12.14 13:30,USD,-0.5681,Retail Sales MoM
+2016.12.15 13:30,USD,-1.2724,Core Inflation Rate YoY
+2016.12.15 13:30,USD,-0.9779,Inflation Rate MoM
+2016.12.15 13:30,USD,-1.7153,Core Inflation Rate MoM
+2016.12.15 13:30,USD,0.0,Inflation Rate YoY
+2016.12.16 13:30,USD,-1.2328,Housing Starts
+2016.12.16 13:30,USD,-0.4621,Building Permits Prel
+2016.12.21 15:00,USD,0.0587,Existing Home Sales
+2016.12.22 13:30,CAD,-1.5154,Inflation Rate YoY
+2016.12.22 13:30,USD,0.0494,Durable Goods Orders MoM
+2016.12.22 15:00,USD,-0.4769,Personal Spending MoM
+2016.12.22 15:00,USD,0.0,Personal Income MoM
+2016.12.22 15:00,USD,-3.1716,Core PCE Price Index MoM
+2017.01.03 15:00,USD,0.7593,ISM Manufacturing PMI
+2017.01.05 15:00,USD,-0.4814,ISM Services PMI
+2017.01.06 13:30,USD,0.5378,Non Farm Payrolls
+2017.01.06 13:30,CAD,-0.0,Unemployment Rate
+2017.01.06 13:30,USD,-0.0,Unemployment Rate
+2017.01.10 15:00,USD,1.5663,JOLTs Job Openings
+2017.01.13 13:30,USD,1.1629,Retail Sales MoM
+2017.01.13 13:30,USD,0.0,PPI MoM
+2017.01.13 15:00,USD,-0.1307,Michigan Consumer Sentiment Prel
+2017.01.18 13:30,USD,0.0,Inflation Rate YoY
+2017.01.18 13:30,USD,0.0,Inflation Rate MoM
+2017.01.18 13:30,USD,0.0,Core Inflation Rate MoM
+2017.01.18 13:30,USD,0.0,Core Inflation Rate YoY
+2017.01.18 15:00,CAD,0.0,Interest Rate
+2017.01.19 13:30,USD,0.7024,Housing Starts
+2017.01.19 13:30,USD,-0.1809,Building Permits Prel
+2017.01.20 13:30,CAD,-1.4902,Inflation Rate YoY
+2017.01.24 15:00,USD,0.0,Existing Home Sales
+2017.01.27 13:30,USD,-1.5249,Durable Goods Orders MoM
+2017.01.30 13:30,USD,0.9346,Personal Income MoM
+2017.01.30 13:30,USD,1.9524,Personal Spending MoM
+2017.01.30 13:30,USD,0.0,Core PCE Price Index MoM
+2017.02.01 15:00,USD,0.6648,ISM Manufacturing PMI
+2017.02.03 13:30,USD,0.5273,Non Farm Payrolls
+2017.02.03 13:30,USD,-0.0,Unemployment Rate
+2017.02.03 15:00,USD,0.0,ISM Services PMI
+2017.02.07 15:00,USD,1.5217,JOLTs Job Openings
+2017.02.10 13:30,CAD,-0.0,Unemployment Rate
+2017.02.10 15:00,USD,-0.7383,Michigan Consumer Sentiment Prel
+2017.02.14 13:30,USD,0.4467,PPI MoM
+2017.02.15 13:30,USD,1.165,Inflation Rate YoY
+2017.02.15 13:30,USD,1.7155,Retail Sales MoM
+2017.02.15 13:30,USD,0.0,Core Inflation Rate MoM
+2017.02.15 13:30,USD,1.0121,Inflation Rate MoM
+2017.02.15 13:30,USD,2.6049,Core Inflation Rate YoY
+2017.02.16 13:30,USD,-0.4378,Housing Starts
+2017.02.16 13:30,USD,0.6795,Building Permits Prel
+2017.02.22 15:00,USD,0.8048,Existing Home Sales
+2017.02.24 13:30,CAD,3.6866,Inflation Rate YoY
+2017.02.27 13:30,USD,0.0,Durable Goods Orders MoM
+2017.03.01 13:30,USD,2.7889,Core PCE Price Index MoM
+2017.03.01 13:30,USD,3.6018,Personal Income MoM
+2017.03.01 13:30,USD,0.4542,Personal Spending MoM
+2017.03.01 15:00,USD,1.626,ISM Manufacturing PMI
+2017.03.01 15:00,CAD,0.0,Interest Rate
+2017.03.03 15:00,USD,0.063,ISM Services PMI
+2017.03.10 13:30,USD,0.3357,Non Farm Payrolls
+2017.03.10 13:30,CAD,1.6541,Unemployment Rate
+2017.03.10 13:30,USD,0.9165,Unemployment Rate
+2017.03.14 12:30,USD,-0.4551,PPI MoM
+2017.03.15 12:30,USD,0.0,Inflation Rate YoY
+2017.03.15 12:30,USD,0.0,Core Inflation Rate YoY
+2017.03.15 12:30,USD,-0.1814,Retail Sales MoM
+2017.03.15 12:30,USD,0.0,Core Inflation Rate MoM
+2017.03.15 12:30,USD,2.0096,Inflation Rate MoM
+2017.03.16 12:30,USD,-0.5912,Building Permits Prel
+2017.03.16 12:30,USD,0.1537,Housing Starts
+2017.03.17 14:00,USD,0.2043,Michigan Consumer Sentiment Prel
+2017.03.22 14:00,USD,-0.7453,Existing Home Sales
+2017.03.24 12:30,CAD,-0.5624,Inflation Rate YoY
+2017.03.24 12:30,USD,0.2505,Durable Goods Orders MoM
+2017.03.31 12:30,USD,0.0,Core PCE Price Index MoM
+2017.03.31 12:30,USD,0.0,Personal Income MoM
+2017.03.31 12:30,USD,0.0,Personal Spending MoM
+2017.04.03 14:00,USD,-0.4564,ISM Manufacturing PMI
+2017.04.05 14:00,USD,-0.5165,ISM Services PMI
+2017.04.07 12:30,CAD,-0.0,Unemployment Rate
+2017.04.07 12:30,USD,2.7723,Unemployment Rate
+2017.04.07 12:30,USD,-0.6878,Non Farm Payrolls
+2017.04.11 14:00,USD,1.0528,JOLTs Job Openings
+2017.04.12 14:00,CAD,0.0,Interest Rate
+2017.04.13 12:30,USD,0.9293,PPI MoM
+2017.04.13 14:00,USD,0.5221,Michigan Consumer Sentiment Prel
+2017.04.14 12:30,USD,-3.4566,Core Inflation Rate YoY
+2017.04.14 12:30,USD,-0.1857,Retail Sales MoM
+2017.04.14 12:30,USD,-3.57,Core Inflation Rate MoM
+2017.04.14 12:30,USD,0.0,Inflation Rate MoM
+2017.04.14 12:30,USD,-2.37,Inflation Rate YoY
+2017.04.18 12:30,USD,0.1272,Building Permits Prel
+2017.04.18 12:30,USD,-0.8583,Housing Starts
+2017.04.21 12:30,CAD,-1.1469,Inflation Rate YoY
+2017.04.21 14:00,USD,0.063,Existing Home Sales
+2017.04.27 12:30,USD,-0.2564,Durable Goods Orders MoM
+2017.05.01 12:30,USD,2.3979,Core PCE Price Index MoM
+2017.05.01 12:30,USD,0.0,Personal Income MoM
+2017.05.01 12:30,USD,0.9476,Personal Spending MoM
+2017.05.01 14:00,USD,-0.6519,ISM Manufacturing PMI
+2017.05.03 14:00,USD,0.9194,ISM Services PMI
+2017.05.05 12:30,USD,1.6472,Unemployment Rate
+2017.05.05 12:30,CAD,1.5807,Unemployment Rate
+2017.05.05 12:30,USD,0.2467,Non Farm Payrolls
+2017.05.11 12:30,USD,0.9296,PPI MoM
+2017.05.12 12:30,USD,-0.9592,Core Inflation Rate YoY
+2017.05.12 12:30,USD,-1.4897,Core Inflation Rate MoM
+2017.05.12 12:30,USD,-0.9574,Inflation Rate MoM
+2017.05.12 12:30,USD,-0.3799,Retail Sales MoM
+2017.05.12 12:30,USD,-1.0773,Inflation Rate YoY
+2017.05.12 14:00,USD,0.2474,Michigan Consumer Sentiment Prel
+2017.05.16 12:30,USD,-1.6426,Housing Starts
+2017.05.16 12:30,USD,-0.5339,Building Permits Prel
+2017.05.19 12:30,CAD,-0.5736,Inflation Rate YoY
+2017.05.24 14:00,CAD,0.0,Interest Rate
+2017.05.24 14:00,USD,-0.5801,Existing Home Sales
+2017.05.26 12:30,USD,0.2619,Durable Goods Orders MoM
+2017.05.30 12:30,USD,2.1538,Core PCE Price Index MoM
+2017.05.30 12:30,USD,0.0,Personal Income MoM
+2017.05.30 12:30,USD,-0.9505,Personal Spending MoM
+2017.06.01 14:00,USD,1.7025,ISM Manufacturing PMI
+2017.06.02 12:30,USD,0.2522,Non Farm Payrolls
+2017.06.02 12:30,USD,-0.0,Unemployment Rate
+2017.06.05 14:00,USD,0.2636,ISM Services PMI
+2017.06.09 12:30,CAD,-0.0,Unemployment Rate
+2017.06.13 12:30,USD,-0.4658,PPI MoM
+2017.06.14 12:30,USD,-1.9378,Core Inflation Rate YoY
+2017.06.14 12:30,USD,-1.48,Core Inflation Rate MoM
+2017.06.14 12:30,USD,-0.96,Inflation Rate MoM
+2017.06.14 12:30,USD,-1.1619,Retail Sales MoM
+2017.06.14 12:30,USD,-1.0769,Inflation Rate YoY
+2017.06.16 12:30,USD,-0.8109,Housing Starts
+2017.06.16 12:30,USD,-1.0815,Building Permits Prel
+2017.06.16 14:00,USD,-0.9375,Michigan Consumer Sentiment Prel
+2017.06.21 14:00,USD,0.2625,Existing Home Sales
+2017.06.23 12:30,CAD,-1.1689,Inflation Rate YoY
+2017.06.26 12:30,USD,-0.2675,Durable Goods Orders MoM
+2017.06.30 12:30,USD,-0.4758,Personal Spending MoM
+2017.06.30 12:30,USD,2.1669,Personal Income MoM
+2017.06.30 12:30,USD,0.0,Core PCE Price Index MoM
+2017.07.03 14:00,USD,0.9053,ISM Manufacturing PMI
+2017.07.06 14:00,USD,0.2017,ISM Services PMI
+2017.07.07 12:30,USD,0.3092,Non Farm Payrolls
+2017.07.07 12:30,CAD,0.7692,Unemployment Rate
+2017.07.07 12:30,USD,-0.0,Unemployment Rate
+2017.07.11 14:00,USD,-0.5004,JOLTs Job Openings
+2017.07.12 14:00,CAD,0.0,Interest Rate
+2017.07.13 12:30,USD,0.4737,PPI MoM
+2017.07.14 12:30,USD,-1.0783,Inflation Rate YoY
+2017.07.14 12:30,USD,0.771,Retail Sales MoM
+2017.07.14 12:30,USD,0.0,Inflation Rate MoM
+2017.07.14 12:30,USD,0.0,Core Inflation Rate YoY
+2017.07.14 12:30,USD,-1.4744,Core Inflation Rate MoM
+2017.07.14 14:00,USD,-0.6885,Michigan Consumer Sentiment Prel
+2017.07.19 12:30,USD,1.3289,Housing Starts
+2017.07.19 12:30,USD,0.7072,Building Permits Prel
+2017.07.21 12:30,CAD,0.0,Inflation Rate YoY
+2017.07.24 14:00,USD,-0.6011,Existing Home Sales
+2017.07.27 12:30,USD,1.9086,Durable Goods Orders MoM
+2017.08.01 12:30,USD,-1.3232,Personal Income MoM
+2017.08.01 12:30,USD,0.0,Core PCE Price Index MoM
+2017.08.01 12:30,USD,1.4504,Personal Spending MoM
+2017.08.01 14:00,USD,0.0,ISM Manufacturing PMI
+2017.08.03 14:00,USD,-1.0972,ISM Services PMI
+2017.08.04 12:30,USD,0.0789,Non Farm Payrolls
+2017.08.04 12:30,CAD,1.5423,Unemployment Rate
+2017.08.04 12:30,USD,-0.0,Unemployment Rate
+2017.08.08 14:00,USD,2.064,JOLTs Job Openings
+2017.08.10 12:30,USD,0.0,PPI MoM
+2017.08.11 12:30,USD,-1.967,Inflation Rate MoM
+2017.08.11 12:30,USD,-1.0812,Inflation Rate YoY
+2017.08.11 12:30,USD,-1.472,Core Inflation Rate MoM
+2017.08.11 12:30,USD,0.0,Core Inflation Rate YoY
+2017.08.15 12:30,USD,-0.7758,Retail Sales MoM
+2017.08.16 12:30,USD,-0.1938,Housing Starts
+2017.08.16 12:30,USD,-0.3578,Building Permits Prel
+2017.08.18 12:30,CAD,0.0,Inflation Rate YoY
+2017.08.18 14:00,USD,1.3216,Michigan Consumer Sentiment Prel
+2017.08.24 14:00,USD,-0.7467,Existing Home Sales
+2017.08.25 12:30,USD,-0.4169,Durable Goods Orders MoM
+2017.08.31 12:30,USD,-0.4737,Personal Spending MoM
+2017.08.31 12:30,USD,0.0,Core PCE Price Index MoM
+2017.08.31 12:30,USD,0.6583,Personal Income MoM
+2017.09.01 12:30,USD,-0.4422,Non Farm Payrolls
+2017.09.01 12:30,USD,-0.8542,Unemployment Rate
+2017.09.01 14:00,USD,1.7587,ISM Manufacturing PMI
+2017.09.06 14:00,USD,0.273,ISM Services PMI
+2017.09.06 14:00,CAD,4.1231,Interest Rate
+2017.09.08 12:30,CAD,0.7464,Unemployment Rate
+2017.09.13 12:30,USD,0.4907,PPI MoM
+2017.09.14 12:30,USD,1.0853,Inflation Rate YoY
+2017.09.14 12:30,USD,0.9403,Inflation Rate MoM
+2017.09.14 12:30,USD,0.9701,Core Inflation Rate YoY
+2017.09.14 12:30,USD,0.0,Core Inflation Rate MoM
+2017.09.15 12:30,USD,0.1958,Retail Sales MoM
+2017.09.15 14:00,USD,0.0721,Michigan Consumer Sentiment Prel
+2017.09.19 12:30,USD,-0.2258,Housing Starts
+2017.09.19 12:30,USD,1.0773,Building Permits Prel
+2017.09.20 14:00,USD,-0.4814,Existing Home Sales
+2017.09.22 12:30,CAD,-0.6082,Inflation Rate YoY
+2017.09.27 12:30,USD,0.3701,Durable Goods Orders MoM
+2017.09.29 12:30,USD,0.4805,Personal Spending MoM
+2017.09.29 12:30,USD,-2.1213,Core PCE Price Index MoM
+2017.09.29 12:30,USD,1.3229,Personal Income MoM
+2017.10.02 14:00,USD,1.7857,ISM Manufacturing PMI
+2017.10.04 14:00,USD,1.806,ISM Services PMI
+2017.10.06 12:30,USD,-0.0135,Non Farm Payrolls
+2017.10.06 12:30,CAD,0.7511,Unemployment Rate
+2017.10.06 12:30,USD,0.8514,Unemployment Rate
+2017.10.11 14:00,USD,0.5869,JOLTs Job Openings
+2017.10.12 12:30,USD,0.0,PPI MoM
+2017.10.13 12:30,USD,-0.9608,Core Inflation Rate YoY
+2017.10.13 12:30,USD,0.797,Retail Sales MoM
+2017.10.13 12:30,USD,-0.9381,Inflation Rate MoM
+2017.10.13 12:30,USD,-1.4933,Core Inflation Rate MoM
+2017.10.13 12:30,USD,-1.0735,Inflation Rate YoY
+2017.10.13 14:00,USD,2.2404,Michigan Consumer Sentiment Prel
+2017.10.18 12:30,USD,0.0863,Housing Starts
+2017.10.18 12:30,USD,-0.4714,Building Permits Prel
+2017.10.20 12:30,CAD,0.0,Inflation Rate YoY
+2017.10.20 14:00,USD,1.0494,Existing Home Sales
+2017.10.25 12:30,USD,0.6456,Durable Goods Orders MoM
+2017.10.25 14:00,CAD,0.0,Interest Rate
+2017.10.30 12:30,USD,0.0,Core PCE Price Index MoM
+2017.10.30 12:30,USD,0.4874,Personal Spending MoM
+2017.10.30 12:30,USD,1.2953,Personal Income MoM
+2017.11.01 14:00,USD,-0.7776,ISM Manufacturing PMI
+2017.11.03 12:30,USD,-0.0,Unemployment Rate
+2017.11.03 12:30,CAD,-0.7562,Unemployment Rate
+2017.11.03 12:30,USD,-2.3299,Non Farm Payrolls
+2017.11.03 14:00,USD,1.2722,ISM Services PMI
+2017.11.07 15:00,USD,0.9067,JOLTs Job Openings
+2017.11.10 15:00,USD,-0.9954,Michigan Consumer Sentiment Prel
+2017.11.14 13:30,USD,1.5207,PPI MoM
+2017.11.15 13:30,USD,0.9694,Core Inflation Rate YoY
+2017.11.15 13:30,USD,0.2003,Retail Sales MoM
+2017.11.15 13:30,USD,1.4936,Core Inflation Rate MoM
+2017.11.15 13:30,USD,0.0,Inflation Rate MoM
+2017.11.15 13:30,USD,0.0,Inflation Rate YoY
+2017.11.17 13:30,USD,0.6818,Building Permits Prel
+2017.11.17 13:30,USD,1.0535,Housing Starts
+2017.11.17 13:30,CAD,0.0,Inflation Rate YoY
+2017.11.21 15:00,USD,0.2774,Existing Home Sales
+2017.11.22 13:30,USD,-0.8175,Durable Goods Orders MoM
+2017.11.30 13:30,USD,0.0,Core PCE Price Index MoM
+2017.11.30 13:30,USD,-0.4943,Personal Spending MoM
+2017.11.30 13:30,USD,1.274,Personal Income MoM
+2017.12.01 13:30,CAD,-0.0,Unemployment Rate
+2017.12.01 15:00,USD,-0.6941,ISM Manufacturing PMI
+2017.12.05 15:00,USD,-1.2633,ISM Services PMI
+2017.12.06 15:00,CAD,0.0,Interest Rate
+2017.12.08 13:30,USD,0.2923,Non Farm Payrolls
+2017.12.08 13:30,USD,-0.8751,Unemployment Rate
+2017.12.08 15:00,USD,-0.755,Michigan Consumer Sentiment Prel
+2017.12.11 15:00,USD,1.2868,JOLTs Job Openings
+2017.12.12 13:30,USD,0.4969,PPI MoM
+2017.12.13 13:30,USD,-0.9615,Core Inflation Rate YoY
+2017.12.13 13:30,USD,-0.96,Inflation Rate MoM
+2017.12.13 13:30,USD,-1.4241,Core Inflation Rate MoM
+2017.12.13 13:30,USD,0.0,Inflation Rate YoY
+2017.12.14 13:30,USD,1.6289,Retail Sales MoM
+2017.12.19 13:30,USD,0.335,Housing Starts
+2017.12.19 13:30,USD,0.3448,Building Permits Prel
+2017.12.20 15:00,USD,0.7035,Existing Home Sales
+2017.12.21 13:30,CAD,0.6393,Inflation Rate YoY
+2017.12.21 13:30,USD,-0.9258,GDP Growth Rate QoQ Final
+2017.12.22 13:30,USD,-2.075,Core PCE Price Index MoM
+2017.12.22 13:30,USD,1.0005,Personal Spending MoM
+2017.12.22 13:30,USD,0.0,Personal Income MoM
+2017.12.22 13:30,USD,-0.3825,Durable Goods Orders MoM
+2018.01.03 15:00,USD,1.398,ISM Manufacturing PMI
+2018.01.05 13:30,CAD,-0.0,Unemployment Rate
+2018.01.05 13:30,USD,-0.0,Unemployment Rate
+2018.01.05 13:30,USD,-0.5038,Non Farm Payrolls
+2018.01.05 15:00,USD,-0.853,ISM Services PMI
+2018.01.09 15:00,USD,0.9621,JOLTs Job Openings
+2018.01.11 13:30,USD,-0.5038,PPI MoM
+2018.01.12 13:30,USD,0.9692,Core Inflation Rate YoY
+2018.01.12 13:30,USD,0.1982,Retail Sales MoM
+2018.01.12 13:30,USD,0.0,Inflation Rate MoM
+2018.01.12 13:30,USD,0.0,Core Inflation Rate MoM
+2018.01.12 13:30,USD,0.0,Inflation Rate YoY
+2018.01.17 15:00,CAD,0.0,Interest Rate
+2018.01.18 13:30,USD,0.1682,Building Permits Prel
+2018.01.18 13:30,USD,-1.4481,Housing Starts
+2018.01.19 15:00,USD,-0.8991,Michigan Consumer Sentiment Prel
+2018.01.24 15:00,USD,-0.9193,Existing Home Sales
+2018.01.26 13:30,CAD,0.0,Inflation Rate YoY
+2018.01.26 13:30,USD,-0.7651,GDP Growth Rate QoQ Adv
+2018.01.26 13:30,USD,1.1628,Durable Goods Orders MoM
+2018.01.29 13:30,USD,-1.9841,Core PCE Price Index MoM
+2018.01.29 13:30,USD,2.5051,Personal Spending MoM
+2018.01.29 13:30,USD,0.6392,Personal Income MoM
+2018.02.01 15:00,USD,0.518,ISM Manufacturing PMI
+2018.02.02 13:30,USD,-0.5613,Non Farm Payrolls
+2018.02.02 13:30,USD,0.8862,Unemployment Rate
+2018.02.05 15:00,USD,2.3036,ISM Services PMI
+2018.02.06 15:00,CAD,-1.0242,Ivey PMI s.a
+2018.02.06 15:00,USD,1.8369,JOLTs Job Openings
+2018.02.09 13:30,CAD,-0.7884,Unemployment Rate
+2018.02.14 13:30,USD,0.9624,Core Inflation Rate YoY
+2018.02.14 13:30,USD,-1.4098,Retail Sales MoM
+2018.02.14 13:30,USD,0.9809,Inflation Rate MoM
+2018.02.14 13:30,USD,1.4436,Core Inflation Rate MoM
+2018.02.14 13:30,USD,2.2627,Inflation Rate YoY
+2018.02.15 13:30,USD,-0.5093,PPI MoM
+2018.02.16 13:30,USD,1.3676,Building Permits Prel
+2018.02.16 13:30,USD,0.9466,Housing Starts
+2018.02.16 15:00,USD,1.5282,Michigan Consumer Sentiment Prel
+2018.02.21 15:00,USD,-1.3517,Existing Home Sales
+2018.02.23 13:30,CAD,1.9566,Inflation Rate YoY
+2018.02.27 13:30,USD,-0.9391,Durable Goods Orders MoM
+2018.02.28 13:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2018.03.01 13:30,USD,0.0,Core PCE Price Index MoM
+2018.03.01 13:30,USD,1.2896,Personal Income MoM
+2018.03.01 13:30,USD,0.4673,Personal Spending MoM
+2018.03.01 15:00,USD,1.9244,ISM Manufacturing PMI
+2018.03.02 13:30,CAD,0.0,GDP Growth Rate Annualized
+2018.03.05 15:00,USD,-0.3102,ISM Services PMI
+2018.03.07 15:00,CAD,0.0,Interest Rate
+2018.03.09 13:30,USD,-0.8938,Unemployment Rate
+2018.03.09 13:30,CAD,-0.7942,Unemployment Rate
+2018.03.09 13:30,USD,2.5563,Non Farm Payrolls
+2018.03.13 12:30,USD,0.0,Core Inflation Rate MoM
+2018.03.13 12:30,USD,0.0,Inflation Rate YoY
+2018.03.13 12:30,USD,0.0,Core Inflation Rate YoY
+2018.03.13 12:30,USD,0.9771,Inflation Rate MoM
+2018.03.14 12:30,USD,1.0297,PPI MoM
+2018.03.14 12:30,USD,0.5949,Retail Sales MoM
+2018.03.16 12:30,USD,-0.1892,Housing Starts
+2018.03.16 12:30,USD,-0.3109,Building Permits Prel
+2018.03.16 14:00,USD,0.9174,Michigan Consumer Sentiment Prel
+2018.03.16 14:00,USD,3.1093,JOLTs Job Openings
+2018.03.21 14:00,USD,0.5654,Existing Home Sales
+2018.03.23 12:30,CAD,1.238,Inflation Rate YoY
+2018.03.23 12:30,USD,0.883,Durable Goods Orders MoM
+2018.03.28 12:30,USD,1.5722,GDP Growth Rate QoQ Final
+2018.03.29 12:30,USD,0.0,Core PCE Price Index MoM
+2018.03.29 12:30,USD,0.4737,Personal Spending MoM
+2018.03.29 12:30,USD,0.0,Personal Income MoM
+2018.04.02 14:00,USD,-1.0164,ISM Manufacturing PMI
+2018.04.04 14:00,USD,-0.5028,ISM Services PMI
+2018.04.06 12:30,USD,0.4051,Non Farm Payrolls
+2018.04.06 12:30,USD,-0.0,Unemployment Rate
+2018.04.06 12:30,CAD,-0.0,Unemployment Rate
+2018.04.10 12:30,USD,0.5153,PPI MoM
+2018.04.11 12:30,USD,0.0,Core Inflation Rate YoY
+2018.04.11 12:30,USD,0.0,Core Inflation Rate MoM
+2018.04.11 12:30,USD,0.0,Inflation Rate MoM
+2018.04.11 12:30,USD,0.0,Inflation Rate YoY
+2018.04.13 14:00,USD,-0.9197,Michigan Consumer Sentiment Prel
+2018.04.13 14:00,USD,1.5368,JOLTs Job Openings
+2018.04.16 12:30,USD,-0.801,Retail Sales MoM
+2018.04.17 12:30,USD,0.8275,Housing Starts
+2018.04.17 12:30,USD,0.4434,Building Permits Prel
+2018.04.18 14:00,CAD,0.0,Interest Rate
+2018.04.20 12:30,CAD,-0.6115,Inflation Rate YoY
+2018.04.23 14:00,USD,-0.0712,Existing Home Sales
+2018.04.26 12:30,USD,0.555,Durable Goods Orders MoM
+2018.04.27 12:30,USD,0.6004,GDP Growth Rate QoQ Adv
+2018.04.30 12:30,USD,0.0,Core PCE Price Index MoM
+2018.04.30 12:30,USD,0.0,Personal Spending MoM
+2018.04.30 12:30,USD,0.0,Personal Income MoM
+2018.05.01 14:00,USD,0.2528,ISM Manufacturing PMI
+2018.05.03 14:00,USD,-0.3174,ISM Services PMI
+2018.05.04 12:30,USD,-0.6473,Non Farm Payrolls
+2018.05.04 12:30,USD,-0.0,Unemployment Rate
+2018.05.08 14:00,USD,2.9533,JOLTs Job Openings
+2018.05.09 12:30,USD,0.0,PPI MoM
+2018.05.10 12:30,USD,-0.986,Core Inflation Rate YoY
+2018.05.10 12:30,USD,0.0,Inflation Rate MoM
+2018.05.10 12:30,USD,-1.4275,Core Inflation Rate MoM
+2018.05.10 12:30,USD,0.0,Inflation Rate YoY
+2018.05.11 12:30,CAD,-0.0,Unemployment Rate
+2018.05.11 14:00,USD,0.1024,Michigan Consumer Sentiment Prel
+2018.05.15 12:30,USD,-0.604,Retail Sales MoM
+2018.05.16 12:30,USD,0.029,Building Permits Prel
+2018.05.16 12:30,USD,-0.5042,Housing Starts
+2018.05.18 12:30,CAD,-0.6182,Inflation Rate YoY
+2018.05.24 14:00,USD,-0.7224,Existing Home Sales
+2018.05.25 12:30,USD,-0.1685,Durable Goods Orders MoM
+2018.05.30 12:30,USD,-0.3993,GDP Growth Rate QoQ 2nd Est
+2018.05.30 14:00,CAD,0.0,Interest Rate
+2018.05.31 12:30,USD,2.0,Core PCE Price Index MoM
+2018.05.31 12:30,USD,0.6575,Personal Income MoM
+2018.05.31 12:30,USD,-0.4869,Personal Spending MoM
+2018.05.31 12:30,CAD,3.761,GDP Growth Rate Annualized
+2018.06.01 12:30,USD,0.9168,Unemployment Rate
+2018.06.01 12:30,USD,1.6775,Non Farm Payrolls
+2018.06.01 14:00,USD,0.7694,ISM Manufacturing PMI
+2018.06.05 14:00,USD,0.3213,ISM Services PMI
+2018.06.05 14:00,USD,1.9004,JOLTs Job Openings
+2018.06.08 12:30,CAD,-0.8239,Unemployment Rate
+2018.06.12 12:30,USD,0.0,Core Inflation Rate YoY
+2018.06.12 12:30,USD,0.0,Inflation Rate MoM
+2018.06.12 12:30,USD,0.0,Core Inflation Rate MoM
+2018.06.12 12:30,USD,1.1034,Inflation Rate YoY
+2018.06.13 12:30,USD,0.0,PPI MoM
+2018.06.14 12:30,USD,2.4393,Retail Sales MoM
+2018.06.15 14:00,USD,0.277,Michigan Consumer Sentiment Prel
+2018.06.19 12:30,USD,-0.7207,Building Permits Prel
+2018.06.19 12:30,USD,0.7049,Housing Starts
+2018.06.20 14:00,USD,-0.6567,Existing Home Sales
+2018.06.22 12:30,CAD,-1.8746,Inflation Rate YoY
+2018.06.27 12:30,USD,0.2277,Durable Goods Orders MoM
+2018.06.28 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2018.06.29 12:30,USD,0.0,Core PCE Price Index MoM
+2018.06.29 12:30,USD,0.491,Personal Spending MoM
+2018.06.29 12:30,USD,0.0,Personal Income MoM
+2018.07.02 14:00,USD,1.2932,ISM Manufacturing PMI
+2018.07.05 14:00,USD,0.1302,ISM Services PMI
+2018.07.06 12:30,USD,0.2826,Non Farm Payrolls
+2018.07.06 12:30,USD,-1.8457,Unemployment Rate
+2018.07.06 12:30,CAD,-1.6589,Unemployment Rate
+2018.07.10 14:00,USD,1.7408,JOLTs Job Openings
+2018.07.11 12:30,USD,0.5366,PPI MoM
+2018.07.11 14:00,CAD,0.0,Interest Rate
+2018.07.12 12:30,USD,-1.4427,Core Inflation Rate MoM
+2018.07.12 12:30,USD,0.0,Core Inflation Rate YoY
+2018.07.12 12:30,USD,-1.0177,Inflation Rate MoM
+2018.07.12 12:30,USD,0.0,Inflation Rate YoY
+2018.07.13 14:00,USD,-0.3859,Michigan Consumer Sentiment Prel
+2018.07.16 12:30,USD,-1.7153,Retail Sales MoM
+2018.07.18 12:30,USD,-0.8414,Building Permits Prel
+2018.07.18 12:30,USD,-1.932,Housing Starts
+2018.07.20 12:30,CAD,0.6083,Inflation Rate YoY
+2018.07.23 14:00,USD,0.0738,Existing Home Sales
+2018.07.26 12:30,USD,-1.1542,Durable Goods Orders MoM
+2018.07.27 12:30,USD,0.0,GDP Growth Rate QoQ Adv
+2018.07.31 12:30,USD,0.0,Core PCE Price Index MoM
+2018.07.31 12:30,USD,0.6722,Personal Income MoM
+2018.07.31 12:30,USD,-0.9939,Personal Spending MoM
+2018.08.01 14:00,USD,-1.2024,ISM Manufacturing PMI
+2018.08.03 12:30,USD,-1.6191,Non Farm Payrolls
+2018.08.03 12:30,USD,0.8868,Unemployment Rate
+2018.08.03 14:00,USD,-0.7261,ISM Services PMI
+2018.08.07 14:00,USD,2.3773,JOLTs Job Openings
+2018.08.09 12:30,USD,-0.5425,PPI MoM
+2018.08.10 12:30,USD,-1.1125,Inflation Rate YoY
+2018.08.10 12:30,CAD,-0.0,Unemployment Rate
+2018.08.10 12:30,USD,-1.0198,Inflation Rate MoM
+2018.08.10 12:30,USD,1.0179,Core Inflation Rate YoY
+2018.08.10 12:30,USD,-1.4411,Core Inflation Rate MoM
+2018.08.15 12:30,USD,0.9286,Retail Sales MoM
+2018.08.16 12:30,USD,-0.7593,Housing Starts
+2018.08.16 12:30,USD,0.0148,Building Permits Prel
+2018.08.17 12:30,CAD,3.0587,Inflation Rate YoY
+2018.08.17 14:00,USD,-0.9583,Michigan Consumer Sentiment Prel
+2018.08.22 14:00,USD,-0.1494,Existing Home Sales
+2018.08.24 12:30,USD,-0.6873,Durable Goods Orders MoM
+2018.08.29 12:30,USD,0.8005,GDP Growth Rate QoQ 2nd Est
+2018.08.30 12:30,CAD,0.0887,GDP Growth Rate Annualized
+2018.08.30 12:30,USD,-0.4953,Personal Spending MoM
+2018.08.30 12:30,USD,-1.9594,Core PCE Price Index MoM
+2018.08.30 12:30,USD,2.0327,Personal Income MoM
+2018.09.04 14:00,USD,2.3783,ISM Manufacturing PMI
+2018.09.05 14:00,CAD,0.0,Interest Rate
+2018.09.06 14:00,USD,1.7914,ISM Services PMI
+2018.09.07 12:30,USD,0.8003,Non Farm Payrolls
+2018.09.07 12:30,USD,-0.0,Unemployment Rate
+2018.09.07 12:30,CAD,-0.8256,Unemployment Rate
+2018.09.07 14:00,CAD,0.0866,Ivey PMI s.a
+2018.09.12 12:30,USD,-0.5468,PPI MoM
+2018.09.13 12:30,USD,-1.4407,Core Inflation Rate MoM
+2018.09.13 12:30,USD,-1.1113,Inflation Rate YoY
+2018.09.13 12:30,USD,-2.0247,Core Inflation Rate YoY
+2018.09.13 12:30,USD,-1.0223,Inflation Rate MoM
+2018.09.14 12:30,USD,-0.5581,Retail Sales MoM
+2018.09.14 14:00,USD,1.493,Michigan Consumer Sentiment Prel
+2018.09.19 12:30,USD,0.7794,Housing Starts
+2018.09.19 12:30,USD,-1.2131,Building Permits Prel
+2018.09.20 14:00,USD,-0.3028,Existing Home Sales
+2018.09.21 12:30,CAD,0.0,Inflation Rate YoY
+2018.09.27 12:30,USD,1.4401,Durable Goods Orders MoM
+2018.09.27 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2018.09.28 12:30,USD,0.0,Personal Income MoM
+2018.09.28 12:30,USD,-1.9025,Core PCE Price Index MoM
+2018.09.28 12:30,USD,0.0,Personal Spending MoM
+2018.10.01 14:00,USD,-0.648,ISM Manufacturing PMI
+2018.10.03 14:00,USD,1.5537,ISM Services PMI
+2018.10.05 12:30,USD,-1.2699,Non Farm Payrolls
+2018.10.05 12:30,USD,0.9035,Unemployment Rate
+2018.10.05 12:30,CAD,0.8316,Unemployment Rate
+2018.10.10 12:30,USD,0.0,PPI MoM
+2018.10.11 12:30,USD,0.0,Core Inflation Rate MoM
+2018.10.11 12:30,USD,-1.1109,Inflation Rate YoY
+2018.10.11 12:30,USD,-0.9825,Core Inflation Rate YoY
+2018.10.11 12:30,USD,0.0,Inflation Rate MoM
+2018.10.12 14:00,USD,-0.4898,Michigan Consumer Sentiment Prel
+2018.10.15 12:30,USD,-1.877,Retail Sales MoM
+2018.10.16 14:00,USD,1.0676,JOLTs Job Openings
+2018.10.17 12:30,USD,0.4427,Housing Starts
+2018.10.17 12:30,USD,-0.5493,Building Permits Prel
+2018.10.19 12:30,CAD,-2.7862,Inflation Rate YoY
+2018.10.19 14:00,USD,-0.7669,Existing Home Sales
+2018.10.24 14:00,CAD,0.0,Interest Rate
+2018.10.25 12:30,USD,1.0256,Durable Goods Orders MoM
+2018.10.26 12:30,USD,0.4162,GDP Growth Rate QoQ Adv
+2018.10.29 12:30,USD,-0.6625,Personal Income MoM
+2018.10.29 12:30,USD,-2.0226,Personal Spending MoM
+2018.10.29 12:30,USD,1.8562,Core PCE Price Index MoM
+2018.11.01 14:00,USD,-0.7319,ISM Manufacturing PMI
+2018.11.02 12:30,USD,-0.2535,Non Farm Payrolls
+2018.11.02 12:30,USD,-0.9087,Unemployment Rate
+2018.11.02 12:30,CAD,2.4956,Unemployment Rate
+2018.11.05 15:00,USD,0.9581,ISM Services PMI
+2018.11.06 15:00,USD,1.281,JOLTs Job Openings
+2018.11.09 13:30,USD,2.7908,PPI MoM
+2018.11.09 15:00,USD,0.106,Michigan Consumer Sentiment Prel
+2018.11.14 13:30,USD,0.0,Inflation Rate YoY
+2018.11.14 13:30,USD,-1.038,Inflation Rate MoM
+2018.11.14 13:30,USD,-0.9874,Core Inflation Rate YoY
+2018.11.14 13:30,USD,0.0,Core Inflation Rate MoM
+2018.11.15 13:30,USD,0.9113,Retail Sales MoM
+2018.11.20 13:30,USD,-0.0596,Housing Starts
+2018.11.20 13:30,USD,-0.0599,Building Permits Prel
+2018.11.21 13:30,USD,-1.0846,Durable Goods Orders MoM
+2018.11.21 15:00,USD,-0.3094,Existing Home Sales
+2018.11.23 13:30,CAD,1.0362,Inflation Rate YoY
+2018.11.28 13:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2018.11.29 13:30,USD,-0.6661,Personal Income MoM
+2018.11.29 13:30,USD,0.0,Core PCE Price Index MoM
+2018.11.29 13:30,USD,0.486,Personal Spending MoM
+2018.11.30 13:30,CAD,0.0,GDP Growth Rate Annualized
+2018.12.03 15:00,USD,0.8154,ISM Manufacturing PMI
+2018.12.05 15:00,CAD,0.0,Interest Rate
+2018.12.06 15:00,USD,0.5771,ISM Services PMI
+2018.12.06 15:00,CAD,-0.4483,Ivey PMI s.a
+2018.12.07 13:30,USD,-1.3424,Non Farm Payrolls
+2018.12.07 13:30,USD,-0.9071,Unemployment Rate
+2018.12.07 13:30,CAD,0.7787,Unemployment Rate
+2018.12.07 15:00,USD,0.1788,Michigan Consumer Sentiment Prel
+2018.12.10 15:00,USD,1.2918,JOLTs Job Openings
+2018.12.11 13:30,USD,-0.52,PPI MoM
+2018.12.12 13:30,USD,0.0,Inflation Rate YoY
+2018.12.12 13:30,USD,-1.041,Inflation Rate MoM
+2018.12.12 13:30,USD,0.0,Core Inflation Rate YoY
+2018.12.12 13:30,USD,0.0,Core Inflation Rate MoM
+2018.12.14 13:30,USD,0.73,Retail Sales MoM
+2018.12.18 13:30,USD,-0.6635,Housing Starts
+2018.12.18 13:30,USD,1.0453,Building Permits Prel
+2018.12.19 13:30,CAD,-0.5163,Inflation Rate YoY
+2018.12.19 15:00,USD,-0.1566,Existing Home Sales
+2018.12.21 13:30,USD,-0.812,GDP Growth Rate QoQ Final
+2018.12.21 13:30,USD,-0.4544,Durable Goods Orders MoM
+2018.12.21 15:00,USD,1.4721,Personal Spending MoM
+2018.12.21 15:00,USD,0.0,Core PCE Price Index MoM
+2018.12.21 15:00,USD,0.0,Personal Income MoM
+2019.01.03 15:00,USD,-2.4626,ISM Manufacturing PMI
+2019.01.04 13:30,USD,0.1809,Non Farm Payrolls
+2019.01.04 13:30,USD,-1.8121,Unemployment Rate
+2019.01.04 13:30,CAD,0.7814,Unemployment Rate
+2019.01.07 15:00,USD,-0.5828,ISM Services PMI
+2019.01.07 15:00,CAD,0.5306,Ivey PMI s.a
+2019.01.08 15:00,USD,2.2523,JOLTs Job Openings
+2019.01.09 15:00,CAD,0.0,Interest Rate
+2019.01.11 13:30,USD,0.0,Core Inflation Rate YoY
+2019.01.11 13:30,USD,2.0886,Inflation Rate MoM
+2019.01.11 13:30,USD,0.0,Core Inflation Rate MoM
+2019.01.11 13:30,USD,0.0,Inflation Rate YoY
+2019.01.15 13:30,USD,0.5237,PPI MoM
+2019.01.18 13:30,CAD,1.5641,Inflation Rate YoY
+2019.01.18 15:00,USD,-2.2789,Michigan Consumer Sentiment Prel
+2019.01.22 15:00,USD,-1.9017,Existing Home Sales
+2019.02.01 13:30,USD,1.0493,Non Farm Payrolls
+2019.02.01 13:30,USD,-0.8791,Unemployment Rate
+2019.02.01 15:00,USD,1.1566,ISM Manufacturing PMI
+2019.02.05 15:00,USD,-0.3907,ISM Services PMI
+2019.02.06 15:00,CAD,-0.2441,Ivey PMI s.a
+2019.02.08 13:30,CAD,-0.0,Unemployment Rate
+2019.02.12 15:00,USD,2.5058,JOLTs Job Openings
+2019.02.13 13:30,USD,1.4981,Core Inflation Rate MoM
+2019.02.13 13:30,USD,1.1515,Inflation Rate YoY
+2019.02.13 13:30,USD,1.0151,Core Inflation Rate YoY
+2019.02.13 13:30,USD,-1.9958,Inflation Rate MoM
+2019.02.14 13:30,USD,-3.8526,Retail Sales MoM
+2019.02.14 13:30,USD,-2.1155,PPI MoM
+2019.02.15 15:00,USD,0.8643,Michigan Consumer Sentiment Prel
+2019.02.21 13:30,USD,-0.1719,Durable Goods Orders MoM
+2019.02.21 15:00,USD,-0.2329,Existing Home Sales
+2019.02.26 13:30,USD,-2.3554,Housing Starts
+2019.02.26 13:30,USD,0.5456,Building Permits Prel
+2019.02.27 13:30,CAD,-0.5114,Inflation Rate YoY
+2019.02.28 12:30,USD,0.0,GDP Growth Rate QoQ Adv
+2019.02.28 13:30,USD,1.285,GDP Growth Rate QoQ 2nd Est
+2019.03.01 12:30,USD,5.4213,Personal Income MoM
+2019.03.01 13:30,USD,0.0,Core PCE Price Index MoM
+2019.03.01 13:30,USD,0.5331,Personal Income MoM
+2019.03.01 13:30,USD,-2.9121,Personal Spending MoM
+2019.03.01 13:30,CAD,-0.2888,GDP Growth Rate Annualized
+2019.03.01 15:00,USD,-0.8472,ISM Manufacturing PMI
+2019.03.05 15:00,USD,1.1818,ISM Services PMI
+2019.03.06 15:00,CAD,0.0,Interest Rate
+2019.03.08 13:30,USD,-2.1118,Non Farm Payrolls
+2019.03.08 13:30,USD,0.4211,Housing Starts
+2019.03.08 13:30,USD,0.8565,Building Permits Prel
+2019.03.08 13:30,CAD,-0.0,Unemployment Rate
+2019.03.08 13:30,USD,0.8801,Unemployment Rate
+2019.03.11 12:30,USD,0.3203,Retail Sales MoM
+2019.03.12 12:30,USD,-1.0092,Core Inflation Rate YoY
+2019.03.12 12:30,USD,0.9719,Inflation Rate MoM
+2019.03.12 12:30,USD,0.0,Core Inflation Rate MoM
+2019.03.12 12:30,USD,-1.1436,Inflation Rate YoY
+2019.03.13 12:30,USD,0.5214,Durable Goods Orders MoM
+2019.03.13 12:30,USD,0.0,PPI MoM
+2019.03.15 14:00,USD,0.8661,Michigan Consumer Sentiment Prel
+2019.03.15 14:00,USD,0.8143,JOLTs Job Openings
+2019.03.22 12:30,CAD,0.5161,Inflation Rate YoY
+2019.03.22 14:00,USD,1.6492,Existing Home Sales
+2019.03.26 12:30,USD,-0.0615,Building Permits Prel
+2019.03.26 12:30,USD,-1.347,Housing Starts
+2019.03.28 12:30,USD,-1.5275,GDP Growth Rate QoQ Final
+2019.03.29 12:30,USD,-1.854,Core PCE Price Index MoM
+2019.03.29 12:30,USD,0.5383,Personal Income MoM
+2019.03.29 12:30,USD,-0.4473,Personal Spending MoM
+2019.04.01 12:30,USD,0.0,Retail Sales MoM
+2019.04.01 14:00,USD,0.3084,ISM Manufacturing PMI
+2019.04.02 12:30,USD,0.1169,Durable Goods Orders MoM
+2019.04.03 14:00,USD,-0.9839,ISM Services PMI
+2019.04.04 14:00,CAD,0.6154,Ivey PMI s.a
+2019.04.05 12:30,USD,0.5632,Non Farm Payrolls
+2019.04.05 12:30,CAD,-0.0,Unemployment Rate
+2019.04.05 12:30,USD,-0.0,Unemployment Rate
+2019.04.09 14:00,USD,-2.0707,JOLTs Job Openings
+2019.04.10 12:30,USD,-1.0133,Core Inflation Rate YoY
+2019.04.10 12:30,USD,0.9689,Inflation Rate MoM
+2019.04.10 12:30,USD,-1.4684,Core Inflation Rate MoM
+2019.04.10 12:30,USD,1.1428,Inflation Rate YoY
+2019.04.11 12:30,USD,0.0,PPI MoM
+2019.04.12 14:00,USD,-0.382,Michigan Consumer Sentiment Prel
+2019.04.17 12:30,CAD,0.0,Inflation Rate YoY
+2019.04.18 12:30,USD,0.981,Retail Sales MoM
+2019.04.19 12:30,USD,-0.5678,Housing Starts
+2019.04.19 12:30,USD,-0.4816,Building Permits Prel
+2019.04.22 14:00,USD,-0.3821,Existing Home Sales
+2019.04.24 14:00,CAD,0.0,Interest Rate
+2019.04.25 12:30,USD,1.1234,Durable Goods Orders MoM
+2019.04.26 12:30,USD,2.6324,GDP Growth Rate QoQ Adv
+2019.04.29 12:30,USD,0.0,Core PCE Price Index MoM
+2019.04.29 12:30,USD,0.9025,Personal Spending MoM
+2019.04.29 12:30,USD,0.0,Personal Income MoM
+2019.05.01 14:00,USD,-1.0907,ISM Manufacturing PMI
+2019.05.03 12:30,USD,1.3128,Non Farm Payrolls
+2019.05.03 12:30,USD,0.8932,Unemployment Rate
+2019.05.03 14:00,USD,-1.1119,ISM Services PMI
+2019.05.07 14:00,CAD,0.5697,Ivey PMI s.a
+2019.05.07 14:00,USD,0.2916,JOLTs Job Openings
+2019.05.09 12:30,USD,1.5549,PPI MoM
+2019.05.10 12:30,USD,0.0,Core Inflation Rate YoY
+2019.05.10 12:30,USD,0.0,Core Inflation Rate MoM
+2019.05.10 12:30,USD,0.0,Inflation Rate MoM
+2019.05.10 12:30,CAD,0.8111,Unemployment Rate
+2019.05.10 12:30,USD,-1.1358,Inflation Rate YoY
+2019.05.15 12:30,USD,-0.3267,Retail Sales MoM
+2019.05.15 12:30,CAD,0.0,Inflation Rate YoY
+2019.05.16 12:30,USD,0.9843,Housing Starts
+2019.05.16 12:30,USD,0.0939,Building Permits Prel
+2019.05.17 14:00,USD,1.7179,Michigan Consumer Sentiment Prel
+2019.05.21 14:00,USD,-0.309,Existing Home Sales
+2019.05.24 12:30,USD,-0.0591,Durable Goods Orders MoM
+2019.05.29 14:00,CAD,0.0,Interest Rate
+2019.05.30 12:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2019.05.31 12:30,USD,0.0,Core PCE Price Index MoM
+2019.05.31 12:30,USD,0.4523,Personal Spending MoM
+2019.05.31 12:30,USD,-0.549,Personal Income MoM
+2019.05.31 12:30,CAD,0.2975,GDP Growth Rate Annualized
+2019.06.03 14:00,USD,-0.3103,ISM Manufacturing PMI
+2019.06.05 14:00,USD,0.3904,ISM Services PMI
+2019.06.07 12:30,USD,-1.8573,Non Farm Payrolls
+2019.06.07 12:30,USD,-0.0,Unemployment Rate
+2019.06.07 12:30,CAD,1.6275,Unemployment Rate
+2019.06.10 14:00,USD,-0.7864,JOLTs Job Openings
+2019.06.11 12:30,USD,0.0,PPI MoM
+2019.06.12 12:30,USD,-1.0279,Core Inflation Rate YoY
+2019.06.12 12:30,USD,-1.4792,Core Inflation Rate MoM
+2019.06.12 12:30,USD,-0.9769,Inflation Rate MoM
+2019.06.12 12:30,USD,-1.1351,Inflation Rate YoY
+2019.06.14 12:30,USD,0.9898,Retail Sales MoM
+2019.06.14 14:00,USD,-0.0344,Michigan Consumer Sentiment Prel
+2019.06.18 12:30,USD,0.7912,Housing Starts
+2019.06.18 12:30,USD,-0.0316,Building Permits Prel
+2019.06.19 12:30,CAD,1.594,Inflation Rate YoY
+2019.06.21 14:00,USD,1.6394,Existing Home Sales
+2019.06.26 12:30,USD,-0.7165,Durable Goods Orders MoM
+2019.06.27 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2019.06.28 12:30,USD,-1.1039,Personal Income MoM
+2019.06.28 12:30,USD,-1.8545,Core PCE Price Index MoM
+2019.06.28 12:30,USD,0.0,Personal Spending MoM
+2019.07.01 14:00,USD,0.3914,ISM Manufacturing PMI
+2019.07.03 14:00,USD,-0.4598,ISM Services PMI
+2019.07.05 12:30,USD,0.6867,Non Farm Payrolls
+2019.07.05 12:30,CAD,-0.8001,Unemployment Rate
+2019.07.05 12:30,USD,-0.0,Unemployment Rate
+2019.07.05 14:00,CAD,-0.522,Ivey PMI s.a
+2019.07.09 14:00,USD,-0.7179,JOLTs Job Openings
+2019.07.10 14:00,CAD,0.0,Interest Rate
+2019.07.11 12:30,USD,0.0,Inflation Rate YoY
+2019.07.11 12:30,USD,0.0,Core Inflation Rate MoM
+2019.07.11 12:30,USD,0.0,Inflation Rate MoM
+2019.07.11 12:30,USD,1.0321,Core Inflation Rate YoY
+2019.07.12 12:30,USD,-0.5173,PPI MoM
+2019.07.16 12:30,USD,0.0,Retail Sales MoM
+2019.07.17 12:30,USD,-0.2642,Housing Starts
+2019.07.17 12:30,CAD,0.0,Inflation Rate YoY
+2019.07.17 12:30,USD,-1.2788,Building Permits Prel
+2019.07.19 14:00,USD,-0.0347,Michigan Consumer Sentiment Prel
+2019.07.23 14:00,USD,0.4573,Existing Home Sales
+2019.07.25 12:30,USD,0.779,Durable Goods Orders MoM
+2019.07.26 12:30,USD,0.5441,GDP Growth Rate QoQ Adv
+2019.07.30 12:30,USD,0.4612,Personal Spending MoM
+2019.07.30 12:30,USD,-1.098,Personal Income MoM
+2019.07.30 12:30,USD,0.0,Core PCE Price Index MoM
+2019.08.01 14:00,USD,-0.7901,ISM Manufacturing PMI
+2019.08.02 12:30,USD,-0.7483,Non Farm Payrolls
+2019.08.02 12:30,USD,-0.0,Unemployment Rate
+2019.08.05 14:00,USD,-0.7277,ISM Services PMI
+2019.08.06 14:00,USD,-0.4419,JOLTs Job Openings
+2019.08.07 14:00,CAD,0.2439,Ivey PMI s.a
+2019.08.09 12:30,CAD,-1.6059,Unemployment Rate
+2019.08.09 12:30,USD,0.5207,PPI MoM
+2019.08.13 12:30,USD,1.1465,Inflation Rate YoY
+2019.08.13 12:30,USD,0.0,Core Inflation Rate MoM
+2019.08.13 12:30,USD,1.0256,Core Inflation Rate YoY
+2019.08.13 12:30,USD,-0.9898,Inflation Rate MoM
+2019.08.15 12:30,USD,0.6662,Retail Sales MoM
+2019.08.16 12:30,USD,-0.2521,Housing Starts
+2019.08.16 12:30,USD,1.0462,Building Permits Prel
+2019.08.16 14:00,USD,-1.7888,Michigan Consumer Sentiment Prel
+2019.08.21 12:30,CAD,1.5833,Inflation Rate YoY
+2019.08.21 14:00,USD,0.3068,Existing Home Sales
+2019.08.26 12:30,USD,0.5422,Durable Goods Orders MoM
+2019.08.29 12:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2019.08.30 12:30,CAD,1.4359,GDP Growth Rate Annualized
+2019.08.30 12:30,USD,-1.093,Personal Income MoM
+2019.08.30 12:30,USD,-1.8383,Core PCE Price Index MoM
+2019.08.30 12:30,USD,0.4651,Personal Spending MoM
+2019.09.03 14:00,USD,-2.0595,ISM Manufacturing PMI
+2019.09.04 14:00,CAD,0.0,Interest Rate
+2019.09.05 14:00,USD,1.3275,ISM Services PMI
+2019.09.06 12:30,USD,0.8552,Non Farm Payrolls
+2019.09.06 12:30,CAD,-0.0,Unemployment Rate
+2019.09.06 12:30,USD,0.9244,Unemployment Rate
+2019.09.06 14:00,CAD,1.5807,Ivey PMI s.a
+2019.09.10 14:00,USD,-0.9549,JOLTs Job Openings
+2019.09.11 12:30,USD,0.525,PPI MoM
+2019.09.12 12:30,USD,-1.1395,Inflation Rate YoY
+2019.09.12 12:30,USD,0.0,Inflation Rate MoM
+2019.09.12 12:30,USD,0.0,Core Inflation Rate MoM
+2019.09.12 12:30,USD,1.0202,Core Inflation Rate YoY
+2019.09.13 12:30,USD,1.0045,Retail Sales MoM
+2019.09.13 14:00,USD,0.3776,Michigan Consumer Sentiment Prel
+2019.09.18 12:30,USD,1.872,Housing Starts
+2019.09.18 12:30,CAD,-0.5199,Inflation Rate YoY
+2019.09.18 12:30,USD,1.8872,Building Permits Prel
+2019.09.19 14:00,USD,0.7731,Existing Home Sales
+2019.09.26 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2019.09.27 12:30,USD,0.5444,Personal Income MoM
+2019.09.27 12:30,USD,0.7289,Durable Goods Orders MoM
+2019.09.27 12:30,USD,-1.8081,Core PCE Price Index MoM
+2019.09.27 12:30,USD,0.469,Personal Spending MoM
+2019.10.01 14:00,USD,-1.5337,ISM Manufacturing PMI
+2019.10.03 14:00,USD,-1.1887,ISM Services PMI
+2019.10.04 12:30,USD,0.5913,Non Farm Payrolls
+2019.10.04 12:30,USD,1.8546,Unemployment Rate
+2019.10.08 12:30,USD,-2.117,PPI MoM
+2019.10.09 14:00,USD,-0.0449,JOLTs Job Openings
+2019.10.10 12:30,USD,-1.1391,Inflation Rate YoY
+2019.10.10 12:30,USD,0.0,Core Inflation Rate YoY
+2019.10.10 12:30,USD,1.0023,Inflation Rate MoM
+2019.10.10 12:30,USD,0.0,Core Inflation Rate MoM
+2019.10.11 12:30,CAD,0.7988,Unemployment Rate
+2019.10.11 14:00,USD,1.3847,Michigan Consumer Sentiment Prel
+2019.10.16 12:30,USD,-1.6735,Retail Sales MoM
+2019.10.16 12:30,CAD,-1.0473,Inflation Rate YoY
+2019.10.17 12:30,USD,-0.1312,Housing Starts
+2019.10.17 12:30,USD,0.5745,Building Permits Prel
+2019.10.22 14:00,USD,-1.0841,Existing Home Sales
+2019.10.24 12:30,USD,-0.1834,Durable Goods Orders MoM
+2019.10.30 12:30,USD,0.5553,GDP Growth Rate QoQ Adv
+2019.10.30 14:00,CAD,0.0,Interest Rate
+2019.10.31 12:30,USD,0.0,Core PCE Price Index MoM
+2019.10.31 12:30,USD,-0.5486,Personal Income MoM
+2019.10.31 12:30,USD,0.0,Personal Spending MoM
+2019.11.01 12:30,USD,-0.0,Unemployment Rate
+2019.11.01 12:30,USD,0.07,Non Farm Payrolls
+2019.11.01 14:00,USD,-0.6056,ISM Manufacturing PMI
+2019.11.05 15:00,USD,0.8533,ISM Services PMI
+2019.11.05 15:00,USD,0.3318,JOLTs Job Openings
+2019.11.08 13:30,CAD,-0.8013,Unemployment Rate
+2019.11.08 15:00,USD,-0.0686,Michigan Consumer Sentiment Prel
+2019.11.13 13:30,USD,-1.0252,Core Inflation Rate YoY
+2019.11.13 13:30,USD,0.0,Inflation Rate MoM
+2019.11.13 13:30,USD,0.0,Core Inflation Rate MoM
+2019.11.13 13:30,USD,1.1391,Inflation Rate YoY
+2019.11.14 13:30,USD,0.5108,PPI MoM
+2019.11.15 13:30,USD,0.1646,Retail Sales MoM
+2019.11.19 13:30,USD,0.0736,Housing Starts
+2019.11.19 13:30,USD,1.1891,Building Permits Prel
+2019.11.20 13:30,CAD,0.0,Inflation Rate YoY
+2019.11.21 15:00,USD,-1.3954,Existing Home Sales
+2019.11.27 13:30,USD,0.8632,Durable Goods Orders MoM
+2019.11.27 13:30,USD,0.9113,GDP Growth Rate QoQ 2nd Est
+2019.11.27 15:00,USD,0.0,Core PCE Price Index MoM
+2019.11.27 15:00,USD,-0.4775,Personal Spending MoM
+2019.11.27 15:00,USD,0.5518,Personal Income MoM
+2019.11.29 13:30,CAD,-0.1008,GDP Growth Rate Annualized
+2019.12.02 15:00,USD,-0.8378,ISM Manufacturing PMI
+2019.12.04 15:00,USD,-0.593,ISM Services PMI
+2019.12.04 15:00,CAD,0.0,Interest Rate
+2019.12.06 13:30,USD,0.3182,Non Farm Payrolls
+2019.12.06 13:30,USD,-0.0,Unemployment Rate
+2019.12.06 13:30,CAD,-3.2173,Unemployment Rate
+2019.12.06 15:00,USD,0.7622,Michigan Consumer Sentiment Prel
+2019.12.11 13:30,USD,0.0,Core Inflation Rate YoY
+2019.12.11 13:30,USD,0.0,Core Inflation Rate MoM
+2019.12.11 13:30,USD,1.0087,Inflation Rate MoM
+2019.12.11 13:30,USD,1.1324,Inflation Rate YoY
+2019.12.12 13:30,USD,-2.0586,PPI MoM
+2019.12.13 13:30,USD,0.3323,Retail Sales MoM
+2019.12.17 13:30,USD,1.1252,Building Permits Prel
+2019.12.17 13:30,USD,0.1188,Housing Starts
+2019.12.17 15:00,USD,0.9439,JOLTs Job Openings
+2019.12.18 13:30,CAD,0.0,Inflation Rate YoY
+2019.12.19 15:00,USD,-1.3886,Existing Home Sales
+2019.12.20 13:30,USD,0.0,GDP Growth Rate QoQ Final
+2019.12.20 15:00,USD,0.0,Core PCE Price Index MoM
+2019.12.20 15:00,USD,0.5558,Personal Income MoM
+2019.12.20 15:00,USD,0.9615,Personal Spending MoM
+2019.12.23 13:30,USD,-2.1673,Durable Goods Orders MoM
+2020.01.03 15:00,USD,-0.8405,ISM Manufacturing PMI
+2020.01.07 15:00,USD,0.7947,ISM Services PMI
+2020.01.10 13:30,USD,-0.927,Unemployment Rate
+2020.01.10 13:30,CAD,1.4896,Unemployment Rate
+2020.01.10 13:30,USD,-0.4399,Non Farm Payrolls
+2020.01.14 13:30,USD,0.0,Core Inflation Rate YoY
+2020.01.14 13:30,USD,0.0,Core Inflation Rate MoM
+2020.01.14 13:30,USD,0.0,Inflation Rate MoM
+2020.01.14 13:30,USD,0.0,Inflation Rate YoY
+2020.01.15 13:30,USD,0.499,PPI MoM
+2020.01.16 13:30,USD,0.0,Retail Sales MoM
+2020.01.17 13:30,USD,2.5928,Housing Starts
+2020.01.17 13:30,USD,-0.813,Building Permits Prel
+2020.01.17 15:00,USD,-0.0696,Michigan Consumer Sentiment Prel
+2020.01.17 15:00,USD,-1.2145,JOLTs Job Openings
+2020.01.22 13:30,CAD,0.0,Inflation Rate YoY
+2020.01.22 15:00,USD,0.1536,Existing Home Sales
+2020.01.22 15:00,CAD,0.0,Interest Rate
+2020.01.28 13:30,USD,1.1931,Durable Goods Orders MoM
+2020.01.30 13:30,USD,0.0,GDP Growth Rate QoQ Adv
+2020.01.31 13:30,USD,1.8309,Core PCE Price Index MoM
+2020.01.31 13:30,USD,0.4816,Personal Spending MoM
+2020.01.31 13:30,USD,-2.7986,Personal Income MoM
+2020.02.03 15:00,USD,2.2231,ISM Manufacturing PMI
+2020.02.05 15:00,USD,0.6653,ISM Services PMI
+2020.02.07 13:30,USD,-0.9261,Unemployment Rate
+2020.02.07 13:30,CAD,0.7353,Unemployment Rate
+2020.02.07 13:30,USD,0.9218,Non Farm Payrolls
+2020.02.11 15:00,USD,-1.0251,JOLTs Job Openings
+2020.02.13 13:30,USD,1.0466,Core Inflation Rate YoY
+2020.02.13 13:30,USD,0.0,Inflation Rate MoM
+2020.02.13 13:30,USD,1.5635,Core Inflation Rate MoM
+2020.02.13 13:30,USD,1.1369,Inflation Rate YoY
+2020.02.14 13:30,USD,-0.8452,Retail Sales MoM
+2020.02.14 15:00,USD,0.4915,Michigan Consumer Sentiment Prel
+2020.02.19 13:30,CAD,0.5381,Inflation Rate YoY
+2020.02.19 13:30,USD,0.5026,PPI MoM
+2020.02.19 13:30,USD,2.2209,Housing Starts
+2020.02.19 13:30,USD,1.5802,Building Permits Prel
+2020.02.21 15:00,USD,-0.6196,Existing Home Sales
+2020.02.27 13:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2020.02.27 13:30,USD,0.7741,Durable Goods Orders MoM
+2020.02.28 13:30,USD,0.0,Core PCE Price Index MoM
+2020.02.28 13:30,USD,4.742,Personal Income MoM
+2020.02.28 13:30,USD,1.4558,Personal Spending MoM
+2020.02.28 13:30,CAD,0.8288,GDP Growth Rate Annualized
+2020.03.02 15:00,USD,-0.2961,ISM Manufacturing PMI
+2020.03.04 15:00,CAD,-8.4853,Interest Rate
+2020.03.04 15:00,USD,1.7403,ISM Services PMI
+2020.03.06 13:30,CAD,-1.4758,Unemployment Rate
+2020.03.06 13:30,USD,0.9256,Unemployment Rate
+2020.03.06 13:30,USD,1.0439,Non Farm Payrolls
+2020.03.11 12:30,USD,1.042,Core Inflation Rate YoY
+2020.03.11 12:30,USD,0.0,Core Inflation Rate MoM
+2020.03.11 12:30,USD,0.0,Inflation Rate MoM
+2020.03.11 12:30,USD,1.1318,Inflation Rate YoY
+2020.03.12 12:30,USD,-2.0247,PPI MoM
+2020.03.13 14:00,USD,0.3182,Michigan Consumer Sentiment Prel
+2020.03.17 12:30,USD,-0.1695,Retail Sales MoM
+2020.03.17 14:00,USD,2.1571,JOLTs Job Openings
+2020.03.18 12:30,CAD,0.5415,Inflation Rate YoY
+2020.03.18 12:30,USD,0.6743,Housing Starts
+2020.03.18 12:30,USD,-0.5581,Building Permits Prel
+2020.03.20 14:00,USD,1.0142,Existing Home Sales
+2020.03.25 12:30,USD,1.1969,Durable Goods Orders MoM
+2020.03.26 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2020.03.27 12:30,USD,0.0,Core PCE Price Index MoM
+2020.03.27 12:30,USD,-2.4078,Personal Spending MoM
+2020.03.27 12:30,USD,0.4511,Personal Income MoM
+2020.04.01 14:00,USD,2.9848,ISM Manufacturing PMI
+2020.04.03 12:30,USD,-15.5832,Non Farm Payrolls
+2020.04.03 12:30,USD,-5.5694,Unemployment Rate
+2020.04.03 14:00,USD,5.8739,ISM Services PMI
+2020.04.07 14:00,CAD,-3.0607,Ivey PMI s.a
+2020.04.07 14:00,USD,1.2072,JOLTs Job Openings
+2020.04.09 12:30,CAD,-9.5075,Unemployment Rate
+2020.04.09 12:30,USD,-0.4925,PPI MoM
+2020.04.09 14:00,USD,-1.4258,Michigan Consumer Sentiment Prel
+2020.04.10 12:30,USD,-2.0761,Core Inflation Rate YoY
+2020.04.10 12:30,USD,-3.0767,Core Inflation Rate MoM
+2020.04.10 12:30,USD,-2.0667,Inflation Rate MoM
+2020.04.10 12:30,USD,-1.1274,Inflation Rate YoY
+2020.04.15 12:30,USD,-1.8813,Retail Sales MoM
+2020.04.15 14:00,CAD,0.0,Interest Rate
+2020.04.16 12:30,USD,-0.4703,Housing Starts
+2020.04.16 12:30,USD,0.8252,Building Permits Prel
+2020.04.21 14:00,USD,0.3109,Existing Home Sales
+2020.04.22 12:30,CAD,-1.6346,Inflation Rate YoY
+2020.04.24 12:30,USD,-1.4942,Durable Goods Orders MoM
+2020.04.29 12:30,USD,-1.5541,GDP Growth Rate QoQ Adv
+2020.04.30 12:30,USD,0.0,Core PCE Price Index MoM
+2020.04.30 12:30,USD,-0.9092,Personal Income MoM
+2020.04.30 12:30,USD,-8.2988,Personal Spending MoM
+2020.05.01 14:00,USD,3.4317,ISM Manufacturing PMI
+2020.05.05 14:00,USD,2.6047,ISM Services PMI
+2020.05.07 14:00,CAD,-0.3806,Ivey PMI s.a
+2020.05.08 12:30,USD,-85.8574,Non Farm Payrolls
+2020.05.08 12:30,USD,37.5233,Unemployment Rate
+2020.05.08 12:30,CAD,19.911,Unemployment Rate
+2020.05.12 12:30,USD,-1.1262,Inflation Rate YoY
+2020.05.12 12:30,USD,-4.3819,Core Inflation Rate MoM
+2020.05.12 12:30,USD,-3.0448,Core Inflation Rate YoY
+2020.05.12 12:30,USD,0.0,Inflation Rate MoM
+2020.05.13 12:30,USD,-3.4702,PPI MoM
+2020.05.15 12:30,USD,-3.6893,Retail Sales MoM
+2020.05.15 14:00,USD,2.0126,Michigan Consumer Sentiment Prel
+2020.05.19 12:30,USD,0.1253,Housing Starts
+2020.05.19 12:30,USD,1.1577,Building Permits Prel
+2020.05.20 12:30,CAD,-0.5374,Inflation Rate YoY
+2020.05.21 14:00,USD,1.2517,Existing Home Sales
+2020.05.28 12:30,USD,1.0612,Durable Goods Orders MoM
+2020.05.28 12:30,USD,-0.9537,GDP Growth Rate QoQ 2nd Est
+2020.05.29 12:30,USD,0.0,Core PCE Price Index MoM
+2020.05.29 12:30,USD,82.267,Personal Income MoM
+2020.05.29 12:30,USD,4.0727,Personal Spending MoM
+2020.05.29 12:30,CAD,2.3204,GDP Growth Rate Annualized
+2020.06.01 14:00,USD,-0.0646,ISM Manufacturing PMI
+2020.06.03 14:00,USD,0.7159,ISM Services PMI
+2020.06.03 14:00,CAD,0.0,Interest Rate
+2020.06.05 12:30,USD,5.0536,Non Farm Payrolls
+2020.06.05 12:30,CAD,1.3363,Unemployment Rate
+2020.06.05 12:30,USD,10.0203,Unemployment Rate
+2020.06.09 14:00,USD,-1.31,JOLTs Job Openings
+2020.06.10 12:30,USD,-0.9588,Core Inflation Rate YoY
+2020.06.10 12:30,USD,-1.3058,Core Inflation Rate MoM
+2020.06.10 12:30,USD,-1.018,Inflation Rate MoM
+2020.06.10 12:30,USD,-1.1254,Inflation Rate YoY
+2020.06.11 12:30,USD,1.8226,PPI MoM
+2020.06.12 14:00,USD,1.3441,Michigan Consumer Sentiment Prel
+2020.06.16 12:30,USD,17.4427,Retail Sales MoM
+2020.06.17 12:30,CAD,-2.1632,Inflation Rate YoY
+2020.06.17 12:30,USD,-0.0782,Building Permits Prel
+2020.06.17 12:30,USD,-0.7582,Housing Starts
+2020.06.22 14:00,USD,-0.2328,Existing Home Sales
+2020.06.25 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2020.06.25 12:30,USD,2.7143,Durable Goods Orders MoM
+2020.06.26 12:30,USD,1.8414,Core PCE Price Index MoM
+2020.06.26 12:30,USD,0.8171,Personal Income MoM
+2020.06.26 12:30,USD,-1.6696,Personal Spending MoM
+2020.07.01 14:00,USD,2.0842,ISM Manufacturing PMI
+2020.07.02 12:30,USD,0.6506,Non Farm Payrolls
+2020.07.02 12:30,USD,1.2271,Unemployment Rate
+2020.07.06 14:00,USD,3.705,ISM Services PMI
+2020.07.07 14:00,USD,2.4564,JOLTs Job Openings
+2020.07.10 12:30,USD,-0.4466,PPI MoM
+2020.07.10 12:30,CAD,-0.9974,Unemployment Rate
+2020.07.14 12:30,USD,0.0,Inflation Rate YoY
+2020.07.14 12:30,USD,1.3078,Core Inflation Rate MoM
+2020.07.14 12:30,USD,0.9623,Core Inflation Rate YoY
+2020.07.14 12:30,USD,0.0,Inflation Rate MoM
+2020.07.15 14:00,CAD,0.0,Interest Rate
+2020.07.16 12:30,USD,1.93,Retail Sales MoM
+2020.07.17 12:30,USD,1.3665,Housing Starts
+2020.07.17 12:30,USD,-0.7728,Building Permits Prel
+2020.07.17 14:00,USD,-1.9881,Michigan Consumer Sentiment Prel
+2020.07.22 12:30,CAD,2.1036,Inflation Rate YoY
+2020.07.22 14:00,USD,0.7041,Existing Home Sales
+2020.07.27 12:30,USD,0.1693,Durable Goods Orders MoM
+2020.07.30 12:30,USD,2.2573,GDP Growth Rate QoQ Adv
+2020.07.31 12:30,USD,0.0,Core PCE Price Index MoM
+2020.07.31 12:30,USD,0.3456,Personal Income MoM
+2020.07.31 12:30,USD,0.8227,Personal Spending MoM
+2020.08.03 14:00,USD,0.1272,ISM Manufacturing PMI
+2020.08.05 14:00,USD,0.8057,ISM Services PMI
+2020.08.07 12:30,CAD,0.166,Unemployment Rate
+2020.08.07 12:30,USD,0.283,Unemployment Rate
+2020.08.07 12:30,USD,-0.0064,Non Farm Payrolls
+2020.08.07 14:00,CAD,1.9341,Ivey PMI s.a
+2020.08.10 14:00,USD,2.0707,JOLTs Job Openings
+2020.08.11 12:30,USD,1.3489,PPI MoM
+2020.08.12 12:30,USD,4.7969,Core Inflation Rate YoY
+2020.08.12 12:30,USD,5.1517,Core Inflation Rate MoM
+2020.08.12 12:30,USD,2.0565,Inflation Rate MoM
+2020.08.12 12:30,USD,2.2684,Inflation Rate YoY
+2020.08.14 12:30,USD,-0.2443,Retail Sales MoM
+2020.08.14 14:00,USD,0.2674,Michigan Consumer Sentiment Prel
+2020.08.18 12:30,USD,4.0027,Housing Starts
+2020.08.18 12:30,USD,2.7626,Building Permits Prel
+2020.08.19 12:30,CAD,-2.0434,Inflation Rate YoY
+2020.08.21 14:00,USD,4.5485,Existing Home Sales
+2020.08.26 12:30,USD,3.9261,Durable Goods Orders MoM
+2020.08.27 12:30,USD,3.6974,GDP Growth Rate QoQ 2nd Est
+2020.08.28 12:30,CAD,-4.3035,GDP Growth Rate Annualized
+2020.08.28 12:30,USD,0.6531,Personal Income MoM
+2020.08.28 12:30,USD,0.8248,Personal Spending MoM
+2020.08.28 12:30,USD,-1.8111,Core PCE Price Index MoM
+2020.09.01 14:00,USD,0.5772,ISM Manufacturing PMI
+2020.09.03 14:00,USD,0.0477,ISM Services PMI
+2020.09.04 12:30,USD,0.067,Non Farm Payrolls
+2020.09.04 12:30,USD,1.3313,Unemployment Rate
+2020.09.04 12:30,CAD,-0.0,Unemployment Rate
+2020.09.09 14:00,CAD,0.0,Interest Rate
+2020.09.09 14:00,USD,1.6669,JOLTs Job Openings
+2020.09.10 12:30,USD,0.0,PPI MoM
+2020.09.11 12:30,USD,1.0946,Inflation Rate YoY
+2020.09.11 12:30,USD,2.1256,Core Inflation Rate MoM
+2020.09.11 12:30,USD,0.9982,Inflation Rate MoM
+2020.09.11 12:30,USD,0.8166,Core Inflation Rate YoY
+2020.09.16 12:30,USD,-0.123,Retail Sales MoM
+2020.09.16 12:30,CAD,-1.497,Inflation Rate YoY
+2020.09.17 12:30,USD,-1.0331,Housing Starts
+2020.09.17 12:30,USD,-0.7557,Building Permits Prel
+2020.09.18 14:00,USD,1.3136,Michigan Consumer Sentiment Prel
+2020.09.22 14:00,USD,0.2718,Existing Home Sales
+2020.09.25 12:30,USD,-0.5692,Durable Goods Orders MoM
+2020.09.30 12:30,USD,2.2693,GDP Growth Rate QoQ Final
+2020.10.01 12:30,USD,-0.2628,Personal Income MoM
+2020.10.01 12:30,USD,0.827,Personal Spending MoM
+2020.10.01 12:30,USD,0.0,Core PCE Price Index MoM
+2020.10.01 14:00,USD,-0.5809,ISM Manufacturing PMI
+2020.10.02 12:30,USD,0.3796,Unemployment Rate
+2020.10.02 12:30,USD,0.0403,Non Farm Payrolls
+2020.10.05 14:00,USD,0.3843,ISM Services PMI
+2020.10.06 14:00,USD,-0.8066,JOLTs Job Openings
+2020.10.09 12:30,CAD,1.0122,Unemployment Rate
+2020.10.13 12:30,USD,0.9965,Inflation Rate MoM
+2020.10.13 12:30,USD,0.0,Inflation Rate YoY
+2020.10.13 12:30,USD,-0.8176,Core Inflation Rate YoY
+2020.10.13 12:30,USD,0.0,Core Inflation Rate MoM
+2020.10.14 12:30,USD,0.4501,PPI MoM
+2020.10.16 12:30,USD,0.7437,Retail Sales MoM
+2020.10.16 14:00,USD,0.2347,Michigan Consumer Sentiment Prel
+2020.10.20 12:30,USD,0.2012,Housing Starts
+2020.10.20 12:30,USD,0.4992,Building Permits Prel
+2020.10.21 12:30,CAD,0.495,Inflation Rate YoY
+2020.10.22 14:00,USD,0.3422,Existing Home Sales
+2020.10.27 12:30,USD,0.7269,Durable Goods Orders MoM
+2020.10.28 14:00,CAD,0.0,Interest Rate
+2020.10.29 12:30,USD,3.5894,GDP Growth Rate QoQ Adv
+2020.10.30 12:30,USD,0.1763,Personal Income MoM
+2020.10.30 12:30,USD,0.0,Core PCE Price Index MoM
+2020.10.30 12:30,USD,1.1056,Personal Spending MoM
+2020.11.02 15:00,USD,1.8792,ISM Manufacturing PMI
+2020.11.04 15:00,USD,-0.6777,ISM Services PMI
+2020.11.06 13:30,USD,0.0369,Non Farm Payrolls
+2020.11.06 13:30,USD,0.765,Unemployment Rate
+2020.11.06 13:30,CAD,-0.3377,Unemployment Rate
+2020.11.06 15:00,CAD,0.505,Ivey PMI s.a
+2020.11.10 15:00,USD,0.0342,JOLTs Job Openings
+2020.11.12 13:30,USD,0.0,Inflation Rate MoM
+2020.11.12 13:30,USD,-1.1003,Inflation Rate YoY
+2020.11.12 13:30,USD,-1.6414,Core Inflation Rate YoY
+2020.11.12 13:30,USD,-1.0347,Core Inflation Rate MoM
+2020.11.13 13:30,USD,1.3587,PPI MoM
+2020.11.13 15:00,USD,-1.6889,Michigan Consumer Sentiment Prel
+2020.11.17 13:30,USD,-0.4981,Retail Sales MoM
+2020.11.18 13:30,CAD,1.4928,Inflation Rate YoY
+2020.11.18 13:30,USD,1.0519,Housing Starts
+2020.11.18 13:30,USD,-0.2285,Building Permits Prel
+2020.11.19 15:00,USD,0.7579,Existing Home Sales
+2020.11.25 13:30,USD,-0.385,GDP Growth Rate QoQ 2nd Est
+2020.11.25 13:30,USD,0.2089,Durable Goods Orders MoM
+2020.11.25 15:00,USD,0.0,Personal Income MoM
+2020.11.25 15:00,USD,0.0,Personal Spending MoM
+2020.11.25 15:00,USD,1.8141,Core PCE Price Index MoM
+2020.12.01 13:30,CAD,-7.876,GDP Growth Rate Annualized
+2020.12.01 15:00,USD,-0.4465,ISM Manufacturing PMI
+2020.12.03 15:00,USD,0.0484,ISM Services PMI
+2020.12.04 13:30,USD,-0.0881,Non Farm Payrolls
+2020.12.04 13:30,USD,0.0962,Unemployment Rate
+2020.12.04 13:30,CAD,0.5098,Unemployment Rate
+2020.12.07 15:00,CAD,-0.3422,Ivey PMI s.a
+2020.12.09 15:00,CAD,0.0,Interest Rate
+2020.12.09 15:00,USD,1.5557,JOLTs Job Openings
+2020.12.10 13:30,USD,2.0741,Core Inflation Rate MoM
+2020.12.10 13:30,USD,1.0996,Inflation Rate YoY
+2020.12.10 13:30,USD,0.0,Core Inflation Rate YoY
+2020.12.10 13:30,USD,1.0029,Inflation Rate MoM
+2020.12.11 13:30,USD,-0.4501,PPI MoM
+2020.12.11 15:00,USD,1.6301,Michigan Consumer Sentiment Prel
+2020.12.16 13:30,CAD,0.9845,Inflation Rate YoY
+2020.12.16 13:30,USD,-0.3754,Retail Sales MoM
+2020.12.17 13:30,USD,1.3645,Building Permits Prel
+2020.12.17 13:30,USD,0.1648,Housing Starts
+2020.12.22 13:30,USD,2.1639,GDP Growth Rate QoQ Final
+2020.12.22 15:00,USD,-1.5892,Existing Home Sales
+2020.12.23 13:30,USD,0.0,Personal Spending MoM
+2020.12.23 13:30,USD,-0.179,Personal Income MoM
+2020.12.23 13:30,USD,0.1579,Durable Goods Orders MoM
+2020.12.23 13:30,USD,0.0,Core PCE Price Index MoM
+2021.01.05 15:00,USD,2.308,ISM Manufacturing PMI
+2021.01.07 15:00,USD,1.4153,ISM Services PMI
+2021.01.08 13:30,USD,-0.1067,Non Farm Payrolls
+2021.01.08 13:30,USD,0.0969,Unemployment Rate
+2021.01.08 13:30,CAD,-0.513,Unemployment Rate
+2021.01.12 15:00,USD,1.3159,JOLTs Job Openings
+2021.01.13 13:30,USD,0.0,Core Inflation Rate YoY
+2021.01.13 13:30,USD,0.0,Inflation Rate MoM
+2021.01.13 13:30,USD,0.0,Core Inflation Rate MoM
+2021.01.13 13:30,USD,1.0968,Inflation Rate YoY
+2021.01.15 13:30,USD,0.0,PPI MoM
+2021.01.15 13:30,USD,0.5665,Retail Sales MoM
+2021.01.15 15:00,USD,-0.2631,Michigan Consumer Sentiment Prel
+2021.01.20 13:30,CAD,-1.4761,Inflation Rate YoY
+2021.01.21 13:30,USD,1.6053,Building Permits Prel
+2021.01.21 13:30,USD,0.6898,Housing Starts
+2021.01.22 15:00,USD,-0.2735,Existing Home Sales
+2021.01.27 13:30,USD,-0.3712,Durable Goods Orders MoM
+2021.01.28 13:30,USD,0.0,GDP Growth Rate QoQ Adv
+2021.01.29 13:30,USD,3.5775,Core PCE Price Index MoM
+2021.01.29 13:30,USD,0.2253,Personal Income MoM
+2021.01.29 13:30,USD,3.3641,Personal Spending MoM
+2021.02.01 15:00,USD,-0.4993,ISM Manufacturing PMI
+2021.02.03 15:00,USD,0.779,ISM Services PMI
+2021.02.05 13:30,USD,0.2928,Unemployment Rate
+2021.02.05 13:30,USD,0.1112,Non Farm Payrolls
+2021.02.05 13:30,CAD,-0.5155,Unemployment Rate
+2021.02.09 15:00,USD,0.8603,JOLTs Job Openings
+2021.02.10 13:30,USD,-0.8246,Core Inflation Rate YoY
+2021.02.10 13:30,USD,-2.0271,Core Inflation Rate MoM
+2021.02.10 13:30,USD,-1.0093,Inflation Rate MoM
+2021.02.10 13:30,USD,-1.0944,Inflation Rate YoY
+2021.02.12 15:00,USD,-1.5233,Michigan Consumer Sentiment Prel
+2021.02.17 13:30,USD,2.7372,PPI MoM
+2021.02.17 13:30,CAD,0.4882,Inflation Rate YoY
+2021.02.17 13:30,USD,1.7094,Retail Sales MoM
+2021.02.18 13:30,USD,3.0667,Building Permits Prel
+2021.02.18 13:30,USD,-0.4364,Housing Starts
+2021.02.19 15:00,USD,-0.0689,Existing Home Sales
+2021.02.25 13:30,USD,1.2257,Durable Goods Orders MoM
+2021.02.25 13:30,USD,-0.3868,GDP Growth Rate QoQ 2nd Est
+2021.02.26 13:30,USD,1.6414,Core PCE Price Index MoM
+2021.02.26 13:30,USD,-2.0934,Personal Spending MoM
+2021.02.26 13:30,USD,0.4993,Personal Income MoM
+2021.03.01 15:00,USD,1.003,ISM Manufacturing PMI
+2021.03.02 13:30,CAD,0.0,GDP Growth Rate Annualized
+2021.03.03 15:00,USD,-1.077,ISM Services PMI
+2021.03.05 13:30,USD,0.0983,Unemployment Rate
+2021.03.05 13:30,USD,0.1416,Non Farm Payrolls
+2021.03.10 13:30,USD,-1.0102,Inflation Rate MoM
+2021.03.10 13:30,USD,0.0,Inflation Rate YoY
+2021.03.10 13:30,USD,0.0,Core Inflation Rate MoM
+2021.03.10 13:30,USD,-0.8277,Core Inflation Rate YoY
+2021.03.11 15:00,USD,1.7859,JOLTs Job Openings
+2021.03.12 13:30,CAD,1.2087,Unemployment Rate
+2021.03.12 13:30,USD,0.8728,PPI MoM
+2021.03.12 15:00,USD,1.4746,Michigan Consumer Sentiment Prel
+2021.03.16 12:30,USD,-1.3144,Retail Sales MoM
+2021.03.17 12:30,CAD,-0.9816,Inflation Rate YoY
+2021.03.17 12:30,USD,-2.0906,Housing Starts
+2021.03.17 12:30,USD,-0.9831,Building Permits Prel
+2021.03.22 14:00,USD,-2.5671,Existing Home Sales
+2021.03.24 12:30,USD,-1.0122,Durable Goods Orders MoM
+2021.03.25 12:30,USD,1.3937,GDP Growth Rate QoQ Final
+2021.03.26 13:30,USD,3.238,Core PCE Price Index MoM
+2021.03.26 13:30,USD,0.0,Personal Spending MoM
+2021.03.26 13:30,USD,0.1371,Personal Income MoM
+2021.04.01 14:00,USD,1.5703,ISM Manufacturing PMI
+2021.04.02 12:30,USD,0.0873,Non Farm Payrolls
+2021.04.02 12:30,USD,-0.099,Unemployment Rate
+2021.04.05 14:00,USD,1.46,ISM Services PMI
+2021.04.06 14:00,USD,2.6437,JOLTs Job Openings
+2021.04.07 14:00,CAD,0.2776,Ivey PMI s.a
+2021.04.09 12:30,USD,0.8749,PPI MoM
+2021.04.09 12:30,CAD,0.517,Unemployment Rate
+2021.04.13 12:30,USD,0.0,Core Inflation Rate MoM
+2021.04.13 12:30,USD,0.0,Inflation Rate MoM
+2021.04.13 12:30,USD,0.8309,Core Inflation Rate YoY
+2021.04.13 12:30,USD,1.1015,Inflation Rate YoY
+2021.04.15 12:30,USD,3.1068,Retail Sales MoM
+2021.04.16 12:30,USD,0.2305,Building Permits Prel
+2021.04.16 12:30,USD,0.943,Housing Starts
+2021.04.16 14:00,USD,-0.9106,Michigan Consumer Sentiment Prel
+2021.04.21 12:30,CAD,-0.4913,Inflation Rate YoY
+2021.04.22 14:00,USD,-1.4049,Existing Home Sales
+2021.04.26 12:30,USD,-0.9557,Durable Goods Orders MoM
+2021.04.29 12:30,USD,0.4241,GDP Growth Rate QoQ Adv
+2021.04.30 12:30,USD,0.2301,Personal Income MoM
+2021.04.30 12:30,USD,2.0541,Personal Spending MoM
+2021.04.30 12:30,USD,1.5166,Core PCE Price Index MoM
+2021.05.03 14:00,USD,-2.6201,ISM Manufacturing PMI
+2021.05.05 14:00,USD,-0.4852,ISM Services PMI
+2021.05.07 12:30,CAD,-0.6934,Unemployment Rate
+2021.05.07 12:30,USD,-0.2672,Non Farm Payrolls
+2021.05.07 12:30,USD,-0.299,Unemployment Rate
+2021.05.11 14:00,USD,3.1149,JOLTs Job Openings
+2021.05.12 12:30,USD,5.05,Core Inflation Rate MoM
+2021.05.12 12:30,USD,4.0736,Inflation Rate MoM
+2021.05.12 12:30,USD,5.819,Core Inflation Rate YoY
+2021.05.12 12:30,USD,6.5947,Inflation Rate YoY
+2021.05.13 12:30,USD,3.0698,PPI MoM
+2021.05.14 12:30,USD,-0.0589,Retail Sales MoM
+2021.05.14 14:00,USD,-2.4731,Michigan Consumer Sentiment Prel
+2021.05.18 12:30,USD,-0.1451,Building Permits Prel
+2021.05.18 12:30,USD,-2.7832,Housing Starts
+2021.05.19 12:30,CAD,0.9884,Inflation Rate YoY
+2021.05.21 14:00,USD,-0.9984,Existing Home Sales
+2021.05.27 12:30,USD,-1.0596,Durable Goods Orders MoM
+2021.05.27 12:30,USD,-0.3891,GDP Growth Rate QoQ 2nd Est
+2021.05.28 12:30,USD,2.0119,Personal Spending MoM
+2021.05.28 12:30,USD,0.0,Core PCE Price Index MoM
+2021.05.28 12:30,USD,0.5561,Personal Income MoM
+2021.06.01 12:30,CAD,0.0365,GDP Growth Rate Annualized
+2021.06.01 14:00,USD,0.4174,ISM Manufacturing PMI
+2021.06.03 14:00,USD,0.6327,ISM Services PMI
+2021.06.04 12:30,CAD,-0.1738,Unemployment Rate
+2021.06.04 12:30,USD,-0.0743,Non Farm Payrolls
+2021.06.04 12:30,USD,0.1002,Unemployment Rate
+2021.06.08 14:00,USD,3.1564,JOLTs Job Openings
+2021.06.10 12:30,USD,2.6104,Inflation Rate YoY
+2021.06.10 12:30,USD,2.7358,Core Inflation Rate YoY
+2021.06.10 12:30,USD,2.759,Inflation Rate MoM
+2021.06.10 12:30,USD,2.592,Core Inflation Rate MoM
+2021.06.11 14:00,USD,0.7538,Michigan Consumer Sentiment Prel
+2021.06.15 12:30,USD,0.1186,Retail Sales MoM
+2021.06.15 12:30,USD,1.6646,PPI MoM
+2021.06.16 12:30,CAD,0.4939,Inflation Rate YoY
+2021.06.16 12:30,USD,-0.7153,Building Permits Prel
+2021.06.16 12:30,USD,-0.3604,Housing Starts
+2021.06.22 14:00,USD,1.0666,Existing Home Sales
+2021.06.24 12:30,USD,-0.7024,GDP Growth Rate QoQ Final
+2021.06.24 12:30,USD,-0.264,Durable Goods Orders MoM
+2021.06.25 12:30,USD,-0.2468,Personal Spending MoM
+2021.06.25 12:30,USD,-1.5137,Core PCE Price Index MoM
+2021.06.25 12:30,USD,0.2797,Personal Income MoM
+2021.07.01 14:00,USD,0.18,ISM Manufacturing PMI
+2021.07.02 12:30,USD,-0.2017,Unemployment Rate
+2021.07.02 12:30,USD,0.0239,Non Farm Payrolls
+2021.07.06 14:00,USD,-1.0283,ISM Services PMI
+2021.07.07 14:00,USD,1.652,JOLTs Job Openings
+2021.07.09 12:30,CAD,-0.3499,Unemployment Rate
+2021.07.13 12:30,USD,4.1941,Inflation Rate YoY
+2021.07.13 12:30,USD,3.2733,Core Inflation Rate YoY
+2021.07.13 12:30,USD,2.6398,Inflation Rate MoM
+2021.07.13 12:30,USD,3.3177,Core Inflation Rate MoM
+2021.07.14 12:30,USD,0.4122,PPI MoM
+2021.07.16 12:30,USD,0.8358,Retail Sales MoM
+2021.07.16 14:00,USD,-1.7959,Michigan Consumer Sentiment Prel
+2021.07.20 12:30,USD,-1.4903,Building Permits Prel
+2021.07.20 12:30,USD,0.8943,Housing Starts
+2021.07.22 14:00,USD,0.5984,Existing Home Sales
+2021.07.27 12:30,USD,-0.6903,Durable Goods Orders MoM
+2021.07.28 12:30,CAD,-0.4963,Inflation Rate YoY
+2021.07.29 12:30,USD,-2.8859,GDP Growth Rate QoQ Adv
+2021.07.30 12:30,USD,1.7385,Personal Spending MoM
+2021.07.30 12:30,USD,-1.5,Core PCE Price Index MoM
+2021.07.30 12:30,USD,0.2347,Personal Income MoM
+2021.08.02 14:00,USD,-0.423,ISM Manufacturing PMI
+2021.08.04 14:00,USD,1.6085,ISM Services PMI
+2021.08.06 12:30,CAD,-0.0,Unemployment Rate
+2021.08.06 12:30,USD,0.3043,Unemployment Rate
+2021.08.06 12:30,USD,0.0315,Non Farm Payrolls
+2021.08.09 14:00,USD,3.037,JOLTs Job Openings
+2021.08.11 12:30,USD,0.761,Inflation Rate YoY
+2021.08.11 12:30,USD,0.0,Core Inflation Rate YoY
+2021.08.11 12:30,USD,0.0,Core Inflation Rate MoM
+2021.08.11 12:30,USD,0.0,Inflation Rate MoM
+2021.08.12 12:30,USD,1.6593,PPI MoM
+2021.08.13 14:00,USD,-3.4141,Michigan Consumer Sentiment Prel
+2021.08.17 12:30,USD,-0.7788,Retail Sales MoM
+2021.08.18 12:30,USD,0.3607,Building Permits Prel
+2021.08.18 12:30,CAD,1.4971,Inflation Rate YoY
+2021.08.18 12:30,USD,0.0,Housing Starts
+2021.08.23 14:00,USD,1.6013,Existing Home Sales
+2021.08.25 12:30,USD,0.1064,Durable Goods Orders MoM
+2021.08.26 12:30,USD,-0.3918,GDP Growth Rate QoQ 2nd Est
+2021.08.27 12:30,USD,0.0,Personal Spending MoM
+2021.08.27 12:30,USD,1.4876,Core PCE Price Index MoM
+2021.08.27 12:30,USD,0.4726,Personal Income MoM
+2021.08.31 12:30,CAD,-1.1176,GDP Growth Rate Annualized
+2021.09.01 14:00,USD,0.7285,ISM Manufacturing PMI
+2021.09.03 12:30,USD,-0.0776,Non Farm Payrolls
+2021.09.03 12:30,USD,0.1021,Unemployment Rate
+2021.09.03 14:00,USD,0.0,ISM Services PMI
+2021.09.08 14:00,USD,2.7972,JOLTs Job Openings
+2021.09.10 12:30,USD,1.2337,PPI MoM
+2021.09.10 12:30,CAD,0.3543,Unemployment Rate
+2021.09.14 12:30,USD,-1.5641,Core Inflation Rate MoM
+2021.09.14 12:30,USD,-0.8526,Inflation Rate MoM
+2021.09.14 12:30,USD,0.0,Inflation Rate YoY
+2021.09.14 12:30,USD,-1.2395,Core Inflation Rate YoY
+2021.09.15 12:30,CAD,0.9889,Inflation Rate YoY
+2021.09.16 12:30,USD,0.8397,Retail Sales MoM
+2021.09.17 14:00,USD,-0.2906,Michigan Consumer Sentiment Prel
+2021.09.21 12:30,USD,1.8589,Building Permits Prel
+2021.09.21 12:30,USD,0.4997,Housing Starts
+2021.09.22 14:00,USD,0.6591,Existing Home Sales
+2021.09.27 12:30,USD,0.5893,Durable Goods Orders MoM
+2021.09.30 12:30,USD,0.6928,GDP Growth Rate QoQ Final
+2021.10.01 12:30,USD,0.0,Personal Income MoM
+2021.10.01 12:30,USD,0.9889,Personal Spending MoM
+2021.10.01 12:30,USD,1.4753,Core PCE Price Index MoM
+2021.10.01 14:00,USD,0.7317,ISM Manufacturing PMI
+2021.10.05 14:00,USD,0.7805,ISM Services PMI
+2021.10.08 12:30,CAD,-0.1782,Unemployment Rate
+2021.10.08 12:30,USD,-0.0191,Non Farm Payrolls
+2021.10.08 12:30,USD,0.4112,Unemployment Rate
+2021.10.12 14:00,USD,-0.1478,JOLTs Job Openings
+2021.10.13 12:30,USD,0.0,Core Inflation Rate YoY
+2021.10.13 12:30,USD,0.7692,Inflation Rate YoY
+2021.10.13 12:30,USD,0.775,Core Inflation Rate MoM
+2021.10.13 12:30,USD,1.7076,Inflation Rate MoM
+2021.10.14 12:30,USD,-0.4108,PPI MoM
+2021.10.15 12:30,USD,0.6018,Retail Sales MoM
+2021.10.15 14:00,USD,-0.4972,Michigan Consumer Sentiment Prel
+2021.10.19 12:30,USD,-1.3065,Building Permits Prel
+2021.10.19 12:30,USD,-0.5391,Housing Starts
+2021.10.20 12:30,CAD,0.4944,Inflation Rate YoY
+2021.10.21 14:00,USD,0.529,Existing Home Sales
+2021.10.27 12:30,USD,0.377,Durable Goods Orders MoM
+2021.10.28 12:30,USD,-0.8758,GDP Growth Rate QoQ Adv
+2021.10.29 12:30,USD,0.0,Personal Spending MoM
+2021.10.29 12:30,USD,0.0,Core PCE Price Index MoM
+2021.10.29 12:30,USD,-0.1436,Personal Income MoM
+2021.11.01 14:00,USD,0.1225,ISM Manufacturing PMI
+2021.11.03 14:00,USD,2.5491,ISM Services PMI
+2021.11.05 12:30,CAD,0.538,Unemployment Rate
+2021.11.05 12:30,USD,0.1568,Non Farm Payrolls
+2021.11.05 12:30,USD,0.2069,Unemployment Rate
+2021.11.09 13:30,USD,0.0,PPI MoM
+2021.11.10 13:30,USD,3.0888,Inflation Rate YoY
+2021.11.10 13:30,USD,1.8639,Core Inflation Rate YoY
+2021.11.10 13:30,USD,2.3304,Core Inflation Rate MoM
+2021.11.10 13:30,USD,3.3763,Inflation Rate MoM
+2021.11.12 15:00,USD,1.4892,JOLTs Job Openings
+2021.11.12 15:00,USD,-1.6465,Michigan Consumer Sentiment Prel
+2021.11.16 13:30,USD,0.0605,Retail Sales MoM
+2021.11.17 13:30,CAD,0.0,Inflation Rate YoY
+2021.11.17 13:30,USD,0.1709,Building Permits Prel
+2021.11.17 13:30,USD,0.1354,Housing Starts
+2021.11.22 15:00,USD,0.0664,Existing Home Sales
+2021.11.24 13:30,USD,-0.3794,Durable Goods Orders MoM
+2021.11.24 13:30,USD,-0.3948,GDP Growth Rate QoQ 2nd Est
+2021.11.24 15:00,USD,0.7478,Personal Spending MoM
+2021.11.24 15:00,USD,1.4739,Core PCE Price Index MoM
+2021.11.24 15:00,USD,0.2888,Personal Income MoM
+2021.11.30 13:30,CAD,1.9032,GDP Growth Rate Annualized
+2021.12.01 15:00,USD,-0.1233,ISM Manufacturing PMI
+2021.12.03 13:30,USD,0.4166,Unemployment Rate
+2021.12.03 13:30,USD,0.0485,Non Farm Payrolls
+2021.12.03 13:30,CAD,0.9014,Unemployment Rate
+2021.12.03 15:00,USD,1.1942,ISM Services PMI
+2021.12.08 15:00,USD,2.4339,JOLTs Job Openings
+2021.12.10 13:30,USD,0.0,Inflation Rate YoY
+2021.12.10 13:30,USD,0.0,Core Inflation Rate YoY
+2021.12.10 13:30,USD,1.5891,Inflation Rate MoM
+2021.12.10 13:30,USD,0.7553,Core Inflation Rate MoM
+2021.12.10 15:00,USD,0.9611,Michigan Consumer Sentiment Prel
+2021.12.14 13:30,USD,2.4918,PPI MoM
+2021.12.15 13:30,CAD,0.0,Inflation Rate YoY
+2021.12.15 13:30,USD,0.1827,Retail Sales MoM
+2021.12.16 13:30,USD,1.7218,Housing Starts
+2021.12.16 13:30,USD,0.7022,Building Permits Prel
+2021.12.22 13:30,USD,1.4137,GDP Growth Rate QoQ Final
+2021.12.22 15:00,USD,-0.6015,Existing Home Sales
+2021.12.23 13:30,USD,1.4635,Core PCE Price Index MoM
+2021.12.23 13:30,USD,0.4901,Durable Goods Orders MoM
+2021.12.23 13:30,USD,0.0484,Personal Income MoM
+2021.12.23 13:30,USD,0.5005,Personal Spending MoM
+2022.01.04 15:00,USD,0.3437,JOLTs Job Openings
+2022.01.04 15:00,USD,-1.0541,ISM Manufacturing PMI
+2022.01.06 15:00,USD,-2.6308,ISM Services PMI
+2022.01.07 13:30,USD,0.2096,Unemployment Rate
+2022.01.07 13:30,CAD,0.1807,Unemployment Rate
+2022.01.07 13:30,USD,0.0841,Non Farm Payrolls
+2022.01.12 13:30,USD,0.7575,Core Inflation Rate MoM
+2022.01.12 13:30,USD,0.616,Core Inflation Rate YoY
+2022.01.12 13:30,USD,2.3654,Inflation Rate MoM
+2022.01.12 13:30,USD,0.0,Inflation Rate YoY
+2022.01.13 13:30,USD,0.8083,PPI MoM
+2022.01.14 13:30,USD,-0.429,Retail Sales MoM
+2022.01.14 15:00,USD,-0.3493,Michigan Consumer Sentiment Prel
+2022.01.19 13:30,USD,2.4768,Building Permits Prel
+2022.01.19 13:30,CAD,0.0,Inflation Rate YoY
+2022.01.19 13:30,USD,0.747,Housing Starts
+2022.01.20 15:00,USD,-1.5442,Existing Home Sales
+2022.01.27 13:30,USD,-0.2191,Durable Goods Orders MoM
+2022.01.27 13:30,USD,1.7588,GDP Growth Rate QoQ Adv
+2022.01.28 13:30,USD,2.0134,Personal Spending MoM
+2022.01.28 13:30,USD,1.4542,Core PCE Price Index MoM
+2022.01.28 13:30,USD,-0.0975,Personal Income MoM
+2022.02.01 15:00,USD,-0.0618,ISM Manufacturing PMI
+2022.02.01 15:00,USD,3.3993,JOLTs Job Openings
+2022.02.03 15:00,USD,0.1371,ISM Services PMI
+2022.02.04 13:30,USD,0.0182,Non Farm Payrolls
+2022.02.04 13:30,USD,-0.1055,Unemployment Rate
+2022.02.04 13:30,CAD,-0.3636,Unemployment Rate
+2022.02.10 13:30,USD,1.492,Inflation Rate YoY
+2022.02.10 13:30,USD,0.7691,Inflation Rate MoM
+2022.02.10 13:30,USD,0.7597,Core Inflation Rate MoM
+2022.02.10 13:30,USD,0.6187,Core Inflation Rate YoY
+2022.02.11 15:00,USD,-1.6984,Michigan Consumer Sentiment Prel
+2022.02.15 13:30,USD,2.0285,PPI MoM
+2022.02.16 13:30,USD,0.0,Retail Sales MoM
+2022.02.16 13:30,CAD,1.5195,Inflation Rate YoY
+2022.02.17 13:30,USD,-0.086,Housing Starts
+2022.02.17 13:30,USD,1.9514,Building Permits Prel
+2022.02.18 15:00,USD,2.1993,Existing Home Sales
+2022.02.24 13:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2022.02.25 13:30,USD,0.0981,Personal Income MoM
+2022.02.25 13:30,USD,0.0,Core PCE Price Index MoM
+2022.02.25 13:30,USD,0.4406,Durable Goods Orders MoM
+2022.02.25 13:30,USD,-1.9827,Personal Spending MoM
+2022.03.01 13:30,CAD,0.2461,GDP Growth Rate Annualized
+2022.03.01 15:00,USD,0.0622,ISM Manufacturing PMI
+2022.03.03 15:00,USD,-1.7933,ISM Services PMI
+2022.03.04 13:30,USD,0.1919,Non Farm Payrolls
+2022.03.04 13:30,USD,-0.0,Unemployment Rate
+2022.03.09 15:00,USD,0.7662,JOLTs Job Openings
+2022.03.10 13:30,USD,0.0,Inflation Rate YoY
+2022.03.10 13:30,USD,-0.772,Inflation Rate MoM
+2022.03.10 13:30,USD,0.0,Core Inflation Rate MoM
+2022.03.10 13:30,USD,0.0,Core Inflation Rate YoY
+2022.03.11 13:30,CAD,1.279,Unemployment Rate
+2022.03.11 15:00,USD,-0.4929,Michigan Consumer Sentiment Prel
+2022.03.15 12:30,USD,0.0,PPI MoM
+2022.03.16 12:30,CAD,1.0047,Inflation Rate YoY
+2022.03.16 12:30,USD,0.4335,Retail Sales MoM
+2022.03.17 12:30,USD,0.4945,Housing Starts
+2022.03.17 12:30,USD,0.1248,Building Permits Prel
+2022.03.18 14:00,USD,-1.9498,Existing Home Sales
+2022.03.24 12:30,USD,-0.9416,Durable Goods Orders MoM
+2022.03.29 14:00,USD,1.8894,JOLTs Job Openings
+2022.03.30 12:30,USD,-1.4223,GDP Growth Rate QoQ Final
+2022.03.31 12:30,USD,0.2425,Personal Spending MoM
+2022.03.31 12:30,USD,1.4547,Core PCE Price Index MoM
+2022.03.31 12:30,USD,0.0493,Personal Income MoM
+2022.04.01 12:30,USD,0.0,Non Farm Payrolls
+2022.04.01 12:30,USD,-0.0,Unemployment Rate
+2022.04.01 14:00,USD,-1.1269,ISM Manufacturing PMI
+2022.04.05 14:00,USD,-0.1804,ISM Services PMI
+2022.04.06 14:00,CAD,0.5295,Ivey PMI s.a
+2022.04.08 12:30,CAD,-0.1823,Unemployment Rate
+2022.04.12 12:30,USD,0.7471,Inflation Rate YoY
+2022.04.12 12:30,USD,-0.7729,Inflation Rate MoM
+2022.04.12 12:30,USD,-0.6252,Core Inflation Rate YoY
+2022.04.12 12:30,USD,-1.5333,Core Inflation Rate MoM
+2022.04.13 12:30,USD,2.4139,PPI MoM
+2022.04.14 12:30,USD,0.8096,Retail Sales MoM
+2022.04.14 14:00,USD,1.9527,Michigan Consumer Sentiment Prel
+2022.04.19 12:30,USD,-0.5592,Housing Starts
+2022.04.19 12:30,USD,0.6699,Building Permits Prel
+2022.04.20 12:30,CAD,3.0145,Inflation Rate YoY
+2022.04.20 14:00,USD,-1.4716,Existing Home Sales
+2022.04.26 12:30,USD,-0.1107,Durable Goods Orders MoM
+2022.04.28 12:30,USD,-3.0276,GDP Growth Rate QoQ Adv
+2022.04.29 12:30,USD,1.7081,Personal Spending MoM
+2022.04.29 12:30,USD,1.4468,Core PCE Price Index MoM
+2022.04.29 12:30,USD,0.0496,Personal Income MoM
+2022.05.02 14:00,USD,-1.435,ISM Manufacturing PMI
+2022.05.03 14:00,USD,3.521,JOLTs Job Openings
+2022.05.04 14:00,USD,-0.0907,ISM Services PMI
+2022.05.06 12:30,USD,-0.0399,Non Farm Payrolls
+2022.05.06 12:30,USD,-0.2146,Unemployment Rate
+2022.05.06 12:30,CAD,-0.3666,Unemployment Rate
+2022.05.11 12:30,USD,1.5005,Inflation Rate YoY
+2022.05.11 12:30,USD,0.7738,Inflation Rate MoM
+2022.05.11 12:30,USD,0.76,Core Inflation Rate MoM
+2022.05.11 12:30,USD,1.2545,Core Inflation Rate YoY
+2022.05.12 12:30,USD,0.0,PPI MoM
+2022.05.13 14:00,USD,-1.4014,Michigan Consumer Sentiment Prel
+2022.05.17 12:30,USD,0.3124,Retail Sales MoM
+2022.05.18 12:30,USD,0.5238,Housing Starts
+2022.05.18 12:30,USD,0.0982,Building Permits Prel
+2022.05.18 12:30,CAD,0.4799,Inflation Rate YoY
+2022.05.19 14:00,USD,-0.9543,Existing Home Sales
+2022.05.25 12:30,USD,-0.1113,Durable Goods Orders MoM
+2022.05.26 12:30,USD,-0.8096,GDP Growth Rate QoQ 2nd Est
+2022.05.27 12:30,USD,0.2419,Personal Spending MoM
+2022.05.27 12:30,USD,0.0,Core PCE Price Index MoM
+2022.05.27 12:30,USD,-0.0999,Personal Income MoM
+2022.05.31 12:30,CAD,-0.465,GDP Growth Rate Annualized
+2022.06.01 14:00,USD,1.2016,JOLTs Job Openings
+2022.06.01 14:00,USD,0.8663,ISM Manufacturing PMI
+2022.06.03 12:30,USD,-0.0112,Non Farm Payrolls
+2022.06.03 12:30,USD,-0.1078,Unemployment Rate
+2022.06.03 14:00,USD,0.2279,ISM Services PMI
+2022.06.10 12:30,USD,2.2413,Inflation Rate YoY
+2022.06.10 12:30,USD,1.5529,Inflation Rate MoM
+2022.06.10 12:30,CAD,-0.0,Unemployment Rate
+2022.06.10 12:30,USD,0.0,Core Inflation Rate MoM
+2022.06.10 12:30,USD,0.6257,Core Inflation Rate YoY
+2022.06.10 14:00,USD,-2.2208,Michigan Consumer Sentiment Prel
+2022.06.14 12:30,USD,0.3956,PPI MoM
+2022.06.15 12:30,USD,-0.1257,Retail Sales MoM
+2022.06.16 12:30,USD,-1.2698,Building Permits Prel
+2022.06.16 12:30,USD,-1.9424,Housing Starts
+2022.06.21 14:00,USD,-0.446,Existing Home Sales
+2022.06.22 12:30,CAD,1.4469,Inflation Rate YoY
+2022.06.27 12:30,USD,0.3358,Durable Goods Orders MoM
+2022.06.29 12:30,USD,-0.6751,GDP Growth Rate QoQ Final
+2022.06.30 12:30,USD,0.2434,Personal Spending MoM
+2022.06.30 12:30,USD,-1.4483,Core PCE Price Index MoM
+2022.06.30 12:30,USD,-0.0502,Personal Income MoM
+2022.07.01 14:00,USD,-0.8685,ISM Manufacturing PMI
+2022.07.06 14:00,USD,1.4028,JOLTs Job Openings
+2022.07.06 14:00,USD,0.7338,ISM Services PMI
+2022.07.08 12:30,CAD,0.3705,Unemployment Rate
+2022.07.08 12:30,USD,0.0779,Non Farm Payrolls
+2022.07.08 12:30,USD,-0.0,Unemployment Rate
+2022.07.13 12:30,USD,0.7667,Core Inflation Rate MoM
+2022.07.13 12:30,USD,1.2565,Core Inflation Rate YoY
+2022.07.13 12:30,USD,1.5438,Inflation Rate MoM
+2022.07.13 12:30,USD,2.2011,Inflation Rate YoY
+2022.07.14 12:30,USD,0.3979,PPI MoM
+2022.07.15 12:30,USD,0.1264,Retail Sales MoM
+2022.07.15 14:00,USD,0.3348,Michigan Consumer Sentiment Prel
+2022.07.19 12:30,USD,-0.2955,Housing Starts
+2022.07.19 12:30,USD,0.4901,Building Permits Prel
+2022.07.20 12:30,CAD,-1.4392,Inflation Rate YoY
+2022.07.20 14:00,USD,-1.7295,Existing Home Sales
+2022.07.27 12:30,USD,1.3509,Durable Goods Orders MoM
+2022.07.28 12:30,USD,-1.4847,GDP Growth Rate QoQ Adv
+2022.07.29 12:30,USD,0.0,Personal Spending MoM
+2022.07.29 12:30,USD,1.4365,Core PCE Price Index MoM
+2022.07.29 12:30,USD,0.0,Personal Income MoM
+2022.08.01 14:00,USD,0.5585,ISM Manufacturing PMI
+2022.08.02 14:00,USD,0.7457,JOLTs Job Openings
+2022.08.03 14:00,USD,1.3819,ISM Services PMI
+2022.08.05 12:30,USD,0.109,Unemployment Rate
+2022.08.05 12:30,CAD,0.3726,Unemployment Rate
+2022.08.05 12:30,USD,0.219,Non Farm Payrolls
+2022.08.10 12:30,USD,-0.7688,Core Inflation Rate MoM
+2022.08.10 12:30,USD,-1.2537,Core Inflation Rate YoY
+2022.08.10 12:30,USD,-1.5354,Inflation Rate MoM
+2022.08.10 12:30,USD,-1.4433,Inflation Rate YoY
+2022.08.11 12:30,USD,-2.0009,PPI MoM
+2022.08.12 14:00,USD,0.7288,Michigan Consumer Sentiment Prel
+2022.08.16 12:30,USD,-1.9187,Housing Starts
+2022.08.16 12:30,USD,0.3379,Building Permits Prel
+2022.08.16 12:30,CAD,0.0,Inflation Rate YoY
+2022.08.17 12:30,USD,-0.8266,Retail Sales MoM
+2022.08.18 14:00,USD,-0.0635,Existing Home Sales
+2022.08.24 12:30,USD,-0.3368,Durable Goods Orders MoM
+2022.08.25 12:30,USD,0.8049,GDP Growth Rate QoQ 2nd Est
+2022.08.26 12:30,USD,-0.7387,Personal Spending MoM
+2022.08.26 12:30,USD,0.0,Core PCE Price Index MoM
+2022.08.26 12:30,USD,0.1523,Personal Income MoM
+2022.08.30 14:00,USD,2.9856,JOLTs Job Openings
+2022.08.31 12:30,CAD,0.0727,GDP Growth Rate Annualized
+2022.09.01 14:00,USD,0.6234,ISM Manufacturing PMI
+2022.09.02 12:30,USD,-0.0047,Non Farm Payrolls
+2022.09.02 12:30,USD,-0.1096,Unemployment Rate
+2022.09.06 14:00,USD,0.3679,ISM Services PMI
+2022.09.09 12:30,CAD,-0.3746,Unemployment Rate
+2022.09.13 12:30,USD,1.4283,Inflation Rate YoY
+2022.09.13 12:30,USD,1.5192,Inflation Rate MoM
+2022.09.13 12:30,USD,1.5408,Core Inflation Rate MoM
+2022.09.13 12:30,USD,1.248,Core Inflation Rate YoY
+2022.09.14 12:30,USD,0.0,PPI MoM
+2022.09.15 12:30,USD,0.318,Retail Sales MoM
+2022.09.16 14:00,USD,-0.1404,Michigan Consumer Sentiment Prel
+2022.09.20 12:30,USD,1.0599,Housing Starts
+2022.09.20 12:30,USD,-1.3171,Building Permits Prel
+2022.09.20 12:30,CAD,-1.4369,Inflation Rate YoY
+2022.09.21 14:00,USD,0.5744,Existing Home Sales
+2022.09.27 12:30,USD,0.1128,Durable Goods Orders MoM
+2022.09.29 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2022.09.30 12:30,USD,1.2326,Personal Spending MoM
+2022.09.30 12:30,USD,0.0,Core PCE Price Index MoM
+2022.09.30 12:30,USD,0.1532,Personal Income MoM
+2022.10.03 14:00,USD,-0.6887,ISM Manufacturing PMI
+2022.10.04 14:00,USD,-1.7748,JOLTs Job Openings
+2022.10.05 14:00,USD,-0.3237,ISM Services PMI
+2022.10.07 12:30,USD,-0.0143,Non Farm Payrolls
+2022.10.07 12:30,USD,0.2204,Unemployment Rate
+2022.10.07 12:30,CAD,0.5644,Unemployment Rate
+2022.10.12 12:30,USD,0.3935,PPI MoM
+2022.10.13 12:30,USD,0.7124,Inflation Rate YoY
+2022.10.13 12:30,USD,1.5115,Inflation Rate MoM
+2022.10.13 12:30,USD,0.6227,Core Inflation Rate YoY
+2022.10.13 12:30,USD,0.7649,Core Inflation Rate MoM
+2022.10.14 12:30,USD,-0.3198,Retail Sales MoM
+2022.10.14 14:00,USD,0.2259,Michigan Consumer Sentiment Prel
+2022.10.19 12:30,USD,0.0731,Housing Starts
+2022.10.19 12:30,USD,0.4778,Building Permits Prel
+2022.10.19 12:30,CAD,0.4757,Inflation Rate YoY
+2022.10.20 14:00,USD,0.2561,Existing Home Sales
+2022.10.27 12:30,USD,-0.1134,Durable Goods Orders MoM
+2022.10.27 12:30,USD,0.2084,GDP Growth Rate QoQ Adv
+2022.10.28 12:30,USD,-1.4463,Core PCE Price Index MoM
+2022.10.28 12:30,USD,0.1541,Personal Income MoM
+2022.10.28 12:30,USD,0.2463,Personal Spending MoM
+2022.11.01 14:00,USD,2.0032,JOLTs Job Openings
+2022.11.01 14:00,USD,0.1882,ISM Manufacturing PMI
+2022.11.03 14:00,USD,-0.325,ISM Services PMI
+2022.11.04 12:30,USD,0.0754,Non Farm Payrolls
+2022.11.04 12:30,USD,-0.0,Unemployment Rate
+2022.11.04 12:30,CAD,0.378,Unemployment Rate
+2022.11.10 13:30,USD,-0.767,Core Inflation Rate MoM
+2022.11.10 13:30,USD,-1.2505,Core Inflation Rate YoY
+2022.11.10 13:30,USD,0.0,Inflation Rate MoM
+2022.11.10 13:30,USD,-2.1465,Inflation Rate YoY
+2022.11.11 15:00,USD,-1.3626,Michigan Consumer Sentiment Prel
+2022.11.15 13:30,USD,-0.3956,PPI MoM
+2022.11.16 13:30,USD,-0.0642,Retail Sales MoM
+2022.11.16 13:30,CAD,0.0,Inflation Rate YoY
+2022.11.17 13:30,USD,0.4409,Housing Starts
+2022.11.17 13:30,USD,0.1978,Building Permits Prel
+2022.11.18 15:00,USD,0.772,Existing Home Sales
+2022.11.23 13:30,USD,0.3421,Durable Goods Orders MoM
+2022.11.29 13:30,CAD,0.6291,GDP Growth Rate Annualized
+2022.11.30 13:30,USD,0.8162,GDP Growth Rate QoQ 2nd Est
+2022.11.30 15:00,USD,0.3674,JOLTs Job Openings
+2022.12.01 13:30,USD,0.155,Personal Income MoM
+2022.12.01 13:30,USD,1.4353,Core PCE Price Index MoM
+2022.12.01 13:30,USD,-0.2477,Personal Spending MoM
+2022.12.01 15:00,USD,-0.5047,ISM Manufacturing PMI
+2022.12.02 13:30,USD,0.0497,Non Farm Payrolls
+2022.12.02 13:30,USD,0.1114,Unemployment Rate
+2022.12.02 13:30,CAD,0.5699,Unemployment Rate
+2022.12.05 15:00,USD,1.0252,ISM Services PMI
+2022.12.09 13:30,USD,0.3971,PPI MoM
+2022.12.09 15:00,USD,0.6225,Michigan Consumer Sentiment Prel
+2022.12.13 13:30,USD,0.0,Inflation Rate MoM
+2022.12.13 13:30,USD,-1.3951,Inflation Rate YoY
+2022.12.13 13:30,USD,0.0,Core Inflation Rate MoM
+2022.12.13 13:30,USD,-0.6225,Core Inflation Rate YoY
+2022.12.15 13:30,USD,-0.969,Retail Sales MoM
+2022.12.20 13:30,USD,0.4184,Housing Starts
+2022.12.20 13:30,USD,-2.0315,Building Permits Prel
+2022.12.21 13:30,CAD,0.4806,Inflation Rate YoY
+2022.12.21 15:00,USD,0.0,Existing Home Sales
+2022.12.22 13:30,USD,2.0408,GDP Growth Rate QoQ Final
+2022.12.23 13:30,USD,0.0,Personal Income MoM
+2022.12.23 13:30,USD,-0.8599,Durable Goods Orders MoM
+2022.12.23 13:30,USD,-0.7466,Personal Spending MoM
+2022.12.23 13:30,USD,1.4287,Core PCE Price Index MoM
+2023.01.04 15:00,USD,-0.3166,ISM Manufacturing PMI
+2023.01.04 15:00,USD,1.5868,JOLTs Job Openings
+2023.01.06 13:30,USD,-0.0486,Non Farm Payrolls
+2023.01.06 13:30,USD,0.2241,Unemployment Rate
+2023.01.06 13:30,CAD,0.3816,Unemployment Rate
+2023.01.06 15:00,USD,-2.8021,ISM Services PMI
+2023.01.12 13:30,USD,0.7727,Core Inflation Rate MoM
+2023.01.12 13:30,USD,0.0,Core Inflation Rate YoY
+2023.01.12 13:30,USD,0.0,Inflation Rate MoM
+2023.01.12 13:30,USD,0.0,Inflation Rate YoY
+2023.01.13 15:00,USD,1.1631,Michigan Consumer Sentiment Prel
+2023.01.17 13:30,CAD,-0.4828,Inflation Rate YoY
+2023.01.18 13:30,USD,-0.7984,PPI MoM
+2023.01.18 13:30,USD,-0.2581,Retail Sales MoM
+2023.01.19 13:30,USD,-0.7789,Housing Starts
+2023.01.19 13:30,USD,-0.556,Building Permits Prel
+2023.01.20 15:00,USD,1.166,Existing Home Sales
+2023.01.26 13:30,USD,0.3176,GDP Growth Rate QoQ Adv
+2023.01.26 13:30,USD,1.7772,Durable Goods Orders MoM
+2023.01.27 13:30,USD,0.4983,Personal Spending MoM
+2023.01.27 13:30,USD,0.0,Core PCE Price Index MoM
+2023.01.27 13:30,USD,0.1045,Personal Income MoM
+2023.02.01 15:00,USD,-0.4453,ISM Manufacturing PMI
+2023.02.01 15:00,USD,1.6418,JOLTs Job Openings
+2023.02.03 13:30,USD,0.1216,Non Farm Payrolls
+2023.02.03 13:30,USD,0.1127,Unemployment Rate
+2023.02.03 15:00,USD,1.8339,ISM Services PMI
+2023.02.10 13:30,CAD,-0.0,Unemployment Rate
+2023.02.10 15:00,USD,0.3959,Michigan Consumer Sentiment Prel
+2023.02.14 13:30,USD,0.0,Core Inflation Rate MoM
+2023.02.14 13:30,USD,0.6278,Core Inflation Rate YoY
+2023.02.14 13:30,USD,0.0,Inflation Rate MoM
+2023.02.14 13:30,USD,1.3907,Inflation Rate YoY
+2023.02.15 13:30,USD,1.4911,Retail Sales MoM
+2023.02.16 13:30,USD,0.0,PPI MoM
+2023.02.16 13:30,USD,-0.1533,Building Permits Prel
+2023.02.16 13:30,USD,-0.0248,Housing Starts
+2023.02.21 13:30,CAD,-0.9694,Inflation Rate YoY
+2023.02.21 15:00,USD,-0.1291,Existing Home Sales
+2023.02.23 13:30,USD,-0.8273,GDP Growth Rate QoQ 2nd Est
+2023.02.24 13:30,USD,1.2517,Personal Spending MoM
+2023.02.24 13:30,USD,0.0,Core PCE Price Index MoM
+2023.02.24 13:30,USD,-0.21,Personal Income MoM
+2023.02.27 13:30,USD,-0.2841,Durable Goods Orders MoM
+2023.02.28 13:30,CAD,-0.4479,GDP Growth Rate Annualized
+2023.03.01 15:00,USD,-0.3193,ISM Manufacturing PMI
+2023.03.03 15:00,USD,0.1774,ISM Services PMI
+2023.03.08 15:00,USD,-0.4594,JOLTs Job Openings
+2023.03.10 13:30,USD,-0.2266,Unemployment Rate
+2023.03.10 13:30,USD,0.0417,Non Farm Payrolls
+2023.03.10 13:30,CAD,-0.1928,Unemployment Rate
+2023.03.14 12:30,USD,0.779,Core Inflation Rate MoM
+2023.03.14 12:30,USD,0.0,Core Inflation Rate YoY
+2023.03.14 12:30,USD,-0.7687,Inflation Rate MoM
+2023.03.14 12:30,USD,0.0,Inflation Rate YoY
+2023.03.15 12:30,USD,-0.7743,Retail Sales MoM
+2023.03.15 12:30,USD,-1.204,PPI MoM
+2023.03.16 12:30,USD,1.0586,Housing Starts
+2023.03.16 12:30,USD,2.5764,Building Permits Prel
+2023.03.17 14:00,USD,-1.0223,Michigan Consumer Sentiment Prel
+2023.03.21 12:30,CAD,-0.9694,Inflation Rate YoY
+2023.03.21 14:00,USD,1.688,Existing Home Sales
+2023.03.24 12:30,USD,-0.913,Durable Goods Orders MoM
+2023.03.30 12:30,USD,-0.6645,GDP Growth Rate QoQ Final
+2023.03.31 12:30,USD,-0.5001,Personal Spending MoM
+2023.03.31 12:30,USD,-1.4383,Core PCE Price Index MoM
+2023.03.31 12:30,USD,0.211,Personal Income MoM
+2023.04.03 14:00,USD,-0.7698,ISM Manufacturing PMI
+2023.04.04 14:00,USD,-1.3645,JOLTs Job Openings
+2023.04.05 14:00,USD,-1.6495,ISM Services PMI
+2023.04.06 12:30,CAD,-0.0,Unemployment Rate
+2023.04.07 12:30,USD,0.1138,Unemployment Rate
+2023.04.07 12:30,USD,-0.0844,Non Farm Payrolls
+2023.04.12 12:30,USD,-0.781,Core Inflation Rate MoM
+2023.04.12 12:30,USD,0.0,Core Inflation Rate YoY
+2023.04.12 12:30,USD,-0.7693,Inflation Rate MoM
+2023.04.12 12:30,USD,-1.3947,Inflation Rate YoY
+2023.04.13 12:30,USD,-1.198,PPI MoM
+2023.04.14 12:30,USD,-0.6459,Retail Sales MoM
+2023.04.14 14:00,USD,0.4263,Michigan Consumer Sentiment Prel
+2023.04.18 12:30,USD,-0.4233,Housing Starts
+2023.04.18 12:30,USD,-0.5055,Building Permits Prel
+2023.04.18 12:30,CAD,0.0,Inflation Rate YoY
+2023.04.20 14:00,USD,-1.5408,Existing Home Sales
+2023.04.26 12:30,USD,1.4257,Durable Goods Orders MoM
+2023.04.27 12:30,USD,-0.9666,GDP Growth Rate QoQ Adv
+2023.04.28 12:30,USD,0.7525,Personal Spending MoM
+2023.04.28 12:30,USD,1.4278,Core PCE Price Index MoM
+2023.04.28 12:30,USD,0.2121,Personal Income MoM
+2023.05.01 14:00,USD,-0.0642,ISM Manufacturing PMI
+2023.05.02 14:00,USD,-0.2949,JOLTs Job Openings
+2023.05.03 14:00,USD,0.3961,ISM Services PMI
+2023.05.05 12:30,USD,0.2288,Unemployment Rate
+2023.05.05 12:30,CAD,-0.0,Unemployment Rate
+2023.05.05 12:30,USD,0.0303,Non Farm Payrolls
+2023.05.10 12:30,USD,0.7822,Core Inflation Rate MoM
+2023.05.10 12:30,USD,0.0,Core Inflation Rate YoY
+2023.05.10 12:30,USD,-0.7699,Inflation Rate MoM
+2023.05.10 12:30,USD,-0.6918,Inflation Rate YoY
+2023.05.11 12:30,USD,-0.7949,PPI MoM
+2023.05.12 14:00,USD,-1.512,Michigan Consumer Sentiment Prel
+2023.05.16 12:30,USD,-0.1295,Retail Sales MoM
+2023.05.16 12:30,CAD,1.4619,Inflation Rate YoY
+2023.05.17 12:30,USD,-0.7127,Housing Starts
+2023.05.17 12:30,USD,-0.2877,Building Permits Prel
+2023.05.18 14:00,USD,-0.7019,Existing Home Sales
+2023.05.25 12:30,USD,0.8224,GDP Growth Rate QoQ 2nd Est
+2023.05.26 12:30,USD,0.2517,Personal Spending MoM
+2023.05.26 12:30,USD,0.0,Core PCE Price Index MoM
+2023.05.26 12:30,USD,0.0533,Personal Income MoM
+2023.05.26 12:30,USD,1.1935,Durable Goods Orders MoM
+2023.05.31 12:30,CAD,0.6438,GDP Growth Rate Annualized
+2023.05.31 14:00,USD,1.4505,JOLTs Job Openings
+2023.06.01 14:00,USD,-0.3875,ISM Manufacturing PMI
+2023.06.02 12:30,USD,0.0449,Non Farm Payrolls
+2023.06.02 12:30,USD,-0.115,Unemployment Rate
+2023.06.05 14:00,USD,-0.5308,ISM Services PMI
+2023.06.09 12:30,CAD,-0.1958,Unemployment Rate
+2023.06.13 12:30,USD,0.0,Core Inflation Rate MoM
+2023.06.13 12:30,USD,0.0,Core Inflation Rate YoY
+2023.06.13 12:30,USD,0.0,Inflation Rate MoM
+2023.06.13 12:30,USD,-0.6927,Inflation Rate YoY
+2023.06.14 12:30,USD,-0.3977,PPI MoM
+2023.06.15 12:30,USD,0.3903,Retail Sales MoM
+2023.06.16 14:00,USD,1.1068,Michigan Consumer Sentiment Prel
+2023.06.20 12:30,USD,2.6194,Housing Starts
+2023.06.20 12:30,USD,0.9766,Building Permits Prel
+2023.06.22 14:00,USD,-0.3841,Existing Home Sales
+2023.06.27 12:30,USD,1.5339,Durable Goods Orders MoM
+2023.06.27 12:30,CAD,0.0,Inflation Rate YoY
+2023.06.29 12:30,USD,3.9681,GDP Growth Rate QoQ Final
+2023.06.30 12:30,USD,0.0,Personal Spending MoM
+2023.06.30 12:30,USD,0.0,Core PCE Price Index MoM
+2023.06.30 12:30,USD,0.1072,Personal Income MoM
+2023.07.03 14:00,USD,-0.454,ISM Manufacturing PMI
+2023.07.06 14:00,USD,1.2415,ISM Services PMI
+2023.07.06 14:00,USD,-1.3963,JOLTs Job Openings
+2023.07.07 12:30,USD,-0.0,Unemployment Rate
+2023.07.07 12:30,CAD,-0.1968,Unemployment Rate
+2023.07.07 12:30,USD,0.0,Non Farm Payrolls
+2023.07.12 12:30,USD,-0.7745,Inflation Rate MoM
+2023.07.12 12:30,USD,-0.6936,Inflation Rate YoY
+2023.07.12 12:30,USD,-0.7883,Core Inflation Rate MoM
+2023.07.12 12:30,USD,-1.2872,Core Inflation Rate YoY
+2023.07.13 12:30,USD,-0.3991,PPI MoM
+2023.07.14 14:00,USD,2.0102,Michigan Consumer Sentiment Prel
+2023.07.18 12:30,USD,-0.1307,Retail Sales MoM
+2023.07.18 12:30,CAD,-0.9743,Inflation Rate YoY
+2023.07.19 12:30,USD,-0.7308,Housing Starts
+2023.07.19 12:30,USD,-0.6892,Building Permits Prel
+2023.07.20 14:00,USD,-0.3859,Existing Home Sales
+2023.07.27 12:30,USD,2.0925,Durable Goods Orders MoM
+2023.07.27 12:30,USD,0.6467,GDP Growth Rate QoQ Adv
+2023.07.28 12:30,USD,0.2543,Personal Spending MoM
+2023.07.28 12:30,USD,0.0,Core PCE Price Index MoM
+2023.07.28 12:30,USD,0.0,Personal Income MoM
+2023.08.01 14:00,USD,-1.0367,JOLTs Job Openings
+2023.08.01 14:00,USD,-0.0651,ISM Manufacturing PMI
+2023.08.03 14:00,USD,-0.0886,ISM Services PMI
+2023.08.04 12:30,CAD,0.1977,Unemployment Rate
+2023.08.04 12:30,USD,-0.0186,Non Farm Payrolls
+2023.08.04 12:30,USD,0.1161,Unemployment Rate
+2023.08.10 12:30,USD,0.0,Inflation Rate MoM
+2023.08.10 12:30,USD,-0.6946,Inflation Rate YoY
+2023.08.10 12:30,USD,0.0,Core Inflation Rate MoM
+2023.08.10 12:30,USD,-0.6409,Core Inflation Rate YoY
+2023.08.11 12:30,USD,1.6023,PPI MoM
+2023.08.11 14:00,USD,0.0557,Michigan Consumer Sentiment Prel
+2023.08.15 12:30,USD,-0.3942,Retail Sales MoM
+2023.08.15 12:30,CAD,1.4614,Inflation Rate YoY
+2023.08.16 12:30,USD,0.1953,Housing Starts
+2023.08.16 12:30,USD,-0.2898,Building Permits Prel
+2023.08.22 14:00,USD,-0.4524,Existing Home Sales
+2023.08.24 12:30,USD,-0.6696,Durable Goods Orders MoM
+2023.08.29 14:00,USD,-1.9242,JOLTs Job Openings
+2023.08.30 12:30,USD,-1.2489,GDP Growth Rate QoQ 2nd Est
+2023.08.31 12:30,USD,-1.4443,Core PCE Price Index MoM
+2023.08.31 12:30,USD,0.0541,Personal Income MoM
+2023.08.31 12:30,USD,-0.5112,Personal Spending MoM
+2023.09.01 12:30,USD,0.0243,Non Farm Payrolls
+2023.09.01 12:30,USD,-0.2334,Unemployment Rate
+2023.09.01 12:30,CAD,-0.229,GDP Growth Rate Annualized
+2023.09.01 14:00,USD,0.5889,ISM Manufacturing PMI
+2023.09.06 14:00,USD,0.6679,ISM Services PMI
+2023.09.08 12:30,CAD,0.3974,Unemployment Rate
+2023.09.13 12:30,USD,0.0,Core Inflation Rate MoM
+2023.09.13 12:30,USD,0.0,Core Inflation Rate YoY
+2023.09.13 12:30,USD,-0.7792,Inflation Rate MoM
+2023.09.13 12:30,USD,0.6956,Inflation Rate YoY
+2023.09.14 12:30,USD,1.195,PPI MoM
+2023.09.14 12:30,USD,0.2638,Retail Sales MoM
+2023.09.15 14:00,USD,-0.3917,Michigan Consumer Sentiment Prel
+2023.09.19 12:30,USD,-1.4597,Housing Starts
+2023.09.19 12:30,USD,1.3854,Building Permits Prel
+2023.09.19 12:30,CAD,0.9691,Inflation Rate YoY
+2023.09.21 14:00,USD,-0.1298,Existing Home Sales
+2023.09.27 12:30,USD,0.3911,Durable Goods Orders MoM
+2023.09.28 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2023.09.29 12:30,USD,0.0,Personal Spending MoM
+2023.09.29 12:30,USD,-1.4343,Core PCE Price Index MoM
+2023.09.29 12:30,USD,0.0544,Personal Income MoM
+2023.10.02 14:00,USD,0.7224,ISM Manufacturing PMI
+2023.10.03 14:00,USD,1.0469,JOLTs Job Openings
+2023.10.04 14:00,USD,-0.1341,ISM Services PMI
+2023.10.06 12:30,USD,-0.0071,Non Farm Payrolls
+2023.10.06 12:30,USD,-0.0,Unemployment Rate
+2023.10.06 12:30,CAD,0.1996,Unemployment Rate
+2023.10.11 12:30,USD,-0.3982,PPI MoM
+2023.10.12 12:30,USD,0.0,Core Inflation Rate MoM
+2023.10.12 12:30,USD,0.0,Core Inflation Rate YoY
+2023.10.12 12:30,USD,0.7799,Inflation Rate MoM
+2023.10.12 12:30,USD,0.6981,Inflation Rate YoY
+2023.10.13 14:00,USD,-1.1803,Michigan Consumer Sentiment Prel
+2023.10.17 12:30,CAD,-0.9699,Inflation Rate YoY
+2023.10.17 12:30,USD,0.1325,Retail Sales MoM
+2023.10.18 12:30,USD,-0.1341,Housing Starts
+2023.10.18 12:30,USD,0.318,Building Permits Prel
+2023.10.19 14:00,USD,0.8482,Existing Home Sales
+2023.10.26 12:30,USD,0.6514,GDP Growth Rate QoQ Adv
+2023.10.26 12:30,USD,1.6844,Durable Goods Orders MoM
+2023.10.27 12:30,USD,0.2576,Personal Spending MoM
+2023.10.27 12:30,USD,0.0,Core PCE Price Index MoM
+2023.10.27 12:30,USD,0.0547,Personal Income MoM
+2023.11.01 14:00,USD,0.0209,JOLTs Job Openings
+2023.11.01 14:00,USD,-1.1196,ISM Manufacturing PMI
+2023.11.03 12:30,CAD,-0.2006,Unemployment Rate
+2023.11.03 12:30,USD,-0.1177,Unemployment Rate
+2023.11.03 12:30,USD,-0.0107,Non Farm Payrolls
+2023.11.03 14:00,USD,-0.5389,ISM Services PMI
+2023.11.10 15:00,USD,-0.9264,Michigan Consumer Sentiment Prel
+2023.11.14 13:30,USD,0.0,Core Inflation Rate MoM
+2023.11.14 13:30,USD,-0.6491,Core Inflation Rate YoY
+2023.11.14 13:30,USD,0.0,Inflation Rate MoM
+2023.11.14 13:30,USD,-0.7005,Inflation Rate YoY
+2023.11.15 13:30,USD,-0.1332,Retail Sales MoM
+2023.11.15 13:30,USD,-1.5983,PPI MoM
+2023.11.17 13:30,USD,0.3675,Housing Starts
+2023.11.17 13:30,USD,0.514,Building Permits Prel
+2023.11.21 13:30,CAD,-0.4849,Inflation Rate YoY
+2023.11.21 15:00,USD,0.0653,Existing Home Sales
+2023.11.22 13:30,USD,-1.2836,Durable Goods Orders MoM
+2023.11.29 13:30,USD,0.8144,GDP Growth Rate QoQ 2nd Est
+2023.11.30 13:30,CAD,0.0,GDP Growth Rate Annualized
+2023.11.30 13:30,USD,0.1649,Personal Income MoM
+2023.11.30 13:30,USD,0.5178,Personal Spending MoM
+2023.11.30 13:30,USD,0.0,Core PCE Price Index MoM
+2023.12.01 13:30,CAD,-0.0,Unemployment Rate
+2023.12.01 15:00,USD,-0.4601,ISM Manufacturing PMI
+2023.12.05 15:00,USD,0.27,ISM Services PMI
+2023.12.05 15:00,USD,-1.6731,JOLTs Job Openings
+2023.12.08 13:30,USD,-0.0273,Non Farm Payrolls
+2023.12.08 13:30,USD,0.2365,Unemployment Rate
+2023.12.08 15:00,USD,2.0803,Michigan Consumer Sentiment Prel
+2023.12.12 13:30,USD,0.786,Inflation Rate MoM
+2023.12.12 13:30,USD,0.0,Inflation Rate YoY
+2023.12.12 13:30,USD,0.0,Core Inflation Rate MoM
+2023.12.12 13:30,USD,0.0,Core Inflation Rate YoY
+2023.12.13 13:30,USD,0.0,PPI MoM
+2023.12.14 13:30,USD,-0.0669,Retail Sales MoM
+2023.12.19 13:30,USD,1.9931,Housing Starts
+2023.12.19 13:30,USD,-0.0698,Building Permits Prel
+2023.12.19 13:30,CAD,0.9732,Inflation Rate YoY
+2023.12.20 15:00,USD,0.9185,Existing Home Sales
+2023.12.21 13:30,USD,-1.7326,GDP Growth Rate QoQ Final
+2023.12.22 13:30,USD,1.7755,Durable Goods Orders MoM
+2023.12.22 13:30,USD,0.26,Personal Spending MoM
+2023.12.22 13:30,USD,0.0,Core PCE Price Index MoM
+2023.12.22 13:30,USD,0.1104,Personal Income MoM
+2024.01.03 15:00,USD,-0.1319,ISM Manufacturing PMI
+2024.01.03 15:00,USD,-0.5628,JOLTs Job Openings
+2024.01.05 13:30,CAD,0.2025,Unemployment Rate
+2024.01.05 13:30,USD,-0.0083,Non Farm Payrolls
+2024.01.05 13:30,USD,-0.0,Unemployment Rate
+2024.01.05 15:00,USD,-0.9045,ISM Services PMI
+2024.01.11 13:30,USD,0.0,Core Inflation Rate MoM
+2024.01.11 13:30,USD,0.6539,Core Inflation Rate YoY
+2024.01.11 13:30,USD,0.0,Inflation Rate MoM
+2024.01.11 13:30,USD,1.4097,Inflation Rate YoY
+2024.01.12 13:30,USD,-0.7949,PPI MoM
+2024.01.16 13:30,CAD,0.0,Inflation Rate YoY
+2024.01.17 13:30,USD,-0.2017,Retail Sales MoM
+2024.01.18 13:30,USD,0.9467,Housing Starts
+2024.01.18 13:30,USD,0.2103,Building Permits Prel
+2024.01.19 15:00,USD,0.5904,Existing Home Sales
+2024.01.19 15:00,USD,2.4307,Michigan Consumer Sentiment Prel
+2024.01.25 13:30,USD,1.4219,GDP Growth Rate QoQ Adv
+2024.01.25 13:30,USD,-0.6059,Durable Goods Orders MoM
+2024.01.26 13:30,USD,0.111,Personal Income MoM
+2024.01.26 13:30,USD,0.0,Personal Spending MoM
+2024.01.26 13:30,USD,-1.4464,Core PCE Price Index MoM
+2024.01.30 15:00,USD,-0.5207,JOLTs Job Openings
+2024.02.01 15:00,USD,1.2592,ISM Manufacturing PMI
+2024.02.02 13:30,USD,0.1194,Unemployment Rate
+2024.02.02 13:30,USD,-0.0026,Non Farm Payrolls
+2024.02.05 15:00,USD,0.5422,ISM Services PMI
+2024.02.09 13:30,CAD,0.407,Unemployment Rate
+2024.02.13 13:30,USD,0.8135,Core Inflation Rate MoM
+2024.02.13 13:30,USD,1.3119,Core Inflation Rate YoY
+2024.02.13 13:30,USD,0.792,Inflation Rate MoM
+2024.02.13 13:30,USD,1.4058,Inflation Rate YoY
+2024.02.15 13:30,USD,-0.6078,Retail Sales MoM
+2024.02.16 13:30,USD,0.7954,PPI MoM
+2024.02.16 13:30,USD,-0.9963,Housing Starts
+2024.02.16 13:30,USD,-0.5494,Building Permits Prel
+2024.02.16 15:00,USD,-0.1078,Michigan Consumer Sentiment Prel
+2024.02.20 13:30,CAD,-1.9572,Inflation Rate YoY
+2024.02.22 15:00,USD,0.1973,Existing Home Sales
+2024.02.27 13:30,USD,-0.8828,Durable Goods Orders MoM
+2024.02.28 13:30,USD,-0.4118,GDP Growth Rate QoQ 2nd Est
+2024.02.29 13:30,CAD,-0.2362,GDP Growth Rate Annualized
+2024.02.29 13:30,USD,-0.2625,Personal Spending MoM
+2024.02.29 13:30,USD,0.0,Core PCE Price Index MoM
+2024.02.29 13:30,USD,0.223,Personal Income MoM
+2024.03.01 15:00,USD,-1.2566,ISM Manufacturing PMI
+2024.03.05 15:00,USD,-0.363,ISM Services PMI
+2024.03.06 15:00,USD,-1.1797,JOLTs Job Openings
+2024.03.08 13:30,USD,-0.24,Unemployment Rate
+2024.03.08 13:30,USD,0.0031,Non Farm Payrolls
+2024.03.08 13:30,CAD,-0.2044,Unemployment Rate
+2024.03.12 12:30,USD,0.8151,Core Inflation Rate MoM
+2024.03.12 12:30,USD,0.6541,Core Inflation Rate YoY
+2024.03.12 12:30,USD,0.0,Inflation Rate MoM
+2024.03.12 12:30,USD,0.7011,Inflation Rate YoY
+2024.03.14 12:30,USD,0.7976,PPI MoM
+2024.03.14 12:30,USD,-0.1354,Retail Sales MoM
+2024.03.15 14:00,USD,-0.1083,Michigan Consumer Sentiment Prel
+2024.03.19 12:30,CAD,-1.4474,Inflation Rate YoY
+2024.03.19 12:30,USD,1.5787,Housing Starts
+2024.03.19 12:30,USD,0.3247,Building Permits Prel
+2024.03.21 14:00,USD,2.4448,Existing Home Sales
+2024.03.26 12:30,USD,0.1654,Durable Goods Orders MoM
+2024.03.28 12:30,USD,1.0964,GDP Growth Rate QoQ Final
+2024.03.29 12:30,USD,0.0,Personal Income MoM
+2024.03.29 12:30,USD,0.5272,Personal Spending MoM
+2024.03.29 12:30,USD,0.0,Core PCE Price Index MoM
+2024.04.01 14:00,USD,0.9227,ISM Manufacturing PMI
+2024.04.02 14:00,USD,-0.6926,JOLTs Job Openings
+2024.04.03 14:00,USD,-0.6373,ISM Services PMI
+2024.04.05 12:30,USD,0.0147,Non Farm Payrolls
+2024.04.05 12:30,USD,-0.0,Unemployment Rate
+2024.04.05 12:30,CAD,-0.4105,Unemployment Rate
+2024.04.10 12:30,USD,0.7036,Inflation Rate YoY
+2024.04.10 12:30,USD,0.7979,Inflation Rate MoM
+2024.04.10 12:30,USD,0.8168,Core Inflation Rate MoM
+2024.04.10 12:30,USD,0.6562,Core Inflation Rate YoY
+2024.04.11 12:30,USD,-0.7998,PPI MoM
+2024.04.12 14:00,USD,-0.2993,Michigan Consumer Sentiment Prel
+2024.04.15 12:30,USD,-0.204,Retail Sales MoM
+2024.04.16 12:30,USD,-2.293,Housing Starts
+2024.04.16 12:30,USD,-0.8085,Building Permits Prel
+2024.04.16 12:30,CAD,0.0,Inflation Rate YoY
+2024.04.18 14:00,USD,-0.5158,Existing Home Sales
+2024.04.24 12:30,USD,0.0554,Durable Goods Orders MoM
+2024.04.25 12:30,USD,-0.861,GDP Growth Rate QoQ Adv
+2024.04.26 12:30,USD,0.0,Personal Income MoM
+2024.04.26 12:30,USD,1.4513,Core PCE Price Index MoM
+2024.04.26 12:30,USD,0.2647,Personal Spending MoM
+2024.05.01 14:00,USD,-0.7918,ISM Manufacturing PMI
+2024.05.01 14:00,USD,-1.0688,JOLTs Job Openings
+2024.05.03 12:30,USD,-0.0943,Non Farm Payrolls
+2024.05.03 12:30,USD,-0.121,Unemployment Rate
+2024.05.03 14:00,USD,-1.0942,ISM Services PMI
+2024.05.10 12:30,CAD,-0.0,Unemployment Rate
+2024.05.10 14:00,USD,-2.3507,Michigan Consumer Sentiment Prel
+2024.05.14 12:30,USD,0.8002,PPI MoM
+2024.05.15 12:30,USD,-0.2049,Retail Sales MoM
+2024.05.15 12:30,USD,0.0,Inflation Rate YoY
+2024.05.15 12:30,USD,-1.6,Inflation Rate MoM
+2024.05.15 12:30,USD,0.0,Core Inflation Rate MoM
+2024.05.15 12:30,USD,0.0,Core Inflation Rate YoY
+2024.05.16 12:30,USD,-0.4846,Housing Starts
+2024.05.16 12:30,USD,-0.6383,Building Permits Prel
+2024.05.21 12:30,CAD,0.0,Inflation Rate YoY
+2024.05.22 14:00,USD,-0.8413,Existing Home Sales
+2024.05.24 12:30,USD,0.8349,Durable Goods Orders MoM
+2024.05.30 12:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2024.05.31 12:30,USD,0.2659,Personal Spending MoM
+2024.05.31 12:30,CAD,0.2796,GDP Growth Rate Annualized
+2024.05.31 12:30,USD,-1.445,Core PCE Price Index MoM
+2024.05.31 12:30,USD,0.0565,Personal Income MoM
+2024.06.03 14:00,USD,-0.7268,ISM Manufacturing PMI
+2024.06.04 14:00,USD,-1.8235,JOLTs Job Openings
+2024.06.05 14:00,USD,1.2274,ISM Services PMI
+2024.06.07 12:30,USD,-0.0,Unemployment Rate
+2024.06.07 12:30,CAD,-0.2069,Unemployment Rate
+2024.06.07 12:30,USD,-0.0566,Non Farm Payrolls
+2024.06.12 12:30,USD,-0.7926,Inflation Rate MoM
+2024.06.12 12:30,USD,-0.7092,Inflation Rate YoY
+2024.06.12 12:30,USD,-1.6446,Core Inflation Rate MoM
+2024.06.12 12:30,USD,-0.6613,Core Inflation Rate YoY
+2024.06.13 12:30,USD,-0.4012,PPI MoM
+2024.06.14 14:00,USD,-1.7155,Michigan Consumer Sentiment Prel
+2024.06.18 12:30,USD,0.0686,Retail Sales MoM
+2024.06.20 12:30,USD,-0.4863,Housing Starts
+2024.06.20 12:30,USD,-0.9091,Building Permits Prel
+2024.06.21 14:00,USD,-0.2593,Existing Home Sales
+2024.06.25 12:30,CAD,1.4533,Inflation Rate YoY
+2024.06.27 12:30,USD,0.5523,GDP Growth Rate QoQ Final
+2024.06.27 12:30,USD,0.1116,Durable Goods Orders MoM
+2024.06.28 12:30,USD,0.5343,Personal Spending MoM
+2024.06.28 12:30,USD,0.0,Core PCE Price Index MoM
+2024.06.28 12:30,USD,0.0568,Personal Income MoM
+2024.07.01 14:00,USD,-0.5296,ISM Manufacturing PMI
+2024.07.02 14:00,USD,-0.2762,JOLTs Job Openings
+2024.07.03 14:00,USD,-1.4994,ISM Services PMI
+2024.07.05 12:30,USD,-0.0548,Non Farm Payrolls
+2024.07.05 12:30,USD,-0.1221,Unemployment Rate
+2024.07.05 12:30,CAD,-0.2078,Unemployment Rate
+2024.07.11 12:30,USD,-0.8151,Core Inflation Rate MoM
+2024.07.11 12:30,USD,-0.6627,Core Inflation Rate YoY
+2024.07.11 12:30,USD,-0.7932,Inflation Rate MoM
+2024.07.11 12:30,USD,-0.7099,Inflation Rate YoY
+2024.07.12 12:30,USD,1.2074,PPI MoM
+2024.07.12 14:00,USD,-0.6649,Michigan Consumer Sentiment Prel
+2024.07.16 12:30,USD,0.0689,Retail Sales MoM
+2024.07.16 12:30,CAD,-0.4821,Inflation Rate YoY
+2024.07.17 12:30,USD,0.2142,Housing Starts
+2024.07.17 12:30,USD,0.7239,Building Permits Prel
+2024.07.23 14:00,USD,-0.4559,Existing Home Sales
+2024.07.25 12:30,USD,0.8647,GDP Growth Rate QoQ Adv
+2024.07.25 12:30,USD,-3.8689,Durable Goods Orders MoM
+2024.07.26 12:30,USD,0.0,Personal Income MoM
+2024.07.26 12:30,USD,0.2682,Personal Spending MoM
+2024.07.26 12:30,USD,1.4432,Core PCE Price Index MoM
+2024.07.30 14:00,USD,-1.2625,JOLTs Job Openings
+2024.08.01 14:00,USD,-1.1952,ISM Manufacturing PMI
+2024.08.02 12:30,USD,-0.0652,Non Farm Payrolls
+2024.08.02 12:30,USD,-0.1226,Unemployment Rate
+2024.08.05 14:00,USD,0.1803,ISM Services PMI
+2024.08.09 12:30,CAD,0.2087,Unemployment Rate
+2024.08.13 12:30,USD,-0.8045,PPI MoM
+2024.08.14 12:30,USD,0.0,Core Inflation Rate MoM
+2024.08.14 12:30,USD,0.0,Core Inflation Rate YoY
+2024.08.14 12:30,USD,0.0,Inflation Rate MoM
+2024.08.14 12:30,USD,-0.7106,Inflation Rate YoY
+2024.08.15 12:30,USD,0.5538,Retail Sales MoM
+2024.08.16 12:30,USD,-0.4699,Building Permits Prel
+2024.08.16 12:30,USD,-0.7292,Housing Starts
+2024.08.16 14:00,USD,0.2401,Michigan Consumer Sentiment Prel
+2024.08.20 12:30,CAD,0.0,Inflation Rate YoY
+2024.08.22 14:00,USD,0.3269,Existing Home Sales
+2024.08.26 12:30,USD,2.2053,Durable Goods Orders MoM
+2024.08.29 12:30,USD,0.8409,GDP Growth Rate QoQ 2nd Est
+2024.08.30 12:30,CAD,0.6877,GDP Growth Rate Annualized
+2024.08.30 12:30,USD,0.0,Personal Income MoM
+2024.08.30 12:30,USD,-0.2695,Personal Spending MoM
+2024.08.30 12:30,USD,0.0,Core PCE Price Index MoM
+2024.09.03 14:00,USD,0.0,ISM Manufacturing PMI
+2024.09.04 14:00,USD,-1.4419,JOLTs Job Openings
+2024.09.05 14:00,USD,0.2264,ISM Services PMI
+2024.09.06 12:30,CAD,-0.2096,Unemployment Rate
+2024.09.06 12:30,USD,-0.081,Non Farm Payrolls
+2024.09.06 12:30,USD,-0.0,Unemployment Rate
+2024.09.11 12:30,USD,0.8198,Core Inflation Rate MoM
+2024.09.11 12:30,USD,0.0,Core Inflation Rate YoY
+2024.09.11 12:30,USD,0.0,Inflation Rate MoM
+2024.09.11 12:30,USD,-0.7114,Inflation Rate YoY
+2024.09.12 12:30,USD,0.8048,PPI MoM
+2024.09.13 14:00,USD,0.1339,Michigan Consumer Sentiment Prel
+2024.09.17 12:30,USD,-0.1389,Retail Sales MoM
+2024.09.17 12:30,CAD,-0.4859,Inflation Rate YoY
+2024.09.18 12:30,USD,0.928,Building Permits Prel
+2024.09.18 12:30,USD,1.006,Housing Starts
+2024.09.19 14:00,USD,0.1969,Existing Home Sales
+2024.09.26 12:30,USD,0.0,GDP Growth Rate QoQ Final
+2024.09.26 12:30,USD,1.3456,Durable Goods Orders MoM
+2024.09.27 12:30,USD,-0.0576,Personal Income MoM
+2024.09.27 12:30,USD,-0.2705,Personal Spending MoM
+2024.09.27 12:30,USD,0.0,Core PCE Price Index MoM
+2024.10.01 14:00,USD,0.0,ISM Manufacturing PMI
+2024.10.01 14:00,USD,-0.2956,JOLTs Job Openings
+2024.10.03 14:00,USD,1.2734,ISM Services PMI
+2024.10.04 12:30,USD,0.1236,Unemployment Rate
+2024.10.04 12:30,USD,0.0081,Non Farm Payrolls
+2024.10.10 12:30,USD,0.8213,Core Inflation Rate MoM
+2024.10.10 12:30,USD,0.6702,Core Inflation Rate YoY
+2024.10.10 12:30,USD,0.801,Inflation Rate MoM
+2024.10.10 12:30,USD,0.7122,Inflation Rate YoY
+2024.10.11 12:30,USD,0.8069,PPI MoM
+2024.10.11 12:30,CAD,0.4209,Unemployment Rate
+2024.10.11 14:00,USD,-0.5111,Michigan Consumer Sentiment Prel
+2024.10.15 12:30,CAD,-0.9751,Inflation Rate YoY
+2024.10.17 12:30,USD,0.3488,Retail Sales MoM
+2024.10.18 12:30,USD,-0.4578,Building Permits Prel
+2024.10.18 12:30,USD,0.0839,Housing Starts
+2024.10.23 14:00,USD,0.2636,Existing Home Sales
+2024.10.25 12:30,USD,0.1033,Durable Goods Orders MoM
+2024.10.29 14:00,USD,-2.2361,JOLTs Job Openings
+2024.10.30 12:30,USD,-0.2168,GDP Growth Rate QoQ Adv
+2024.10.31 12:30,USD,1.0858,Personal Spending MoM
+2024.10.31 12:30,USD,0.0,Core PCE Price Index MoM
+2024.10.31 12:30,USD,0.0,Personal Income MoM
+2024.11.01 12:30,USD,-0.0433,Non Farm Payrolls
+2024.11.01 12:30,USD,-0.0,Unemployment Rate
+2024.11.01 14:00,USD,-0.4679,ISM Manufacturing PMI
+2024.11.05 15:00,USD,0.9087,ISM Services PMI
+2024.11.08 13:30,CAD,-0.0,Unemployment Rate
+2024.11.08 15:00,USD,0.54,Michigan Consumer Sentiment Prel
+2024.11.13 13:30,USD,0.0,Core Inflation Rate MoM
+2024.11.13 13:30,USD,0.0,Core Inflation Rate YoY
+2024.11.13 13:30,USD,0.8029,Inflation Rate MoM
+2024.11.13 13:30,USD,0.0,Inflation Rate YoY
+2024.11.14 13:30,USD,0.4045,PPI MoM
+2024.11.15 13:30,USD,0.4204,Retail Sales MoM
+2024.11.19 13:30,USD,0.4813,Housing Starts
+2024.11.19 13:30,USD,-0.2008,Building Permits Prel
+2024.11.19 13:30,CAD,0.4876,Inflation Rate YoY
+2024.11.21 15:00,USD,0.6617,Existing Home Sales
+2024.11.27 13:30,USD,-0.1557,Durable Goods Orders MoM
+2024.11.27 13:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2024.11.27 15:00,USD,0.2716,Personal Spending MoM
+2024.11.27 15:00,USD,0.0,Core PCE Price Index MoM
+2024.11.27 15:00,USD,0.1161,Personal Income MoM
+2024.11.29 13:30,CAD,0.9363,GDP Growth Rate Annualized
+2024.12.02 15:00,USD,0.6036,ISM Manufacturing PMI
+2024.12.03 15:00,USD,-0.1973,JOLTs Job Openings
+2024.12.04 15:00,USD,-1.3659,ISM Services PMI
+2024.12.06 13:30,CAD,-0.849,Unemployment Rate
+2024.12.06 13:30,USD,-0.0359,Non Farm Payrolls
+2024.12.06 13:30,USD,-0.0,Unemployment Rate
+2024.12.06 15:00,USD,0.2707,Michigan Consumer Sentiment Prel
+2024.12.11 13:30,USD,0.0,Core Inflation Rate MoM
+2024.12.11 13:30,USD,0.0,Core Inflation Rate YoY
+2024.12.11 13:30,USD,0.0,Inflation Rate MoM
+2024.12.11 13:30,USD,0.0,Inflation Rate YoY
+2024.12.12 13:30,USD,-0.4062,PPI MoM
+2024.12.17 13:30,USD,0.0703,Retail Sales MoM
+2024.12.17 13:30,CAD,-0.4893,Inflation Rate YoY
+2024.12.18 13:30,USD,-0.5193,Housing Starts
+2024.12.18 13:30,USD,1.0799,Building Permits Prel
+2024.12.19 13:30,USD,1.6989,GDP Growth Rate QoQ Final
+2024.12.19 15:00,USD,0.6632,Existing Home Sales
+2024.12.20 13:30,USD,-1.4632,Core PCE Price Index MoM
+2024.12.20 13:30,USD,0.0,Personal Income MoM
+2024.12.20 13:30,USD,0.0,Personal Spending MoM
+2024.12.23 13:30,USD,-0.4168,Durable Goods Orders MoM
+2025.01.03 15:00,USD,0.5381,ISM Manufacturing PMI
+2025.01.07 15:00,USD,-0.2762,JOLTs Job Openings
+2025.01.07 15:00,USD,0.3168,ISM Services PMI
+2025.01.10 13:30,CAD,0.4247,Unemployment Rate
+2025.01.10 13:30,USD,0.0421,Non Farm Payrolls
+2025.01.10 13:30,USD,0.1252,Unemployment Rate
+2025.01.10 15:00,USD,-0.1631,Michigan Consumer Sentiment Prel
+2025.01.14 13:30,USD,0.4074,PPI MoM
+2025.01.15 13:30,USD,0.0,Inflation Rate YoY
+2025.01.15 13:30,USD,0.0,Inflation Rate MoM
+2025.01.15 13:30,USD,0.0,Core Inflation Rate MoM
+2025.01.15 13:30,USD,-0.6781,Core Inflation Rate YoY
+2025.01.16 13:30,USD,0.212,Retail Sales MoM
+2025.01.17 13:30,USD,2.1076,Housing Starts
+2025.01.17 13:30,USD,0.3314,Building Permits Prel
+2025.01.21 13:30,CAD,-0.4909,Inflation Rate YoY
+2025.01.24 15:00,USD,0.6646,Existing Home Sales
+2025.01.28 13:30,USD,-1.463,Durable Goods Orders MoM
+2025.01.30 13:30,USD,-0.3295,GDP Growth Rate QoQ Adv
+2025.01.31 13:30,USD,0.0,Personal Income MoM
+2025.01.31 13:30,USD,1.37,Personal Spending MoM
+2025.01.31 13:30,USD,0.0,Core PCE Price Index MoM
+2025.02.03 15:00,USD,0.7423,ISM Manufacturing PMI
+2025.02.04 15:00,USD,-1.4566,JOLTs Job Openings
+2025.02.05 15:00,USD,-0.6817,ISM Services PMI
+2025.02.07 13:30,CAD,0.2132,Unemployment Rate
+2025.02.07 13:30,USD,-0.1196,Non Farm Payrolls
+2025.02.07 13:30,USD,0.1258,Unemployment Rate
+2025.02.07 15:00,USD,-0.9008,Michigan Consumer Sentiment Prel
+2025.02.12 13:30,USD,0.8118,Inflation Rate MoM
+2025.02.12 13:30,USD,0.7236,Inflation Rate YoY
+2025.02.12 13:30,USD,0.8337,Core Inflation Rate MoM
+2025.02.12 13:30,USD,1.3588,Core Inflation Rate YoY
+2025.02.13 13:30,USD,1.2271,PPI MoM
+2025.02.14 13:30,USD,-0.4258,Retail Sales MoM
+2025.02.18 13:30,CAD,0.0,Inflation Rate YoY
+2025.02.19 13:30,USD,0.3328,Building Permits Prel
+2025.02.19 13:30,USD,-0.442,Housing Starts
+2025.02.21 15:00,USD,-0.1998,Existing Home Sales
+2025.02.27 13:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2025.02.27 13:30,USD,0.5708,Durable Goods Orders MoM
+2025.02.28 13:30,USD,0.0,Core PCE Price Index MoM
+2025.02.28 13:30,USD,0.1764,Personal Income MoM
+2025.02.28 13:30,CAD,0.4074,GDP Growth Rate Annualized
+2025.02.28 13:30,USD,-1.0941,Personal Spending MoM
+2025.03.03 15:00,USD,-0.5411,ISM Manufacturing PMI
+2025.03.05 15:00,USD,0.273,ISM Services PMI
+2025.03.07 13:30,CAD,0.2141,Unemployment Rate
+2025.03.07 13:30,USD,-0.065,Non Farm Payrolls
+2025.03.07 13:30,USD,-0.2526,Unemployment Rate
+2025.03.11 14:00,USD,-0.4065,JOLTs Job Openings
+2025.03.12 12:30,USD,0.0,Core Inflation Rate MoM
+2025.03.12 12:30,USD,-0.6774,Core Inflation Rate YoY
+2025.03.12 12:30,USD,-0.8136,Inflation Rate MoM
+2025.03.12 12:30,USD,-0.7258,Inflation Rate YoY
+2025.03.13 12:30,USD,-0.4088,PPI MoM
+2025.03.14 14:00,USD,-1.4215,Michigan Consumer Sentiment Prel
+2025.03.17 12:30,USD,-0.783,Retail Sales MoM
+2025.03.18 12:30,CAD,1.9788,Inflation Rate YoY
+2025.03.18 12:30,USD,1.3302,Housing Starts
+2025.03.18 12:30,USD,0.0436,Building Permits Prel
+2025.03.20 14:00,USD,1.3378,Existing Home Sales
+2025.03.26 12:30,USD,0.9894,Durable Goods Orders MoM
+2025.03.27 12:30,USD,0.5619,GDP Growth Rate QoQ Final
+2025.03.28 12:30,USD,-0.8183,Personal Spending MoM
+2025.03.28 12:30,USD,0.0,Core PCE Price Index MoM
+2025.03.28 12:30,USD,0.0,Personal Income MoM
+2025.04.01 14:00,USD,-0.407,ISM Manufacturing PMI
+2025.04.01 14:00,USD,-0.7652,JOLTs Job Openings
+2025.04.03 14:00,USD,-1.0054,ISM Services PMI
+2025.04.04 12:30,USD,-0.0376,Non Farm Payrolls
+2025.04.04 12:30,USD,-0.1267,Unemployment Rate
+2025.04.04 12:30,CAD,-0.215,Unemployment Rate
+2025.04.10 12:30,USD,-1.6775,Core Inflation Rate MoM
+2025.04.10 12:30,USD,-1.3575,Core Inflation Rate YoY
+2025.04.10 12:30,USD,-0.8141,Inflation Rate MoM
+2025.04.10 12:30,USD,-1.4529,Inflation Rate YoY
+2025.04.11 12:30,USD,-1.23,PPI MoM
+2025.04.11 14:00,USD,-1.0081,Michigan Consumer Sentiment Prel
+2025.04.15 12:30,CAD,-1.4661,Inflation Rate YoY
+2025.04.16 12:30,USD,0.2137,Retail Sales MoM
+2025.04.16 13:45,CAD,0.0,Interest Rate
+2025.04.17 12:30,USD,-0.8844,Housing Starts
+2025.04.17 12:30,USD,0.5254,Building Permits Prel
+2025.04.24 12:30,USD,3.7541,Durable Goods Orders MoM
+2025.04.24 14:00,USD,-0.733,Existing Home Sales
+2025.04.29 14:00,USD,-1.0787,JOLTs Job Openings
+2025.04.30 12:30,USD,-0.667,GDP Growth Rate QoQ Adv
+2025.04.30 14:00,USD,0.8184,Personal Spending MoM
+2025.04.30 14:00,USD,0.0,Core PCE Price Index MoM
+2025.04.30 14:00,USD,0.2372,Personal Income MoM
+2025.05.01 14:00,USD,0.5445,ISM Manufacturing PMI
+2025.05.02 12:30,USD,-0.0,Unemployment Rate
+2025.05.02 12:30,USD,-0.0122,Non Farm Payrolls
+2025.05.05 14:00,USD,0.6388,ISM Services PMI
+2025.05.09 12:30,CAD,-0.2158,Unemployment Rate
+2025.05.13 12:30,USD,-0.7217,Inflation Rate YoY
+2025.05.13 12:30,USD,-0.8145,Inflation Rate MoM
+2025.05.13 12:30,USD,-0.8317,Core Inflation Rate MoM
+2025.05.13 12:30,USD,0.0,Core Inflation Rate YoY
+2025.05.15 12:30,USD,-2.042,PPI MoM
+2025.05.15 12:30,USD,0.0715,Retail Sales MoM
+2025.05.16 12:30,USD,0.4185,Housing Starts
+2025.05.16 12:30,USD,-0.5567,Building Permits Prel
+2025.05.16 14:00,USD,-0.7089,Michigan Consumer Sentiment Prel
+2025.05.20 12:30,CAD,0.4863,Inflation Rate YoY
+2025.05.22 14:00,USD,-0.5343,Existing Home Sales
+2025.05.27 12:30,USD,0.7456,Durable Goods Orders MoM
+2025.05.29 12:30,USD,0.4352,GDP Growth Rate QoQ 2nd Est
+2025.05.30 12:30,USD,0.2978,Personal Income MoM
+2025.05.30 12:30,USD,2.9602,Core PCE Price Index MoM
+2025.05.30 12:30,USD,0.2735,Personal Spending MoM
+2025.05.30 12:30,CAD,0.4943,GDP Growth Rate Annualized
+2025.06.02 14:00,USD,-0.6144,ISM Manufacturing PMI
+2025.06.03 14:00,USD,-0.0041,JOLTs Job Openings
+2025.06.04 13:45,CAD,0.0,Interest Rate
+2025.06.04 14:00,USD,-0.824,ISM Services PMI
+2025.06.06 12:30,USD,-0.0653,Non Farm Payrolls
+2025.06.06 12:30,USD,-0.1277,Unemployment Rate
+2025.06.06 12:30,CAD,-0.0,Unemployment Rate
+2025.06.11 12:30,USD,-0.7225,Inflation Rate YoY
+2025.06.11 12:30,USD,-0.8151,Inflation Rate MoM
+2025.06.11 12:30,USD,-0.6787,Core Inflation Rate YoY
+2025.06.11 12:30,USD,-1.665,Core Inflation Rate MoM
+2025.06.12 12:30,USD,0.4021,PPI MoM
+2025.06.13 14:00,USD,1.9138,Michigan Consumer Sentiment Prel
+2025.06.17 12:30,USD,-0.503,Retail Sales MoM
+2025.06.18 12:30,USD,-0.8521,Housing Starts
+2025.06.18 12:30,USD,-0.543,Building Permits Prel
+2025.06.23 14:00,USD,0.603,Existing Home Sales
+2025.06.24 12:30,CAD,0.0,Inflation Rate YoY
+2025.06.26 12:30,USD,3.9382,Durable Goods Orders MoM
+2025.06.26 12:30,USD,-1.7074,GDP Growth Rate QoQ Final
+2025.06.27 12:30,USD,-0.3588,Personal Income MoM
+2025.06.27 12:30,USD,0.0,Personal Spending MoM
+2025.06.27 12:30,USD,1.4361,Core PCE Price Index MoM
+2025.07.01 14:00,USD,0.1369,ISM Manufacturing PMI
+2025.07.01 14:00,USD,0.0204,JOLTs Job Openings
+2025.07.03 12:30,USD,-0.0729,Non Farm Payrolls
+2025.07.03 12:30,USD,0.2565,Unemployment Rate
+2025.07.03 14:00,USD,0.1374,ISM Services PMI
+2025.07.11 12:30,CAD,0.4351,Unemployment Rate
+2025.07.15 12:30,CAD,0.0,Inflation Rate YoY
+2025.07.15 12:30,USD,0.0,Inflation Rate MoM
+2025.07.15 12:30,USD,0.7233,Inflation Rate YoY
+2025.07.15 12:30,USD,-0.6801,Core Inflation Rate YoY
+2025.07.15 12:30,USD,-0.826,Core Inflation Rate MoM
+2025.07.16 12:30,USD,0.0,PPI MoM
+2025.07.17 12:30,USD,0.5764,Retail Sales MoM
+2025.07.18 12:30,USD,0.9489,Housing Starts
+2025.07.18 12:30,USD,0.1029,Building Permits Prel
+2025.07.18 14:00,USD,0.081,Michigan Consumer Sentiment Prel
+2025.07.23 14:00,USD,-0.1343,Existing Home Sales
+2025.07.25 12:30,USD,0.7103,Durable Goods Orders MoM
+2025.07.29 14:00,USD,-0.6064,JOLTs Job Openings
+2025.07.30 12:30,USD,0.6722,GDP Growth Rate QoQ Adv
+2025.07.30 13:45,CAD,0.0,Interest Rate
+2025.07.31 12:30,USD,0.5515,Personal Spending MoM
+2025.07.31 12:30,USD,0.0,Core PCE Price Index MoM
+2025.07.31 12:30,USD,0.12,Personal Income MoM
+2025.08.01 12:30,USD,-0.0259,Non Farm Payrolls
+2025.08.01 12:30,USD,-0.1288,Unemployment Rate
+2025.08.01 14:00,USD,-0.7559,ISM Manufacturing PMI
+2025.08.05 14:00,USD,-0.4597,ISM Services PMI
+2025.08.08 12:30,CAD,0.2183,Unemployment Rate
+2025.08.12 12:30,USD,-0.7253,Inflation Rate YoY
+2025.08.12 12:30,USD,0.0,Inflation Rate MoM
+2025.08.12 12:30,USD,0.0,Core Inflation Rate MoM
+2025.08.12 12:30,USD,0.6814,Core Inflation Rate YoY
+2025.08.14 12:30,USD,2.4319,PPI MoM
+2025.08.15 12:30,USD,0.2891,Retail Sales MoM
+2025.08.15 14:00,USD,-0.9216,Michigan Consumer Sentiment Prel
+2025.08.19 12:30,USD,1.7069,Housing Starts
+2025.08.19 12:30,USD,-0.4726,Building Permits Prel
+2025.08.19 12:30,CAD,-0.492,Inflation Rate YoY
+2025.08.21 14:00,USD,0.7418,Existing Home Sales
+2025.08.26 12:30,USD,0.57,Durable Goods Orders MoM
+2025.08.28 12:30,USD,0.8815,GDP Growth Rate QoQ 2nd Est
+2025.08.29 12:30,USD,0.0602,Personal Income MoM
+2025.08.29 12:30,USD,-1.437,Core PCE Price Index MoM
+2025.08.29 12:30,CAD,-0.1664,GDP Growth Rate Annualized
+2025.08.29 12:30,USD,0.2767,Personal Spending MoM
+2025.09.02 14:00,USD,-0.0688,ISM Manufacturing PMI
+2025.09.03 14:00,USD,-0.5922,JOLTs Job Openings
+2025.09.04 14:00,USD,0.4148,ISM Services PMI
+2025.09.05 12:30,USD,-0.0,Unemployment Rate
+2025.09.05 12:30,USD,-0.0819,Non Farm Payrolls
+2025.09.05 12:30,CAD,-0.2192,Unemployment Rate
+2025.09.10 12:30,USD,-1.9921,PPI MoM
+2025.09.11 12:30,USD,0.0,Core Inflation Rate YoY
+2025.09.11 12:30,USD,0.0,Inflation Rate MoM
+2025.09.11 12:30,USD,0.0,Core Inflation Rate MoM
+2025.09.11 12:30,USD,0.0,Inflation Rate YoY
+2025.09.12 14:00,USD,-0.7057,Michigan Consumer Sentiment Prel
+2025.09.16 12:30,USD,0.0726,Retail Sales MoM
+2025.09.16 12:30,CAD,-0.4935,Inflation Rate YoY
+2025.09.17 12:30,USD,-0.8834,Housing Starts
+2025.09.17 12:30,USD,-0.8586,Building Permits Prel
+2025.09.17 13:45,CAD,0.0,Interest Rate
+2025.09.25 12:30,USD,1.6208,Durable Goods Orders MoM
+2025.09.25 12:30,USD,2.7268,GDP Growth Rate QoQ Final
+2025.09.25 14:00,USD,0.4728,Existing Home Sales
+2025.09.26 12:30,USD,0.0,Personal Spending MoM
+2025.09.26 12:30,USD,0.0,Core PCE Price Index MoM
+2025.09.26 12:30,USD,0.0605,Personal Income MoM
+2025.09.30 14:00,USD,-0.5454,JOLTs Job Openings
+2025.10.01 14:00,USD,-0.0691,ISM Manufacturing PMI
+2025.10.03 14:00,USD,-0.6478,ISM Services PMI
+2025.10.10 12:30,CAD,0.22,Unemployment Rate
+2025.10.10 14:00,USD,0.2177,Michigan Consumer Sentiment Prel
+2025.10.21 12:30,CAD,0.495,Inflation Rate YoY
+2025.10.23 14:00,USD,0.1355,Existing Home Sales
+2025.10.24 12:30,USD,-0.8338,Core Inflation Rate MoM
+2025.10.24 12:30,USD,-0.6859,Core Inflation Rate YoY
+2025.10.24 12:30,USD,-0.8257,Inflation Rate MoM
+2025.10.24 12:30,USD,-0.729,Inflation Rate YoY
+2025.10.29 13:45,CAD,0.0,Interest Rate
+2025.11.03 15:00,USD,-0.4857,ISM Manufacturing PMI
+2025.11.05 15:00,USD,0.5561,ISM Services PMI
+2025.11.07 13:30,CAD,0.4418,Unemployment Rate
+2025.11.07 15:00,USD,-0.792,Michigan Consumer Sentiment Prel
+2025.11.17 13:30,CAD,0.4965,Inflation Rate YoY
+2025.11.20 13:30,USD,0.0148,Non Farm Payrolls
+2025.11.20 13:30,USD,-0.1298,Unemployment Rate
+2025.11.20 15:00,USD,0.2041,Existing Home Sales
+2025.11.25 13:30,USD,1.1785,PPI MoM
+2025.11.25 13:30,USD,-0.2186,Retail Sales MoM
+2025.11.26 13:30,USD,0.095,Durable Goods Orders MoM
+2025.11.28 13:30,CAD,0.5896,GDP Growth Rate Annualized
+2025.12.01 15:00,USD,-0.6959,ISM Manufacturing PMI
+2025.12.03 15:00,USD,0.1395,ISM Services PMI
+2025.12.05 13:30,CAD,0.8868,Unemployment Rate
+2025.12.05 15:00,USD,0.3558,Michigan Consumer Sentiment Prel
+2025.12.05 15:00,USD,0.0607,Personal Income MoM
+2025.12.05 15:00,USD,0.5579,Personal Spending MoM
+2025.12.05 15:00,USD,0.0,Core PCE Price Index MoM
+2025.12.09 14:00,USD,-0.0616,JOLTs Job Openings
+2025.12.09 15:00,USD,0.0412,JOLTs Job Openings
+2025.12.10 14:45,CAD,0.0,Interest Rate
+2025.12.15 13:30,CAD,-0.498,Inflation Rate YoY
+2025.12.16 12:30,USD,-0.0712,Non Farm Payrolls
+2025.12.16 13:30,USD,-0.0731,Retail Sales MoM
+2025.12.16 13:30,USD,-0.0051,Non Farm Payrolls
+2025.12.16 13:30,USD,-0.1302,Unemployment Rate
+2025.12.18 13:30,USD,-2.7486,Core Inflation Rate YoY
+2025.12.18 13:30,USD,-2.9193,Inflation Rate YoY
+2025.12.19 15:00,USD,-0.4097,Existing Home Sales
+2025.12.23 13:30,USD,1.1274,GDP Growth Rate QoQ Adv
+2025.12.23 13:30,USD,-0.3337,Durable Goods Orders MoM
+2026.01.05 15:00,USD,-0.3486,ISM Manufacturing PMI
+2026.01.07 15:00,USD,0.7002,ISM Services PMI
+2026.01.07 15:00,USD,-1.5589,JOLTs Job Openings
+2026.01.09 12:30,USD,1.0804,Building Permits Prel
+2026.01.09 12:30,USD,-0.1672,Housing Starts
+2026.01.09 13:30,USD,0.9182,Building Permits Prel
+2026.01.09 13:30,USD,-0.6234,Housing Starts
+2026.01.09 13:30,CAD,-0.4441,Unemployment Rate
+2026.01.09 13:30,USD,-0.0442,Non Farm Payrolls
+2026.01.09 13:30,USD,0.1307,Unemployment Rate
+2026.01.09 15:00,USD,0.1373,Michigan Consumer Sentiment Prel
+2026.01.13 13:30,USD,-0.8347,Core Inflation Rate MoM
+2026.01.13 13:30,USD,-0.6694,Core Inflation Rate YoY
+2026.01.13 13:30,USD,0.0,Inflation Rate MoM
+2026.01.13 13:30,USD,0.0,Inflation Rate YoY
+2026.01.14 12:30,USD,-0.3927,PPI MoM
+2026.01.14 13:30,USD,0.2202,Retail Sales MoM
+2026.01.14 13:30,USD,0.7876,PPI MoM
+2026.01.14 15:00,USD,0.4111,Existing Home Sales
+2026.01.19 13:30,CAD,0.999,Inflation Rate YoY
+2026.01.22 13:30,USD,0.5186,GDP Growth Rate QoQ Final
+2026.01.22 14:00,USD,-0.2799,Personal Spending MoM
+2026.01.22 14:00,USD,0.0,Core PCE Price Index MoM
+2026.01.22 14:00,USD,-0.1829,Personal Income MoM
+2026.01.22 15:00,USD,-0.2808,Personal Spending MoM
+2026.01.22 15:00,USD,0.0,Core PCE Price Index MoM
+2026.01.22 15:00,USD,0.0,Personal Income MoM
+2026.01.26 13:30,USD,1.004,Durable Goods Orders MoM
+2026.01.28 14:45,CAD,0.0,Interest Rate
+2026.01.30 13:30,USD,0.7894,PPI MoM
+2026.02.02 15:00,USD,2.8686,ISM Manufacturing PMI
+2026.02.04 15:00,USD,0.1404,ISM Services PMI
+2026.02.05 15:00,USD,-1.3296,JOLTs Job Openings
+2026.02.06 13:30,CAD,0.6679,Unemployment Rate
+2026.02.06 15:00,USD,0.6338,Michigan Consumer Sentiment Prel
+2026.02.10 13:30,USD,-0.2211,Retail Sales MoM
+2026.02.11 13:30,USD,0.0519,Non Farm Payrolls
+2026.02.11 13:30,USD,0.1312,Unemployment Rate
+2026.02.12 15:00,USD,-1.0998,Existing Home Sales
+2026.02.13 13:30,USD,-0.71,Inflation Rate YoY
+2026.02.13 13:30,USD,-0.8295,Inflation Rate MoM
+2026.02.13 13:30,USD,0.0,Core Inflation Rate YoY
+2026.02.13 13:30,USD,0.0,Core Inflation Rate MoM
+2026.02.17 13:30,CAD,-0.4995,Inflation Rate YoY
+2026.02.18 13:30,USD,0.829,Housing Starts
+2026.02.18 13:30,USD,0.7121,Building Permits Prel
+2026.02.18 13:30,USD,0.2873,Durable Goods Orders MoM
+2026.02.20 13:30,USD,-0.2817,Personal Spending MoM
+2026.02.20 13:30,USD,0.0,Core PCE Price Index MoM
+2026.02.20 13:30,USD,0.0,Personal Income MoM
+2026.02.20 13:30,USD,-1.7974,GDP Growth Rate QoQ Adv
+2026.02.27 13:30,USD,1.1868,PPI MoM
+2026.02.27 13:30,CAD,-0.4246,GDP Growth Rate Annualized
+2026.03.02 15:00,USD,0.4086,ISM Manufacturing PMI
+2026.03.04 15:00,USD,1.2218,ISM Services PMI
+2026.03.06 13:30,USD,-0.1244,Non Farm Payrolls
+2026.03.06 13:30,USD,-0.1317,Unemployment Rate
+2026.03.06 13:30,USD,-0.2219,Retail Sales MoM
+2026.03.10 14:00,USD,1.6487,Existing Home Sales
+2026.03.11 12:30,USD,0.0,Core Inflation Rate MoM
+2026.03.11 12:30,USD,0.0,Core Inflation Rate YoY
+2026.03.11 12:30,USD,0.0,Inflation Rate MoM
+2026.03.11 12:30,USD,0.0,Inflation Rate YoY
+2026.03.12 12:30,USD,0.4452,Housing Starts
+2026.03.12 12:30,USD,-0.5059,Building Permits Prel
+2026.03.13 12:30,CAD,-0.2232,Unemployment Rate
+2026.03.13 12:30,USD,-0.2826,Personal Spending MoM
+2026.03.13 12:30,USD,0.0,Core PCE Price Index MoM
+2026.03.13 12:30,USD,0.0616,Personal Income MoM
+2026.03.13 12:30,USD,-3.1112,GDP Growth Rate QoQ 2nd Est
+2026.03.13 12:30,USD,-0.5768,Durable Goods Orders MoM
+2026.03.13 14:00,USD,0.138,Michigan Consumer Sentiment Prel
+2026.03.13 14:00,USD,1.0969,JOLTs Job Openings
+2026.03.16 12:30,CAD,-0.501,Inflation Rate YoY
+2026.03.18 12:30,USD,0.791,PPI MoM
+2026.03.18 13:45,CAD,0.0,Interest Rate
+2026.03.31 14:00,USD,0.0081,JOLTs Job Openings
+2026.04.01 12:30,USD,0.2969,Retail Sales MoM
+2026.04.01 14:00,USD,0.1367,ISM Manufacturing PMI
+2026.04.03 12:30,USD,0.0895,Non Farm Payrolls
+2026.04.03 12:30,USD,0.1322,Unemployment Rate
+2026.04.06 14:00,USD,-0.4227,ISM Services PMI
+2026.04.07 12:30,USD,-0.1926,Durable Goods Orders MoM
+2026.04.09 12:30,USD,-0.1238,Personal Income MoM
+2026.04.09 12:30,USD,0.2835,Personal Spending MoM
+2026.04.09 12:30,USD,-1.464,Core PCE Price Index MoM
+2026.04.09 12:30,USD,-1.0496,GDP Growth Rate QoQ Final
+2026.04.10 12:30,CAD,0.224,Unemployment Rate
+2026.04.10 12:30,USD,0.0,Inflation Rate YoY
+2026.04.10 12:30,USD,-0.6762,Core Inflation Rate YoY
+2026.04.10 12:30,USD,-0.8423,Core Inflation Rate MoM
+2026.04.10 12:30,USD,0.0,Inflation Rate MoM
+2026.04.10 14:00,USD,-1.2192,Michigan Consumer Sentiment Prel
+2026.04.13 14:00,USD,-0.3411,Existing Home Sales
+2026.04.14 12:30,USD,-1.1892,PPI MoM
+2026.04.20 12:30,CAD,-1.0049,Inflation Rate YoY
+2026.04.21 12:30,USD,0.2235,Retail Sales MoM
+2026.04.29 12:30,USD,1.473,Housing Starts
+2026.04.29 12:30,USD,-0.2684,Building Permits Prel
+2026.04.29 12:30,USD,0.1449,Durable Goods Orders MoM
+2026.04.29 13:45,CAD,0.0,Interest Rate
+2026.04.30 12:30,USD,0.2484,Personal Income MoM
+2026.04.30 12:30,USD,0.0,Core PCE Price Index MoM
+2026.04.30 12:30,USD,0.0,Personal Spending MoM
+2026.04.30 12:30,USD,-0.3286,GDP Growth Rate QoQ Adv
+2026.05.01 14:00,USD,-0.2058,ISM Manufacturing PMI
+2026.05.05 14:00,USD,-0.0471,ISM Services PMI
+2026.05.05 14:00,USD,0.1062,JOLTs Job Openings
+2026.05.08 12:30,CAD,-0.4498,Unemployment Rate
+2026.05.08 12:30,USD,0.0502,Non Farm Payrolls
+2026.05.08 12:30,USD,-0.0,Unemployment Rate
+2026.05.08 14:00,USD,-0.3599,Michigan Consumer Sentiment Prel
+2026.05.11 14:00,USD,-0.0685,Existing Home Sales
+2026.05.12 12:30,USD,0.7165,Inflation Rate YoY
+2026.05.12 12:30,USD,0.0,Inflation Rate MoM
+2026.05.12 12:30,USD,0.8433,Core Inflation Rate MoM
+2026.05.12 12:30,USD,0.6776,Core Inflation Rate YoY
+2026.05.13 12:30,USD,2.3711,PPI MoM
+2026.05.14 12:30,USD,0.0748,Retail Sales MoM
+2026.05.19 12:30,CAD,-1.5073,Inflation Rate YoY
+2026.05.21 12:30,USD,0.0481,Housing Starts
+2026.05.21 12:30,USD,0.8525,Building Permits Prel
+2026.05.28 12:30,USD,-1.587,GDP Growth Rate QoQ 2nd Est
+2026.05.28 12:30,USD,0.8569,Personal Spending MoM
+2026.05.28 12:30,USD,0.0,Core PCE Price Index MoM
+2026.05.28 12:30,USD,-0.187,Personal Income MoM
+2026.05.28 12:30,USD,2.1331,Durable Goods Orders MoM
+2026.05.29 12:30,CAD,-0.5145,GDP Growth Rate Annualized
+2026.06.01 14:00,USD,0.6884,ISM Manufacturing PMI
+2026.06.02 14:00,USD,1.4453,JOLTs Job Openings
+2026.06.03 14:00,USD,0.3308,ISM Services PMI
+2026.06.05 12:30,USD,-0.0,Unemployment Rate
+2026.06.05 12:30,CAD,0.6764,Unemployment Rate
+2026.06.05 12:30,USD,-0.0129,Non Farm Payrolls
+2026.06.09 14:00,USD,0.8246,Existing Home Sales
+2026.06.10 12:30,USD,0.0,Inflation Rate YoY
+2026.06.10 12:30,USD,0.0,Core Inflation Rate YoY
+2026.06.10 12:30,USD,-0.8442,Core Inflation Rate MoM
+2026.06.10 12:30,USD,0.0,Inflation Rate MoM
+2026.06.10 13:45,CAD,0.0,Interest Rate
+2026.06.11 12:30,USD,-0.7788,PPI MoM
+2026.06.12 14:00,USD,0.8056,Michigan Consumer Sentiment Prel
+2026.06.16 12:30,USD,-2.9947,Housing Starts
+2026.06.16 12:30,USD,-0.1049,Building Permits Prel
+2026.06.17 12:30,USD,0.3753,Retail Sales MoM
+2026.06.22 12:30,CAD,1.0001,Inflation Rate YoY
+2026.06.25 12:30,USD,0.0,Durable Goods Orders MoM
+2026.06.25 12:30,USD,2.59,GDP Growth Rate QoQ Final
+2026.06.25 12:30,USD,0.1877,Personal Income MoM
+2026.06.25 12:30,USD,0.0,Core PCE Price Index MoM
+2026.06.25 12:30,USD,0.5724,Personal Spending MoM
+2026.06.30 14:00,USD,0.4853,JOLTs Job Openings
+2026.07.01 14:00,USD,-0.4829,ISM Manufacturing PMI
+2026.07.02 12:30,USD,-0.0464,Non Farm Payrolls
+2026.07.02 12:30,USD,0.1337,Unemployment Rate
+2026.07.06 14:00,USD,0.0,ISM Services PMI
+2026.07.09 14:00,USD,-0.4816,Existing Home Sales
+2026.07.10 12:30,CAD,0.2261,Unemployment Rate
+2026.07.14 12:30,USD,-2.1627,Inflation Rate YoY
+2026.07.14 12:30,USD,-2.5292,Inflation Rate MoM
+2026.07.14 12:30,USD,-1.3632,Core Inflation Rate YoY
+2026.07.14 12:30,USD,-1.6903,Core Inflation Rate MoM
+2026.07.15 12:30,USD,-0.3896,PPI MoM
+2026.07.16 12:30,USD,0.0,Retail Sales MoM
+2026.07.17 12:30,USD,1.51,Housing Starts
+2026.07.17 12:30,USD,-0.4964,Building Permits Prel
+2026.07.17 14:00,USD,0.9452,Michigan Consumer Sentiment Prel
+2026.07.20 12:30,CAD,-0.5,Inflation Rate YoY
+2026.07.27 12:30,USD,-1.0116,Durable Goods Orders MoM
+2026.07.30 12:30,USD,-0.6644,GDP Growth Rate QoQ Adv
+2026.07.30 12:30,USD,-0.0628,Personal Income MoM
+2026.07.30 12:30,USD,-1.4733,Core PCE Price Index MoM
+2026.07.30 12:30,USD,0.0,Personal Spending MoM
+2026.08.03 14:00,USD,1.1069,ISM Manufacturing PMI
+2026.08.04 14:00,USD,-0.4482,JOLTs Job Openings
+2026.08.05 14:00,USD,-0.1904,ISM Services PMI
+2026.08.07 12:30,USD,-0.0531,Non Farm Payrolls
+2026.08.07 12:30,USD,0.1342,Unemployment Rate
+2026.08.07 12:30,CAD,0.2269,Unemployment Rate
+2026.08.11 14:00,USD,0.069,Existing Home Sales
+2026.08.12 12:30,USD,0.0,Inflation Rate YoY
+2026.08.12 12:30,USD,0.0,Inflation Rate MoM
+2026.08.12 12:30,USD,0.0,Core Inflation Rate MoM
+2026.08.12 12:30,USD,0.0,Core Inflation Rate YoY
+2026.08.13 12:30,USD,0.0,PPI MoM
+2026.08.14 12:30,USD,-0.3781,Retail Sales MoM
+2026.08.14 14:00,USD,-0.9727,Michigan Consumer Sentiment Prel
+2026.08.17 12:30,CAD,0.5014,Inflation Rate YoY
+2026.08.18 12:30,USD,0.2215,Housing Starts
+2026.08.18 12:30,USD,1.1003,Building Permits Prel
+2026.08.26 12:30,USD,0.0,GDP Growth Rate QoQ 2nd Est
+2026.08.26 12:30,USD,0.2885,Durable Goods Orders MoM
+2026.08.26 12:30,USD,0.063,Personal Income MoM
+2026.08.26 12:30,USD,-1.466,Core PCE Price Index MoM
+2026.08.26 12:30,USD,0.2882,Personal Spending MoM
+2026.08.28 12:30,CAD,-0.0432,GDP Growth Rate Annualized
+2026.09.01 14:00,USD,-0.4149,ISM Manufacturing PMI
+2026.09.01 14:00,USD,0.0721,JOLTs Job Openings
+2026.09.03 14:00,USD,0.5732,ISM Services PMI
+2026.09.04 12:30,USD,0.0456,Non Farm Payrolls
+2026.09.04 12:30,USD,-0.0,Unemployment Rate
+2026.09.04 12:30,CAD,-0.0,Unemployment Rate
+2026.09.10 12:30,USD,0.3921,PPI MoM
+2026.09.10 14:00,USD,-0.3463,Existing Home Sales
+2026.09.11 12:30,USD,0.0,Inflation Rate YoY
+2026.09.11 12:30,USD,0.0,Inflation Rate MoM
+2026.09.11 12:30,USD,0.8425,Core Inflation Rate MoM
+2026.09.11 12:30,USD,0.0,Core Inflation Rate YoY
+2026.09.11 14:00,USD,-0.8901,Michigan Consumer Sentiment Prel
+2026.09.14 12:30,CAD,0.0,Inflation Rate YoY
+2026.09.16 12:30,USD,0.3792,Retail Sales MoM
+2026.09.17 12:30,USD,-0.2457,Housing Starts
+2026.09.17 12:30,USD,-0.2413,Building Permits Prel
+2026.09.25 12:30,USD,0.193,Durable Goods Orders MoM
+2026.09.29 14:00,USD,-0.0723,JOLTs Job Openings
+2026.09.30 12:30,USD,0.2892,Personal Spending MoM
+2026.09.30 12:30,USD,0.0,Core PCE Price Index MoM
+2026.09.30 12:30,USD,-0.0632,Personal Income MoM
+2026.09.30 12:30,USD,3.4812,GDP Growth Rate QoQ Final
+2026.10.01 14:00,USD,-0.3467,ISM Manufacturing PMI
+2026.10.02 12:30,USD,-0.0363,Non Farm Payrolls
+2026.10.02 12:30,USD,-0.1352,Unemployment Rate
+2026.10.05 14:00,USD,-0.1437,ISM Services PMI
+2026.10.09 12:30,CAD,-0.0,Unemployment Rate
+2026.10.09 14:00,USD,-0.4178,Michigan Consumer Sentiment Prel
+2026.10.13 14:00,USD,0.2779,Existing Home Sales
+2026.10.14 12:30,USD,0.6845,Core Inflation Rate YoY
+2026.10.14 12:30,USD,0.0,Inflation Rate MoM
+2026.10.14 12:30,USD,0.8434,Core Inflation Rate MoM
+2026.10.14 12:30,USD,0.7155,Inflation Rate YoY
+2026.10.15 12:30,USD,0.3805,Retail Sales MoM
+2026.10.15 12:30,USD,3.1475,PPI MoM
+2026.10.19 12:30,CAD,-0.5047,Inflation Rate YoY
+2026.10.20 12:30,USD,-0.9391,Housing Starts
+2026.10.20 12:30,USD,0.1815,Building Permits Prel
+2026.10.27 12:30,USD,0.1453,Durable Goods Orders MoM
+2026.10.29 12:30,USD,0.0,Core PCE Price Index MoM
+2026.10.29 12:30,USD,-0.0635,Personal Income MoM
+2026.10.29 12:30,USD,-0.2903,Personal Spending MoM
+2026.10.29 12:30,USD,0.2231,GDP Growth Rate QoQ Adv

@@ -1,0 +1,143 @@
+//@version=6
+// ============================================================================
+//  Gold Macro Composite, volatility-targeted  ·  PineConnector edition
+//  Source: ETF-bot etfbot/goldquant.py  ("macro_composite_vol10"), sized 0.75x as in the plan.
+//
+//  RULES
+//   • Chart: spot gold, DAILY bars (e.g. OANDA:XAUUSD or FOREXCOM:XAUUSD).
+//   • Three votes, each from data known at the daily close:
+//       1. Dollar weak:        DXY close < its 50-day average
+//       2. Real yields falling: TIP (TIPS ETF) 20-day change > 0
+//       3. Positioning not crowded: CFTC managed-money net (long - short) / open interest
+//          is below the 70th percentile of the last 156 weekly reports (data delayed 4 trading days)
+//   • Long gold when at least 2 votes agree; flat otherwise. No shorts.
+//   • Size: exposure = 0.75 x min(1.5, 10% / realised 20-day volatility) x equity, set at entry.
+//   • Enter/exit at the next daily open after the signal changes.
+//   • Optional catastrophe stop (default 5% below entry) for prop-firm safety.
+//
+//  COT DATA: TradingView COT tickers. Default tickers follow TradingView's COT format for gold
+//  (CFTC code 088691, disaggregated, futures only). If the "COT data" row in the table shows "n/a",
+//  open the built-in "Commitment of Traders: Disaggregated Metrics" indicator on a GC1! chart,
+//  choose Managed Money Positions -> Long / Short and Open Interest, and copy the ticker IDs it
+//  displays into the three inputs below.
+//
+//  PINECONNECTOR: one alert on this script, "alert() function calls only", webhook = PineConnector.
+//  Requires an FTMO account type that allows holding over weekends (positions last days/weeks).
+// ============================================================================
+strategy("Gold Macro Composite vol10 [PineConnector]", overlay = true,
+     initial_capital = 100000, currency = currency.USD, pyramiding = 0,
+     commission_type = strategy.commission.percent, commission_value = 0.03,   // 3 bps per side, as in research
+     slippage = 0, process_orders_on_close = false, margin_long = 0)
+
+// ---------------------------------------------------------------- inputs
+grpPC   = "PineConnector"
+licId   = input.string("YOUR_LICENSE_ID", "PineConnector License ID", group = grpPC)
+mt5Sym  = input.string("XAUUSD", "MT5 symbol name (FTMO)", group = grpPC)
+ozLot   = input.float(100, "Ounces per 1.00 lot on your broker", group = grpPC)
+cmt     = input.string("GoldMacro", "Order comment (no spaces)", group = grpPC)
+
+grpD    = "Data"
+dxySym  = input.symbol("TVC:DXY", "Dollar index", group = grpD)
+tipSym  = input.symbol("AMEX:TIP", "TIPS ETF", group = grpD)
+useCot  = input.bool(true, "Use COT vote", group = grpD)
+cotL    = input.string("COT2:088691_F_MMP_L", "COT ticker: managed money LONG", group = grpD)
+cotS    = input.string("COT2:088691_F_MMP_S", "COT ticker: managed money SHORT", group = grpD)
+cotOI   = input.string("COT2:088691_F_OI", "COT ticker: open interest", group = grpD)
+cotLag  = input.int(4, "COT delay (trading days after report date)", group = grpD)
+
+grpS    = "Strategy (frozen research settings)"
+dxyLen  = input.int(50, "DXY average length", group = grpS)
+tipLen  = input.int(20, "TIP change length", group = grpS)
+cotWin  = input.int(156, "COT percentile window (weeks)", group = grpS)
+cotMin  = input.int(52, "COT minimum weeks", group = grpS)
+cotThr  = input.float(0.70, "COT percentile threshold", group = grpS)
+needVotes = input.int(2, "Votes needed", group = grpS)
+tgtVol  = input.float(0.10, "Target volatility", group = grpS)
+capScale = input.float(1.5, "Max volatility scale", group = grpS)
+goldMult = input.float(0.75, "Plan size multiplier", group = grpS)
+
+grpR    = "Risk & FTMO safety"
+catStop = input.float(5.0, "Catastrophe stop % below entry (0 = off)", group = grpR)
+halfDD  = input.float(5.0, "Half size when equity is below start by (%)", group = grpR)
+fromDate = input.time(timestamp("2016-01-01T00:00:00"), "Backtest from", group = grpR)
+
+// ---------------------------------------------------------------- data
+f_sma(n) => ta.sma(close, n)
+f_chg(n) => close / close[n] - 1
+dxy    = request.security(dxySym, "D", close)
+dxyAvg = request.security(dxySym, "D", f_sma(dxyLen))
+tipChg = request.security(tipSym, "D", f_chg(tipLen))
+vDollar = not na(dxy) and not na(dxyAvg) and dxy < dxyAvg
+vTips   = not na(tipChg) and tipChg > 0
+
+// COT: daily-resolution request of the weekly series, then delayed so only released reports are used
+cL  = request.security(cotL,  "D", close, ignore_invalid_symbol = true)
+cS  = request.security(cotS,  "D", close, ignore_invalid_symbol = true)
+cOI = request.security(cotOI, "D", close, ignore_invalid_symbol = true)
+net = (cL[cotLag] - cS[cotLag]) / cOI[cotLag]
+var array<float> hist = array.new<float>()
+var float pct = na
+if useCot and not na(net) and (na(net[1]) or net != net[1])
+    // new weekly report: percentile = share of the previous `cotWin` reports below the new value
+    n = array.size(hist)
+    if n >= cotMin
+        float below = 0.0
+        start = math.max(0, n - cotWin)
+        for i = start to n - 1
+            if array.get(hist, i) < net
+                below += 1.0
+        pct := below / float(n - start)
+    else
+        pct := na
+    array.push(hist, net)
+    if array.size(hist) > cotWin + 5
+        array.shift(hist)
+vCot = useCot and not na(pct) and pct < cotThr
+
+votes = (vDollar ? 1 : 0) + (vTips ? 1 : 0) + (vCot ? 1 : 0)
+isOn  = votes >= needVotes
+
+// realised volatility of gold daily returns (20 days, annualised)
+ret    = close / close[1] - 1
+annVol = ta.stdev(ret, 20) * math.sqrt(252)
+scale  = annVol > 0 ? math.min(capScale, tgtVol / annVol) : 0.0
+sizeMult = strategy.equity < strategy.initial_capital * (1 - halfDD / 100) ? 0.5 : 1.0
+expo   = goldMult * scale * sizeMult                      // fraction of equity held in gold
+
+// ---------------------------------------------------------------- orders
+var float entryPx = na
+canTrade = time >= fromDate and barstate.isconfirmed
+
+if canTrade and isOn and strategy.position_size == 0 and expo > 0
+    qtyOz = expo * strategy.equity / close
+    lots  = math.round(qtyOz / ozLot, 2)
+    if lots >= 0.01
+        strategy.entry("Gold", strategy.long, qty = qtyOz)
+        entryPx := close
+        msg = licId + ",buy," + mt5Sym + ",vol_lots=" + str.tostring(lots, "#.##") +
+              (catStop > 0 ? ",sl_pct=" + str.tostring(catStop, "#.##") : "") + ",comment=" + cmt
+        alert(msg, alert.freq_once_per_bar_close)
+
+if canTrade and not isOn and strategy.position_size > 0
+    strategy.close("Gold", comment = "signal off")
+    alert(licId + ",closelong," + mt5Sym + ",comment=" + cmt, alert.freq_once_per_bar_close)
+
+if catStop > 0 and strategy.position_size > 0
+    strategy.exit("GoldStop", "Gold", stop = strategy.position_avg_price * (1 - catStop / 100))
+
+// ---------------------------------------------------------------- display
+bgcolor(isOn ? color.new(color.yellow, 88) : na)
+var table t = table.new(position.top_right, 2, 6, bgcolor = color.new(color.black, 20), border_width = 1)
+if barstate.islast
+    table.cell(t, 0, 0, "Dollar weak", text_color = color.white)
+    table.cell(t, 1, 0, vDollar ? "YES" : "no", text_color = vDollar ? color.lime : color.gray)
+    table.cell(t, 0, 1, "TIP rising", text_color = color.white)
+    table.cell(t, 1, 1, vTips ? "YES" : "no", text_color = vTips ? color.lime : color.gray)
+    table.cell(t, 0, 2, "COT not crowded", text_color = color.white)
+    table.cell(t, 1, 2, vCot ? "YES" : "no", text_color = vCot ? color.lime : color.gray)
+    table.cell(t, 0, 3, "COT data", text_color = color.white)
+    table.cell(t, 1, 3, na(net) ? "n/a - check tickers" : "pct " + str.tostring(pct, "#.##"), text_color = color.white)
+    table.cell(t, 0, 4, "Signal", text_color = color.white)
+    table.cell(t, 1, 4, isOn ? "LONG" : "FLAT", text_color = isOn ? color.lime : color.red)
+    table.cell(t, 0, 5, "Target exposure", text_color = color.white)
+    table.cell(t, 1, 5, str.tostring(expo, "#.##") + "x equity", text_color = color.white)
