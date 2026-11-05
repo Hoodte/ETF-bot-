@@ -1,0 +1,34 @@
+{
+ "momentum": {
+  "cfg": {
+   "dataset": "x",
+   "signal": {
+    "n": 12,
+    "z": 1.5,
+    "family": "momentum"
+   },
+   "trend": "with",
+   "vol": "high",
+   "session": "all",
+   "direction": "both",
+   "exit": "time",
+   "bracket": null,
+   "hold": 48,
+   "eod": false
+  },
+  "unseen": {
+   "GBPUSD": -0.2597049194361812,
+   "USDJPY": 0.2544309944003825,
+   "AUDUSD": -0.533329331765638,
+   "USDCAD": -0.5838092702850926,
+   "SPXUSD": -0.25412537082217146,
+   "GRXEUR": -0.014546674986862879
+  },
+  "val": -1.147691742284905,
+  "val2x": -1.4530080848350153,
+  "tpd": 2.004109589041096,
+  "holdout": -0.3483098475523396,
+  "holdout2x": -0.7051799802992056,
+  "passed": false
+ }
+}
