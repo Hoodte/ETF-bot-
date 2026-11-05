@@ -2,19 +2,26 @@
 
 | File | Runs on | What it does |
 |---|---|---|
-| `1_Nasdaq_LunchRSI_PineConnector.pine` | TradingView, Nasdaq 100 CFD **15m** chart | Long when RSI(14) > 70 during 11:30-13:30 New York; 1 ATR stop, 3 ATR target; about 1 trade a week |
+| `1_Nasdaq_LunchRSI_PineConnector.pine` | *Optional:* TradingView, Nasdaq 100 CFD **15m** chart. **Not needed if the EA's Nasdaq module is on (default). Never run both.** | Long when RSI(14) > 70 during 11:30-13:30 New York; 1 ATR stop, 3 ATR target; about 1 trade a week |
 | `2_Gold_Macro_PineConnector.pine` | TradingView, spot gold **daily** chart | Long gold when 2 of 3 macro votes agree (weak dollar, rising TIP, COT not crowded); volatility-sized; holds days/weeks |
-| `3_NewsSurprise_Guard_EA.mq5` | MT5 (same account as PineConnector) | US/CA news-surprise trades on 6 pairs **plus the account-wide FTMO guard** for all three strategies |
+| `3_FTMO_Plan_EA.mq5` | MT5 (same account as PineConnector) | **News strategy + Nasdaq strategy + account-wide FTMO safety** (-2% daily stop, -8% overall brake, half size below -5%), spread filter, trade log, phone alerts |
 | `news_events.csv` | MT5 Strategy Tester only | 2,855 past US/CA releases (2016-Oct 2026) with surprise scores, for backtesting the news EA |
 
 The news strategy is an MT5 EA, not Pine, because Pine can read economic data but **not the forecasts**, so it can't calculate a surprise. MT5's built-in calendar has both.
 
 ---
 
+## What's new in EA v1.10
+- **Nasdaq runs inside the EA** (magic 26110511, comment `NASLUNCH`): no TradingView or webhook needed for it. Only the gold strategy still uses TradingView + PineConnector.
+- **Spread filter:** a news trade is skipped if the spread is more than 2.5x the symbol's normal spread (logged as `skip_spread`).
+- **Overall brake:** at -8% from the start balance, everything closes and the EA stops trading, even after a restart. To clear it on purpose, set `InpResetBrake = true` once.
+- **Trade log:** `MQL5\Files\ftmo_plan_log.csv` records every release, entry (intended vs filled price and spread), skip, close (with P&L), daily stop and brake. Send me this file after paper trading.
+- **Phone alerts:** MT5 → Tools → Options → Notifications → enable and enter your MetaQuotes ID (from the MT5 mobile app). You get a message for every trade, daily stop and brake.
+
 ## 0. Keeping the strategies separate (do this first)
 | Symbol | Traded by | Opens with | Closed by |
 |---|---|---|---|
-| US100.cash | Nasdaq script (PineConnector) | `buy` + stop/target, comment `NasLunchRSI` | its stop/target, or `closelong` at the end of the day |
+| US100.cash | EA Nasdaq module (magic 26110511) | buy + stop/target, comment `NASLUNCH` | its stop/target, or the EA at 15:55 New York |
 | XAUUSD | Gold script (PineConnector) **and** news EA | gold: comment `GoldMacro`; news: comment `NEWS`, magic 26110510 | gold: `closelong` / 5% stop; news: the EA closes **its own ticket** after 60 min |
 | EURUSD, GBPUSD, AUDUSD, USDJPY, USDCAD | News EA only | comment `NEWS`, magic 26110510 | the EA, by ticket |
 
@@ -39,7 +46,7 @@ For each `.pine` file:
 **Gold COT check:** the table (top right) shows each vote. If "COT data" says **n/a**, the default COT tickers are wrong for your account. Add TradingView's built-in *Commitment of Traders: Disaggregated Metrics* indicator to a `GC1!` chart, pick *Managed Money Positions* Long, then Short, then *Open Interest*, and copy the ticker IDs it shows into the three COT inputs.
 
 ## 3. MT5 news EA + safety guard
-1. MT5 → File → Open Data Folder → copy `3_NewsSurprise_Guard_EA.mq5` into `MQL5\Experts\` and `news_events.csv` into `MQL5\Files\`.
+1. MT5 → File → Open Data Folder → copy `3_FTMO_Plan_EA.mq5` into `MQL5\Experts\` and `news_events.csv` into `MQL5\Files\`.
 2. Open it in MetaEditor → **Compile** (F7). If there are errors, send me the error lines.
 3. Attach it to **one** chart (e.g. EURUSD M1). Inputs:
    - symbol names (FTMO defaults are filled in)
