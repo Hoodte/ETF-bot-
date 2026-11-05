@@ -1,0 +1,64 @@
+{
+ "taker": {
+  "cfg": {
+   "s": {
+    "fam": "taker",
+    "n": 4,
+    "th": 2.0,
+    "mode": "follow"
+   },
+   "trend": "none",
+   "bracket": null,
+   "hold": 24
+  },
+  "val": -0.1941863167884839,
+  "val2x": -1.1412276779525927,
+  "tpd": 5.617486338797814,
+  "unseen_pos": 4,
+  "holdout": -0.06721399956936301,
+  "holdout2x": -1.2379893880303197,
+  "passed": false
+ },
+ "premium": {
+  "cfg": {
+   "s": {
+    "fam": "premium",
+    "n": 1,
+    "th": 1.5,
+    "mode": "fade"
+   },
+   "trend": "with",
+   "bracket": [
+    1.5,
+    1.5
+   ],
+   "hold": 24
+  },
+  "val": -1.1399443919993861,
+  "val2x": -3.9646599456645086,
+  "tpd": 6.740983606557377,
+  "unseen_pos": 4,
+  "holdout": -2.127725837184223,
+  "holdout2x": -4.785110288965994,
+  "passed": false
+ },
+ "crowd_momentum": {
+  "cfg": {
+   "s": {
+    "fam": "crowd_momentum",
+    "th": 0.5,
+    "mode": "follow"
+   },
+   "trend": "with",
+   "bracket": null,
+   "hold": 24
+  },
+  "val": 1.6331108914216987,
+  "val2x": 1.2488766526025654,
+  "tpd": 1.8841530054644808,
+  "unseen_pos": 10,
+  "holdout": -0.22687644509479887,
+  "holdout2x": -0.6254763292518488,
+  "passed": false
+ }
+}
