@@ -37,3 +37,20 @@ The winner is the variant with the best **IS** Sharpe that also:
 3. stays profitable at 2x costs.
 
 If no variant passes, V0 stays. OOS is used only to confirm the choice, never to pick it.
+
+---
+
+# Round 2: entry-rule changes (written 2026-11-05 07:50, after round 1, before running these)
+All are built on V1 (vol10), and each changes one signal's entry rule. They are compared with V1 under the same rules. The trial count rises to **37**.
+
+| ID | Variant | Change |
+|---|---|---|
+| R1 | dxy_momentum | dollar vote = DXY 20-day change below 0 (in place of below its 50-day SMA) |
+| R2 | dxy_band | dollar vote with a +/-0.5% band around the 50-day SMA (cuts whipsaw) |
+| R3 | breakeven | inflation vote = TIP/IEF ratio 20-day change above 0 (inflation expectations, in place of TIP alone) |
+| R4 | cot_flow | positioning vote = managed-money net 4-week change above 0 (in place of the 3-year percentile level) |
+| R5 | sticky_exit | enter on 2 or more votes, exit only at 0 votes |
+| R6 | dip_entry | a new entry waits for an hourly close below the close 24 hours earlier; exits unchanged |
+| R7 | silver_vote | 4th vote: gold/silver ratio below its 50-day SMA; need 3 of 4 |
+
+An R-variant replaces V1 only if it passes the same three checks **and** beats V1's IS Sharpe by at least 0.10. Otherwise V1 stays, because a smaller gain is noise after 37 trials.
