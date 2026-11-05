@@ -61,6 +61,14 @@ def build(name: str, h1: pd.DataFrame, d: dict, cot: pd.Series, f: float = 1.0) 
     if name == "fear_spike":
         v = d["VIX"]; flag = (v > 1.2 * v.rolling(n(60)).mean()).astype(float)
         return to_hourly(flag.rolling(10, min_periods=1).max(), idx, 1)
+    if name == "macro_composite_vol10":
+        # long-term own-money candidate (variant V1, 2026-11-05): composite x (10% / 20-day realised vol), cap 1.5x
+        base = build("macro_composite", h1, d, cot, f)
+        gr = c.pct_change()
+        dv = gr.groupby(gr.index.date).apply(lambda z: (1 + z).prod() - 1).rolling(20).std() * np.sqrt(252)
+        dv.index = pd.to_datetime(dv.index)
+        sc = to_hourly((0.10 / dv).clip(upper=1.5).rename("s"), idx, 1).replace(0, np.nan).ffill().fillna(1.0)
+        return base * sc
     if name in ("cot_contrarian", "cot_momentum", "macro_composite"):
         w = n(156)
         pct = cot.rolling(w, min_periods=52).apply(lambda a: (a[:-1] < a[-1]).mean(), raw=True)

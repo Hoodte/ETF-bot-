@@ -157,3 +157,13 @@ Suggested flow: weekday schedule after the London close → `check-data` → `si
 2. Run `backtest --strategy trend` and review `reports/trend.md`.
 3. If the Skeptic verdict is PASS, start the paper schedule in n8n for 1–2 months.
 4. Then run `trade` on the Trading 212 demo (or IBKR paper) account and confirm the orders match `paper`.
+
+## ETF strategy search (`python -m etfbot search ...`)
+A systematic search over ETF universes, signal families, parameters, combinations, selection, sizing, limits, rebalance schedules, entry/exit rules and defensive allocation.
+- `etfbot/search/schema.py`: config schema, allowed values, compatibility rules, canonical IDs (dedup).
+- `etfbot/search/generator.py`: baselines → one-at-a-time variations → seeded random combinations.
+- `etfbot/search/engine.py`: signals at the close, fills at the next open, eligibility known at the time (listing, warm-up, liquidity), costs, drift.
+- `etfbot/search/evaluate.py`: trial ledger, benchmarks, walk-forward folds, frozen shortlist, nearby-setting and cost stress tests, deflated Sharpe, holdout.
+- Rules live in `config.yaml` under `search:`. Steps: `search download`, `search run`, `search shortlist`, or `search all`.
+- Output (`results/search/<date>/`): `trials.csv` (one row per attempt, including invalid and duplicate ones), `benchmarks.csv`, `meta.json`, `shortlist_frozen.csv`, `shortlist_checked.csv`, `SHORTLIST_REPORT.md`.
+- Survivorship bias: every ETF in the universes exists today.

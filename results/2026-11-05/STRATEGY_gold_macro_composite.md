@@ -43,3 +43,9 @@ Typical rules assumed: +10% target, −10% max loss, −5% daily loss; funded sp
 **Before going live, check:** the firm's gold swap or overnight fee, whether positions may be held over weekends (this strategy holds for weeks), time limits, and capital caps.
 
 **Next idea to raise income:** combine it with uncorrelated trend strategies (indices, Bitcoin) so the account can carry more size within the same loss limit.
+
+## Update 2026-11-05: long-term variant `macro_composite_vol10` (own money, not prop)
+- Same signals, sized at 10% target volatility / 20-day realised vol (cap 1.5x); `goldquant.build("macro_composite_vol10", ...)`.
+- IS Sharpe 1.05, OOS Sharpe 1.13, OOS 10.0%/yr, OOS worst drop -11.6%; deflated Sharpe 0.98 at 30 trials.
+- Round 2 (7 entry-rule changes, 37 trials in total): none beat it. See gold_variants_*.md.
+- Holds for days to weeks, so it's filed as a **long-term own-money bot**, not for short-hold prop trading.

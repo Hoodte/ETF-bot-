@@ -338,6 +338,28 @@ def cmd_paper(cfg, a):
     return out
 
 
+def cmd_search(cfg, a):
+    from datetime import date
+    from pathlib import Path
+    from .search import engine as SE, evaluate as SV, schema as SS
+    out = Path(a.out or f"results/search/{date.today()}")
+    log = lambda m: print(m, file=sys.stderr)  # noqa: E731
+    if a.step in ("download",):
+        import yfinance as yf
+        x = yf.download(sorted(SS.ASSET_CLASS), start="2002-01-01", auto_adjust=True, progress=False)
+        x[["Open", "Close", "Volume"]].to_pickle("data/search_ohlcv.pkl")
+        return {"ok": True, "data_version": SE.data_version(x)}
+    if a.step in ("run", "all"):
+        SV.run_search(cfg, out, a.samples, log)
+    if a.step in ("shortlist", "all"):
+        sl = SV.freeze_shortlist(out, cfg["search"])
+        log(f"shortlist frozen: {len(sl)} strategies -> {out / 'shortlist_frozen.csv'}")
+        if len(sl):
+            SV.robustness(out, cfg, log)
+            SV.report(out, cfg)
+    return {"ok": True, "out": str(out), "report": str(out / "SHORTLIST_REPORT.md")}
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="etfbot")
     p.add_argument("--config", default="config.yaml")
@@ -383,6 +405,10 @@ def main(argv=None) -> int:
     s.add_argument("--seed", type=int, default=19)
     s.add_argument("--synthetic", action="store_true")
     s.add_argument("--force", action="store_true")
+    s = sub.add_parser("search", help="systematic ETF strategy search: generate, test, shortlist, holdout")
+    s.add_argument("step", choices=["download", "run", "shortlist", "all"])
+    s.add_argument("--out", default=None, help="results folder (default results/search/<date>)")
+    s.add_argument("--samples", type=int, default=None, help="random combinations (default from config)")
     a = p.parse_args(argv)
     cfg = load_config(a.config)
     fn = {"check-data": cmd_check_data, "backtest": cmd_backtest, "simulate": cmd_simulate,
@@ -390,7 +416,7 @@ def main(argv=None) -> int:
           "market-status": cmd_market_status, "crosscheck": cmd_crosscheck,
           "approve": cmd_approve, "discover": cmd_discover, "combine": cmd_combine,
           "leverage": cmd_leverage, "markets": cmd_markets,
-          "intraday": cmd_intraday}[a.cmd]
+          "intraday": cmd_intraday, "search": cmd_search}[a.cmd]
     try:
         out = fn(cfg, a)
     except Exception as e:  # report failures as JSON so the workflow can alert

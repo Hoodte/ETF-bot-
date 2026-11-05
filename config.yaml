@@ -174,3 +174,17 @@ scaling:                       # order-size cap = base_trade_size_gbp x multipli
 paths:
   state_dir: state
   log_dir: logs
+
+search:                     # ETF strategy search (python -m etfbot search ...); rules fixed before any run
+  discovery: ["2005-01-01", "2012-12-31"]
+  validation: [["2013-01-01", "2016-12-31"], ["2017-01-01", "2020-12-31"]]
+  holdout_start: "2021-01-01"        # untouched until the shortlist is frozen
+  cost_bps: 5                        # per unit of weight traded, fees + slippage
+  stress_cost_multipliers: [2, 3]
+  max_cagr_giveup: 0.02              # may lag the matched benchmark by at most 2%/yr...
+  require_lower_drawdown: true       # ...and must have a smaller max drawdown, in every period
+  samples: 3000
+  seed: 42
+  shortlist_size: 25
+  max_per_family_universe: 3
+  neighbour_mar_floor: 0.5           # a neighbour scoring below 50% of the candidate's worst-period MAR = sensitive

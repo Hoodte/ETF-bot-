@@ -1,0 +1,39 @@
+{
+ "data_version": "yahoo-adj-2026-11-04-e672facce1",
+ "n_attempted": 3841,
+ "n_tested": 1772,
+ "n_invalid": 1999,
+ "n_duplicate": 70,
+ "n_passing": 57,
+ "search_end": "2020-12-31",
+ "rules": {
+  "discovery": [
+   "2005-01-01",
+   "2012-12-31"
+  ],
+  "validation": [
+   [
+    "2013-01-01",
+    "2016-12-31"
+   ],
+   [
+    "2017-01-01",
+    "2020-12-31"
+   ]
+  ],
+  "holdout_start": "2021-01-01",
+  "cost_bps": 5,
+  "stress_cost_multipliers": [
+   2,
+   3
+  ],
+  "max_cagr_giveup": 0.02,
+  "require_lower_drawdown": true,
+  "samples": 3000,
+  "seed": 42,
+  "shortlist_size": 25,
+  "max_per_family_universe": 3,
+  "neighbour_mar_floor": 0.5
+ },
+ "survivorship_bias": "All ETFs in the universes exist today; delisted funds are absent."
+}
