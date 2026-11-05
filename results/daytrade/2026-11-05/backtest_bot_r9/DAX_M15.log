@@ -1,0 +1,89 @@
+[args] pair=DAX tf=M15  sizes=(1, 2)  min_sample=100  fdr=0.05  min_exp=0.05
+[args] gates: trades>=50  Sharpe>=0.5  PF>=1.2  DD<=10.0%  deg>=0.5
+[data] loading DAX M15 from data/cache/histdata/DAX/M15/
+[data] 147,818 bars total   IS slice = 88,690 bars (2016-01-04 -> 2021-05-12)
+[data] OOS+VAL held out from mining: 59,128 bars
+[features] 69 features × 147,818 bars  (88,690 on IS)
+Step 2: pattern mining on IS slice
+[mine] sizes=(1, 2)  min_sample=100  fdr=0.05
+[mine] 3,524 total patterns scored
+[mine] 96 patterns qualify (significant + expectancy_r >= 0.05)
+Step 3: materialize + IS/OOS/VAL validate top 15
+[ 1/15] bb_expansion_20+session_afternoon__long  n=986  expectancy_r=+0.201  adj_p=0.0000
+  IS    trades= 337  win%= 45.7  PF= 0.90  Sharpe= -0.20  DD=26.47%  netPnL=$    -16,068
+  OOS   trades= 171  win%= 43.3  PF= 0.88  Sharpe= -0.31  DD=22.73%  netPnL=$    -11,869
+  VAL   trades=  87  win%= 44.8  PF= 0.86  Sharpe= -0.24  DD=13.75%  netPnL=$     -5,880
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 2/15] gap_down_today+inside_or_range__long  n=1450  expectancy_r=+0.154  adj_p=0.0000
+  IS    trades= 251  win%= 37.5  PF= 0.94  Sharpe= -0.11  DD=27.36%  netPnL=$    -10,717
+  OOS   trades= 129  win%= 36.4  PF= 0.77  Sharpe= -0.63  DD=23.94%  netPnL=$    -21,261
+  VAL   trades= 100  win%= 37.0  PF= 0.88  Sharpe= -0.23  DD=10.37%  netPnL=$     -7,380
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 3/15] inside_or_range+stoch_overbought_80__long  n=719  expectancy_r=+0.152  adj_p=0.0025
+  IS    trades= 219  win%= 38.4  PF= 0.81  Sharpe= -0.36  DD=31.77%  netPnL=$    -23,950
+  OOS   trades=  85  win%= 30.6  PF= 0.56  Sharpe= -1.09  DD=28.31%  netPnL=$    -26,498
+  VAL   trades=  80  win%= 37.5  PF= 0.96  Sharpe= -0.04  DD=11.35%  netPnL=$     -1,645
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 4/15] session_afternoon+stoch_overbought_80__long  n=1960  expectancy_r=+0.138  adj_p=0.0000
+  IS    trades= 598  win%= 44.5  PF= 0.89  Sharpe= -0.29  DD=35.10%  netPnL=$    -30,438
+  OOS   trades= 244  win%= 39.8  PF= 0.68  Sharpe= -1.17  DD=45.10%  netPnL=$    -40,528
+  VAL   trades= 188  win%= 43.1  PF= 0.87  Sharpe= -0.34  DD=14.61%  netPnL=$    -12,072
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 5/15] adx_above_40+session_afternoon__long  n=956  expectancy_r=+0.136  adj_p=0.0017
+  IS    trades= 188  win%= 46.8  PF= 1.03  Sharpe= +0.08  DD=19.34%  netPnL=$      3,398
+  OOS   trades=  70  win%= 48.6  PF= 1.15  Sharpe= +0.27  DD= 7.87%  netPnL=$      5,841
+  VAL   trades=  39  win%= 43.6  PF= 0.93  Sharpe= -0.08  DD= 5.88%  netPnL=$     -1,373
+  degradation=+3.537  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 6/15] adx_above_40+close_above_or_high__long  n=2205  expectancy_r=+0.132  adj_p=0.0000
+  IS    trades= 169  win%= 45.6  PF= 1.21  Sharpe= +0.35  DD=18.00%  netPnL=$     25,743
+  OOS   trades=  63  win%= 33.3  PF= 0.61  Sharpe= -0.77  DD=19.64%  netPnL=$    -17,362
+  VAL   trades=  47  win%= 34.0  PF= 0.56  Sharpe= -0.81  DD=16.86%  netPnL=$    -14,006
+  degradation=-2.194  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 7/15] close_above_ema20+inside_or_range__long  n=2415  expectancy_r=+0.116  adj_p=0.0000
+  IS    trades= 480  win%= 36.2  PF= 0.82  Sharpe= -0.55  DD=53.16%  netPnL=$    -47,403
+  OOS   trades= 175  win%= 36.0  PF= 0.75  Sharpe= -0.77  DD=30.60%  netPnL=$    -28,556
+  VAL   trades= 155  win%= 38.1  PF= 0.94  Sharpe= -0.13  DD=14.97%  netPnL=$     -5,688
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 8/15] bearish_engulfing+stoch_overbought_80__long  n=915  expectancy_r=+0.113  adj_p=0.0174
+  IS    trades= 512  win%= 42.8  PF= 1.04  Sharpe= +0.18  DD=30.59%  netPnL=$     17,790
+  OOS   trades= 240  win%= 41.7  PF= 0.96  Sharpe= -0.08  DD=21.72%  netPnL=$     -5,980
+  VAL   trades= 163  win%= 42.3  PF= 1.04  Sharpe= +0.13  DD=17.45%  netPnL=$      3,571
+  degradation=-0.441  ftmo=FAIL  robust=FAIL  verdict=reject
+[ 9/15] bearish_engulfing+close_above_or_high__long  n=2042  expectancy_r=+0.107  adj_p=0.0003
+  IS    trades= 601  win%= 44.3  PF= 1.00  Sharpe= +0.02  DD=29.20%  netPnL=$     -1,764
+  OOS   trades= 244  win%= 35.2  PF= 0.61  Sharpe= -1.55  DD=52.50%  netPnL=$    -50,753
+  VAL   trades= 174  win%= 37.4  PF= 0.77  Sharpe= -0.69  DD=23.91%  netPnL=$    -22,531
+  degradation=-63.316  ftmo=FAIL  robust=FAIL  verdict=reject
+[10/15] close_in_lower_quartile+inside_or_range__long  n=1056  expectancy_r=+0.106  adj_p=0.0164
+  IS    trades= 375  win%= 39.5  PF= 0.90  Sharpe= -0.22  DD=35.71%  netPnL=$    -21,416
+  OOS   trades= 136  win%= 36.0  PF= 0.74  Sharpe= -0.71  DD=28.73%  netPnL=$    -23,509
+  VAL   trades= 123  win%= 34.1  PF= 0.74  Sharpe= -0.70  DD=24.96%  netPnL=$    -20,287
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[11/15] close_above_ema50+close_below_prev_day_low__long  n=791  expectancy_r=+0.105  adj_p=0.0493
+  IS    trades=  81  win%= 51.9  PF= 1.48  Sharpe= +0.44  DD= 6.61%  netPnL=$     21,923
+  OOS   trades=  34  win%= 29.4  PF= 0.51  Sharpe= -0.79  DD=15.70%  netPnL=$    -12,829
+  VAL   trades=  31  win%= 25.8  PF= 0.41  Sharpe= -0.98  DD=15.96%  netPnL=$    -13,676
+  degradation=-1.805  ftmo=FAIL  robust=PASS  verdict=reject
+[12/15] inside_or_range+roc10_positive__long  n=2215  expectancy_r=+0.104  adj_p=0.0002
+  IS    trades= 488  win%= 37.5  PF= 0.87  Sharpe= -0.35  DD=44.41%  netPnL=$    -35,035
+  OOS   trades= 176  win%= 40.9  PF= 0.90  Sharpe= -0.23  DD=26.06%  netPnL=$    -10,549
+  VAL   trades= 159  win%= 37.7  PF= 0.90  Sharpe= -0.21  DD=18.10%  netPnL=$     -8,514
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[13/15] inside_or_range+rsi_above_50__long  n=2443  expectancy_r=+0.104  adj_p=0.0001
+  IS    trades= 472  win%= 36.0  PF= 0.84  Sharpe= -0.52  DD=55.12%  netPnL=$    -45,481
+  OOS   trades= 176  win%= 38.1  PF= 0.81  Sharpe= -0.54  DD=24.76%  netPnL=$    -21,362
+  VAL   trades= 149  win%= 36.2  PF= 0.85  Sharpe= -0.35  DD=22.21%  netPnL=$    -12,614
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[14/15] gap_down_today+session_close_hour__long  n=2008  expectancy_r=+0.102  adj_p=0.0007
+  IS    trades= 502  win%= 43.2  PF= 0.77  Sharpe= -0.73  DD=57.55%  netPnL=$    -51,257
+  OOS   trades= 263  win%= 42.6  PF= 0.73  Sharpe= -0.98  DD=38.65%  netPnL=$    -36,631
+  VAL   trades= 171  win%= 35.7  PF= 0.50  Sharpe= -1.71  DD=43.86%  netPnL=$    -42,280
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[15/15] close_above_prev_day_high+inside_or_range__long  n=1093  expectancy_r=+0.100  adj_p=0.0244
+  IS    trades= 172  win%= 36.6  PF= 0.81  Sharpe= -0.30  DD=30.64%  netPnL=$    -19,549
+  OOS   trades=  61  win%= 32.8  PF= 0.61  Sharpe= -0.80  DD=19.98%  netPnL=$    -18,081
+  VAL   trades=  65  win%= 46.2  PF= 1.33  Sharpe= +0.49  DD= 5.61%  netPnL=$     12,365
+  degradation=+0.000  ftmo=FAIL  robust=FAIL  verdict=reject
+[persist] 15 pattern cards + 15 strategy cards
+[persist] INDEX -> research/cards/dax_m15_histdata_r9/INDEX.md
+  verdicts: {'reject': 15}
