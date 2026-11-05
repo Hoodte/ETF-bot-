@@ -360,6 +360,23 @@ def cmd_search(cfg, a):
     return {"ok": True, "out": str(out), "report": str(out / "SHORTLIST_REPORT.md")}
 
 
+def cmd_daytrade(cfg, a):
+    from datetime import date
+    from pathlib import Path
+    from .daytrade import evaluate as DV
+    out = Path(a.out or f"results/daytrade/{date.today()}")
+    log = lambda m: print(m, file=sys.stderr, flush=True)  # noqa: E731
+    if a.step in ("run", "all"):
+        DV.run_search(cfg, out, a.samples, log)
+    if a.step in ("shortlist", "all"):
+        sl = DV.freeze_shortlist(out, cfg["daytrade"])
+        log(f"shortlist frozen: {len(sl)}")
+        if len(sl):
+            DV.robustness(out, cfg, log)
+        DV.report(out, cfg)
+    return {"ok": True, "out": str(out), "report": str(out / "REPORT.md")}
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="etfbot")
     p.add_argument("--config", default="config.yaml")
@@ -409,6 +426,10 @@ def main(argv=None) -> int:
     s.add_argument("step", choices=["download", "run", "shortlist", "all"])
     s.add_argument("--out", default=None, help="results folder (default results/search/<date>)")
     s.add_argument("--samples", type=int, default=None, help="random combinations (default from config)")
+    s = sub.add_parser("daytrade", help="intraday strategy search: generate, test, shortlist, holdout, funded sim")
+    s.add_argument("step", choices=["run", "shortlist", "all"])
+    s.add_argument("--out", default=None)
+    s.add_argument("--samples", type=int, default=None)
     a = p.parse_args(argv)
     cfg = load_config(a.config)
     fn = {"check-data": cmd_check_data, "backtest": cmd_backtest, "simulate": cmd_simulate,
@@ -416,7 +437,7 @@ def main(argv=None) -> int:
           "market-status": cmd_market_status, "crosscheck": cmd_crosscheck,
           "approve": cmd_approve, "discover": cmd_discover, "combine": cmd_combine,
           "leverage": cmd_leverage, "markets": cmd_markets,
-          "intraday": cmd_intraday, "search": cmd_search}[a.cmd]
+          "intraday": cmd_intraday, "search": cmd_search, "daytrade": cmd_daytrade}[a.cmd]
     try:
         out = fn(cfg, a)
     except Exception as e:  # report failures as JSON so the workflow can alert

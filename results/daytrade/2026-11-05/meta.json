@@ -1,0 +1,77 @@
+{
+ "n_attempted": 4987,
+ "n_tested": 4659,
+ "n_invalid": 242,
+ "n_duplicate": 86,
+ "n_passing": 0,
+ "search_end": "2024-12-31",
+ "rules": {
+  "datasets": {
+   "XAUUSD_1h": [
+    "/mnt/user-data/uploads/backtestbot/data/XAUUSD_H1_2016_2026.csv",
+    60,
+    3.0,
+    21
+   ],
+   "BTCUSDT_1h": [
+    "data/crypto_h1/BTCUSDT_H1.csv",
+    60,
+    5.0,
+    24
+   ],
+   "BTCUSDT_15m": [
+    "data/crypto_h1/BTCUSDT_15m.pkl",
+    15,
+    5.0,
+    24
+   ],
+   "BTCUSDT_5m": [
+    "data/crypto_h1/BTCUSDT_5m.pkl",
+    5,
+    5.0,
+    24
+   ],
+   "ETHUSDT_1h": [
+    "data/crypto_h1/ETHUSDT_H1.csv",
+    60,
+    5.0,
+    24
+   ],
+   "ETHUSDT_15m": [
+    "data/crypto_h1/ETHUSDT_15m.pkl",
+    15,
+    5.0,
+    24
+   ],
+   "ETHUSDT_5m": [
+    "data/crypto_h1/ETHUSDT_5m.pkl",
+    5,
+    5.0,
+    24
+   ]
+  },
+  "discovery_end": "2020-12-31",
+  "validation": [
+   [
+    "2021-01-01",
+    "2022-12-31"
+   ],
+   [
+    "2023-01-01",
+    "2024-12-31"
+   ]
+  ],
+  "holdout_start": "2025-01-01",
+  "min_sharpe": 0.5,
+  "min_profit_factor": 1.05,
+  "min_trades_per_week": 5.0,
+  "stress_cost_multipliers": [
+   2,
+   3
+  ],
+  "samples": 4000,
+  "seed": 7,
+  "shortlist_size": 25,
+  "max_per_dataset_family": 3
+ }
+}

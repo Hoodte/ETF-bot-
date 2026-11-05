@@ -188,3 +188,24 @@ search:                     # ETF strategy search (python -m etfbot search ...);
   shortlist_size: 25
   max_per_family_universe: 3
   neighbour_mar_floor: 0.5           # a neighbour scoring below 50% of the candidate's worst-period MAR = sensitive
+
+daytrade:                   # intraday strategy search (python -m etfbot daytrade ...); rules fixed 2026-11-05 before any run
+  datasets:                 # name: [file, timeframe minutes, cost bps per side, session end hour UTC for end-of-day exits]
+    XAUUSD_1h: ["/mnt/user-data/uploads/backtestbot/data/XAUUSD_H1_2016_2026.csv", 60, 3.0, 21]
+    BTCUSDT_1h: ["data/crypto_h1/BTCUSDT_H1.csv", 60, 5.0, 24]
+    BTCUSDT_15m: ["data/crypto_h1/BTCUSDT_15m.pkl", 15, 5.0, 24]
+    BTCUSDT_5m: ["data/crypto_h1/BTCUSDT_5m.pkl", 5, 5.0, 24]
+    ETHUSDT_1h: ["data/crypto_h1/ETHUSDT_H1.csv", 60, 5.0, 24]
+    ETHUSDT_15m: ["data/crypto_h1/ETHUSDT_15m.pkl", 15, 5.0, 24]
+    ETHUSDT_5m: ["data/crypto_h1/ETHUSDT_5m.pkl", 5, 5.0, 24]
+  discovery_end: "2020-12-31"           # discovery = start of data to here
+  validation: [["2021-01-01", "2022-12-31"], ["2023-01-01", "2024-12-31"]]
+  holdout_start: "2025-01-01"           # untouched until the shortlist is frozen
+  min_sharpe: 0.5                       # net of costs, in discovery AND every validation fold
+  min_profit_factor: 1.05
+  min_trades_per_week: 5.0              # user goal: 1-2 trades a day (raised 2026-11-05 08:20, before the first full run)
+  stress_cost_multipliers: [2, 3]
+  samples: 4000
+  seed: 7
+  shortlist_size: 25
+  max_per_dataset_family: 3
