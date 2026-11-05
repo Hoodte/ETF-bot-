@@ -85,13 +85,25 @@ class Data:
             m = c.rolling(s["n"]).mean(); sd = c.rolling(s["n"]).std()
             sig = np.where(c < m - s["k"] * sd, 1, np.where(c > m + s["k"] * sd, -1, 0))
         elif f == "orb":
-            sig = _orb(self.h, self.l, self.c, self.minute_of_day, self.day,
-                       S.SESSION_OPEN[s["session"]] * 60, s["minutes"], self.tf)
+            tz, open_min = S.SESSION_OPEN[s["session"]]
+            mod, lday = self._local(tz)
+            sig = _orb(self.h, self.l, self.c, mod, lday, open_min, s["minutes"], self.tf)
+        elif f == "pdhl":
+            sig = _pdhl(self.h, self.l, self.c, self.day)
+            if s["mode"] == "fade":
+                sig = -sig
         else:
             raise ValueError(f)
         sig = np.asarray(sig, dtype=np.int8)
         self._cache[key] = sig
         return sig
+
+    def _local(self, tz):
+        k = ("local", tz)
+        if k not in self._cache:
+            loc = self.idx.tz_convert(tz)
+            self._cache[k] = ((loc.hour * 60 + loc.minute).to_numpy(), pd.factorize(loc.floor("D") if tz == "UTC" else loc.normalize())[0])
+        return self._cache[k]
 
     def entries(self, cfg: dict) -> np.ndarray:
         sig = self.raw_signal(cfg["signal"]).copy()
@@ -135,6 +147,24 @@ def _orb(h, l, c, mod, day, open_min, minutes, tf):
                 out[t] = 1; done = True
             elif c[t] < lo:
                 out[t] = -1; done = True
+    return out
+
+
+@nb.njit(cache=True)
+def _pdhl(h, l, c, day):
+    n = len(c); out = np.zeros(n, np.int8)
+    cur = -1; ph = np.nan; pl = np.nan; th = -1e18; tl = 1e18; done = False
+    for t in range(n):
+        if day[t] != cur:
+            if cur != -1:
+                ph = th; pl = tl
+            cur = day[t]; th = -1e18; tl = 1e18; done = False
+        if not done and not np.isnan(ph):
+            if c[t] > ph:
+                out[t] = 1; done = True
+            elif c[t] < pl:
+                out[t] = -1; done = True
+        th = max(th, h[t]); tl = min(tl, l[t])
     return out
 
 

@@ -366,6 +366,7 @@ def cmd_daytrade(cfg, a):
     from .daytrade import evaluate as DV
     out = Path(a.out or f"results/daytrade/{date.today()}")
     log = lambda m: print(m, file=sys.stderr, flush=True)  # noqa: E731
+    cfg = dict(cfg, daytrade=cfg[a.block])
     if a.step in ("run", "all"):
         DV.run_search(cfg, out, a.samples, log)
     if a.step in ("shortlist", "all"):
@@ -428,6 +429,7 @@ def main(argv=None) -> int:
     s.add_argument("--samples", type=int, default=None, help="random combinations (default from config)")
     s = sub.add_parser("daytrade", help="intraday strategy search: generate, test, shortlist, holdout, funded sim")
     s.add_argument("step", choices=["run", "shortlist", "all"])
+    s.add_argument("--block", default="daytrade", help="config block with the datasets and rules (daytrade, daytrade_fx)")
     s.add_argument("--out", default=None)
     s.add_argument("--samples", type=int, default=None)
     a = p.parse_args(argv)

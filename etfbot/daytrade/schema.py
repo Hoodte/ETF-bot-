@@ -6,15 +6,17 @@ import hashlib
 import json
 import random
 
-FAMILIES = ["breakout", "momentum", "rsi_revert", "band_fade", "orb"]
+FAMILIES = ["breakout", "momentum", "rsi_revert", "band_fade", "orb", "pdhl"]
 PARAMS = {
     "breakout": {"n": [12, 24, 48, 96]},
     "momentum": {"n": [4, 12, 24, 48], "z": [1.0, 1.5, 2.0]},
     "rsi_revert": {"p": [2, 4, 14], "th": [10, 20, 30]},
     "band_fade": {"n": [20, 50, 100], "k": [2.0, 2.5, 3.0]},
     "orb": {"session": ["london", "ny", "utc0"], "minutes": [15, 30, 60, 120]},
+    "pdhl": {"mode": ["follow", "fade"]},       # first break of the previous UTC day's high/low
 }
-SESSION_OPEN = {"utc0": 0, "london": 7, "ny": 13}
+# opening-range sessions in local exchange time (daylight saving handled)
+SESSION_OPEN = {"utc0": ("UTC", 0), "london": ("Europe/London", 8 * 60), "ny": ("America/New_York", 9 * 60 + 30)}
 ALLOWED = {
     "trend": ["none", "with", "against"],          # 200-bar EMA: trade with it, against it, or ignore
     "vol": ["any", "high", "low"],                 # ATR percentile vs last 500 bars above/below 0.5
@@ -51,8 +53,8 @@ def validate(c: dict, datasets: dict) -> list[str]:
     if c["exit"] == "bracket" and tuple(c["bracket"]) not in ALLOWED["bracket"]:
         e.append("bad bracket")
     if s["family"] == "orb":
-        if s["minutes"] < tf or s["minutes"] % tf:
-            e.append(f"opening range of {s['minutes']} min impossible on {tf}-min bars")
+        if s["minutes"] < tf or s["minutes"] % tf or SESSION_OPEN[s["session"]][1] % tf:
+            e.append(f"opening range of {s['minutes']} min at that open impossible on {tf}-min bars")
         if c["session"] != "all":
             e.append("orb sets its own session; session filter must be 'all'")
         if s["session"] == "utc0" and session_end != 24:
@@ -83,18 +85,20 @@ def describe(c: dict) -> str:
 
 DEFAULT_SIGNAL = {"breakout": {"family": "breakout", "n": 24}, "momentum": {"family": "momentum", "n": 12, "z": 1.5},
                   "rsi_revert": {"family": "rsi_revert", "p": 2, "th": 10}, "band_fade": {"family": "band_fade", "n": 50, "k": 2.5},
-                  "orb": {"family": "orb", "session": "london", "minutes": 60}}
+                  "orb": {"family": "orb", "session": "london", "minutes": 60},
+                  "pdhl": {"family": "pdhl", "mode": "follow"}}
 HYPOTHESES = {
     "breakout": "A close beyond the recent range starts a short move in that direction.",
     "momentum": "An unusually large move over the last N bars tends to continue briefly.",
     "rsi_revert": "Very short-term extremes (RSI) snap back.",
     "band_fade": "Closes far outside a rolling band revert toward the mean.",
     "orb": "The first break of a session's opening range sets the direction for the next hours.",
+    "pdhl": "The first break of yesterday's high or low either runs (stops triggered) or fails and reverses.",
 }
 
 
 def baseline(dataset: str, family: str) -> dict:
-    trend_like = family in ("breakout", "momentum", "orb")
+    trend_like = family in ("breakout", "momentum", "orb", "pdhl")
     return {"dataset": dataset, "signal": dict(DEFAULT_SIGNAL[family]), "trend": "none", "vol": "any", "session": "all",
             "direction": "both", "exit": "bracket" if trend_like else "time", "bracket": [1.0, 2.0] if trend_like else None,
             "hold": 24 if trend_like else 12, "eod": False}

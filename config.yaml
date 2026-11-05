@@ -209,3 +209,44 @@ daytrade:                   # intraday strategy search (python -m etfbot daytrad
   seed: 7
   shortlist_size: 25
   max_per_dataset_family: 3
+
+daytrade_fx:               # round 6: FX majors, gold, index CFDs from HistData 1-minute (2016-2026); rules fixed 2026-11-05 before running
+  datasets:                 # name: [file, tf minutes, cost bps per side (spread/2 + commission + slippage, FTMO-like), session end hour UTC]
+    EURUSD_5m: ["data/histdata/EURUSD_5m.pkl", 5, 0.6, 21]
+    EURUSD_15m: ["data/histdata/EURUSD_15m.pkl", 15, 0.6, 21]
+    EURUSD_1h: ["data/histdata/EURUSD_1h.pkl", 60, 0.6, 21]
+    GBPUSD_5m: ["data/histdata/GBPUSD_5m.pkl", 5, 0.8, 21]
+    GBPUSD_15m: ["data/histdata/GBPUSD_15m.pkl", 15, 0.8, 21]
+    GBPUSD_1h: ["data/histdata/GBPUSD_1h.pkl", 60, 0.8, 21]
+    USDJPY_5m: ["data/histdata/USDJPY_5m.pkl", 5, 0.7, 21]
+    USDJPY_15m: ["data/histdata/USDJPY_15m.pkl", 15, 0.7, 21]
+    USDJPY_1h: ["data/histdata/USDJPY_1h.pkl", 60, 0.7, 21]
+    AUDUSD_5m: ["data/histdata/AUDUSD_5m.pkl", 5, 0.8, 21]
+    AUDUSD_15m: ["data/histdata/AUDUSD_15m.pkl", 15, 0.8, 21]
+    AUDUSD_1h: ["data/histdata/AUDUSD_1h.pkl", 60, 0.8, 21]
+    USDCAD_5m: ["data/histdata/USDCAD_5m.pkl", 5, 0.8, 21]
+    USDCAD_15m: ["data/histdata/USDCAD_15m.pkl", 15, 0.8, 21]
+    USDCAD_1h: ["data/histdata/USDCAD_1h.pkl", 60, 0.8, 21]
+    XAUUSD_5m: ["data/histdata/XAUUSD_5m.pkl", 5, 1.0, 21]
+    XAUUSD_15m: ["data/histdata/XAUUSD_15m.pkl", 15, 1.0, 21]
+    XAUUSD_1h: ["data/histdata/XAUUSD_1h.pkl", 60, 1.0, 21]
+    NSXUSD_5m: ["data/histdata/NSXUSD_5m.pkl", 5, 1.0, 20]
+    NSXUSD_15m: ["data/histdata/NSXUSD_15m.pkl", 15, 1.0, 20]
+    NSXUSD_1h: ["data/histdata/NSXUSD_1h.pkl", 60, 1.0, 20]
+    SPXUSD_5m: ["data/histdata/SPXUSD_5m.pkl", 5, 1.0, 20]
+    SPXUSD_15m: ["data/histdata/SPXUSD_15m.pkl", 15, 1.0, 20]
+    SPXUSD_1h: ["data/histdata/SPXUSD_1h.pkl", 60, 1.0, 20]
+    GRXEUR_5m: ["data/histdata/GRXEUR_5m.pkl", 5, 1.2, 16]
+    GRXEUR_15m: ["data/histdata/GRXEUR_15m.pkl", 15, 1.2, 16]
+    GRXEUR_1h: ["data/histdata/GRXEUR_1h.pkl", 60, 1.2, 16]
+  discovery_end: "2020-12-31"
+  validation: [["2021-01-01", "2022-12-31"], ["2023-01-01", "2024-12-31"]]
+  holdout_start: "2025-01-01"
+  min_sharpe: 0.5
+  min_profit_factor: 1.05
+  min_trades_per_week: 5.0
+  stress_cost_multipliers: [2, 3]
+  samples: 15000
+  seed: 11
+  shortlist_size: 30
+  max_per_dataset_family: 2
