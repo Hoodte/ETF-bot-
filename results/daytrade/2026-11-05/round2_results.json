@@ -1,0 +1,80 @@
+{
+ "15": {
+  "cfg": {
+   "dataset": "x",
+   "signal": {
+    "family": "momentum",
+    "n": 48,
+    "z": 1.0
+   },
+   "trend": "none",
+   "vol": "high",
+   "session": "all",
+   "direction": "both",
+   "exit": "time",
+   "bracket": null,
+   "hold": 48,
+   "eod": false
+  },
+  "n_grid": 432,
+  "cross": {
+   "SOLUSDT": -0.4752671654100383,
+   "BNBUSDT": 1.2787397767005426,
+   "XRPUSDT": 0.07375206741176334,
+   "ADAUSDT": 0.8424077195694611,
+   "DOGEUSDT": 0.3834883857747284,
+   "LTCUSDT": 0.020136200632619325,
+   "LINKUSDT": -0.3220419525108048,
+   "AVAXUSDT": -0.338075757393867,
+   "DOTUSDT": -0.408819572284449,
+   "TRXUSDT": 0.6758807685590698,
+   "BCHUSDT": 0.2764548919126778,
+   "ATOMUSDT": 0.3129822201078015
+  },
+  "port_val": 0.029781036780139356,
+  "port_val_2x": -1.1670093085762716,
+  "tpd": 13.068446269678303,
+  "holdout": -0.20037005612408187,
+  "holdout_2x": -1.5937246924794546,
+  "passed": false
+ },
+ "60": {
+  "cfg": {
+   "dataset": "x",
+   "signal": {
+    "family": "momentum",
+    "n": 48,
+    "z": 1.5
+   },
+   "trend": "with",
+   "vol": "any",
+   "session": "all",
+   "direction": "both",
+   "exit": "time",
+   "bracket": null,
+   "hold": 48,
+   "eod": false
+  },
+  "n_grid": 432,
+  "cross": {
+   "SOLUSDT": 1.4742948124342221,
+   "BNBUSDT": 0.9411451590836103,
+   "XRPUSDT": 0.9898781467044723,
+   "ADAUSDT": 1.4252587486875579,
+   "DOGEUSDT": 1.1076324535643818,
+   "LTCUSDT": 0.35267340148280174,
+   "LINKUSDT": 0.6385490339817692,
+   "AVAXUSDT": 1.0069559134006838,
+   "DOTUSDT": 0.39863616730721985,
+   "TRXUSDT": 0.5419443263524134,
+   "BCHUSDT": 0.7604659459995514,
+   "ATOMUSDT": 0.10042444832816133
+  },
+  "port_val": 1.8123720539694574,
+  "port_val_2x": 1.5791647193188418,
+  "tpd": 2.1129363449691994,
+  "holdout": -0.2627112591587115,
+  "holdout_2x": -0.5383898382519822,
+  "passed": false
+ }
+}
