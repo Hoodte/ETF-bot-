@@ -37,6 +37,7 @@ licId   = input.string("YOUR_LICENSE_ID", "PineConnector License ID", group = gr
 mt5Sym  = input.string("XAUUSD", "MT5 symbol name (FTMO)", group = grpPC)
 ozLot   = input.float(100, "Ounces per 1.00 lot on your broker", group = grpPC)
 cmt     = input.string("GoldMacro", "Order comment (no spaces)", group = grpPC)
+acctBal = input.float(100000, "Your account balance (for the lots shown in the table)", group = grpPC)
 
 grpD    = "Data"
 dxySym  = input.symbol("TVC:DXY", "Dollar index", group = grpD)
@@ -129,7 +130,7 @@ if catStop > 0 and strategy.position_size > 0
 
 // ---------------------------------------------------------------- display
 bgcolor(isOn ? color.new(color.yellow, 88) : na)
-var table t = table.new(position.top_right, 2, 6, bgcolor = color.new(color.black, 20), border_width = 1)
+var table t = table.new(position.top_right, 2, 7, bgcolor = color.new(color.black, 20), border_width = 1)
 if barstate.islast
     table.cell(t, 0, 0, "Dollar weak", text_color = color.white)
     table.cell(t, 1, 0, vDollar ? "YES" : "no", text_color = vDollar ? color.lime : color.gray)
@@ -143,3 +144,5 @@ if barstate.islast
     table.cell(t, 1, 4, isOn ? "LONG" : "FLAT", text_color = isOn ? color.lime : color.red)
     table.cell(t, 0, 5, "Target exposure", text_color = color.white)
     table.cell(t, 1, 5, str.tostring(expo, "#.##") + "x equity", text_color = color.white)
+    table.cell(t, 0, 6, "Lots if entering now", text_color = color.white)
+    table.cell(t, 1, 6, isOn ? str.tostring(math.round(expo * acctBal / close / ozLot, 2), "#.##") : "-", text_color = color.yellow)
