@@ -1,0 +1,8 @@
+| S1 gold macro signal on silver | 0.62 | 0.76 | 1.13 |
+| S2 gold->silver catch-up (hourly) | 7.42 | 7.01 | 7.77 |
+| reference: gold strategy | 1.04 | 1.11 | 1.45 |
+corr S1 vs gold strategy (daily): 0.76 | S2 trades: 23506
+cost 3 bps/side | 2016-21 -0.67 | 2022-26 -1.50 | 2025-26 -0.87
+cost 6 bps/side | 2016-21 -2.84 | 2022-26 -3.74 | 2025-26 -2.92
+cost 10 bps/side | 2016-21 -5.67 | 2022-26 -6.68 | 2025-26 -5.62
+6bps + 1h delay | all -4.41
