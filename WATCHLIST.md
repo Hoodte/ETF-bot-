@@ -20,6 +20,14 @@ Last updated: 10 Nov 2026. Live plan (unchanged): news-surprise EA + Nasdaq lunc
 | Deep-dip buying (RSI(2) < 5 above 200-day average) | -0.02 to -0.31 | 0.48-0.96 | 0.61-1.39 | More years of good results. | rounds 13 and 14 |
 | Pre-Fed drift (long S&P the afternoon before FOMC) | 0.69 | 0.94 | -1.05 | Recovery in 2027; only ~8 trades/yr. | round 13 |
 
+## Personal-account ideas: stock-based strategies (not FTMO; untested)
+FTMO only offers a small set of large-cap stock CFDs, so these would run on a personal broker / spread-betting account.
+| Idea | Notes | Data needed |
+|---|---|---|
+| Short loss-making IPOs around lock-up expiry (user idea, 10 Nov 2026) | Best-researched version: short a few days before the lock-up end (3-6 months after listing), cover shortly after, strict stop. Risks: high borrow fees or no borrow, short squeezes, unlimited loss. | IPO dates, lock-up dates, profitability at listing, daily prices |
+| Longer-term short of unprofitable IPOs | IPOs underperform over 3-5 years on average, loss-makers most; timing and borrow cost are the problem. | as above |
+| Other stock-based strategies to consider | e.g. post-earnings drift, index add/remove effects. To be scoped when stock testing starts. | earnings dates/surprises, index change lists |
+
 ## Tested and dropped (do not re-test without a new reason)
 Currency momentum basket, VIX expected-move bands ("IV walls"), US news on S&P/Nasdaq/DAX/oil, oil inventory surprise,
 leader-follower catch-up (gold-silver, S&P-Nasdaq, S&P-DAX, EURUSD-GBPUSD, AUDUSD-AUDJPY), gold signal on silver (works but 0.76 correlated with gold),
