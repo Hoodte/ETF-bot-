@@ -17,3 +17,8 @@ Usage: PYTHONPATH=. python3 results/2026-11-05/run_gold_variants.py <XAUUSD_H1 c
 | trailing 3x ATR | 0.97 | 0.57 | 0.83 | 5.6% | -16.6% | no |
 | trailing 4x ATR | 1.04 | 0.66 | 0.78 | 7.0% | -13.2% | no |
 | fixed 5% + trailing 8% | 1.12 | 1.24 | 1.77 | 10.6% | -19.2% | yes |
+| fixed 5% + trailing 6% | 1.22 | 0.99 | 1.03 | 9.9% | -15.6% |
+| fixed 5% + trailing 7% | 1.16 | 1.32 | 1.92 | 11.1% | -17.4% |
+| fixed 5% + trailing 8% | 1.12 | 1.24 | 1.77 | 10.6% | -19.2% |
+| fixed 5% + trailing 10% | 1.10 | 1.21 | 1.67 | 10.5% | -19.7% |
+| fixed 5% + trailing 12% | 1.09 | 1.19 | 1.62 | 10.4% | -20.1% |
