@@ -26,6 +26,7 @@ FTMO only offers a small set of large-cap stock CFDs, so these would run on a pe
 |---|---|---|
 | Short loss-making IPOs around lock-up expiry (user idea, 10 Nov 2026) | Best-researched version: short a few days before the lock-up end (3-6 months after listing), cover shortly after, strict stop. Risks: high borrow fees or no borrow, short squeezes, unlimited loss. | IPO dates, lock-up dates, profitability at listing, daily prices |
 | Longer-term short of unprofitable IPOs | IPOs underperform over 3-5 years on average, loss-makers most; timing and borrow cost are the problem. | as above |
+| "Ghost Box" = 0DTE S&P 500 iron butterfly/condor (seen on Instagram, 10 Nov 2026) | Sell options just above/below price, buy protective wings, profit if the index closes inside the box. High win rate by design; the question is overall expectancy after the occasional big loss. Not tradeable on FTMO or other prop firms (they ban options); needs a personal options account (e.g. Interactive Brokers). Test BEFORE opening an account. | Intraday SPX options history: ThetaData (~$40/mo, buy one month, download, cancel). End-of-day data (OptionsDX) is not enough for same-day trades. |
 | Other stock-based strategies to consider | e.g. post-earnings drift, index add/remove effects. To be scoped when stock testing starts. | earnings dates/surprises, index change lists |
 
 ## Tested and dropped (do not re-test without a new reason)
