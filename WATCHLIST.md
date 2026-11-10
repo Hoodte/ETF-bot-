@@ -27,7 +27,19 @@ FTMO only offers a small set of large-cap stock CFDs, so these would run on a pe
 | Short loss-making IPOs around lock-up expiry (user idea, 10 Nov 2026) | Best-researched version: short a few days before the lock-up end (3-6 months after listing), cover shortly after, strict stop. Risks: high borrow fees or no borrow, short squeezes, unlimited loss. | IPO dates, lock-up dates, profitability at listing, daily prices |
 | Longer-term short of unprofitable IPOs | IPOs underperform over 3-5 years on average, loss-makers most; timing and borrow cost are the problem. | as above |
 | "Ghost Box" = 0DTE S&P 500 iron butterfly/condor (seen on Instagram, 10 Nov 2026) | Sell options just above/below price, buy protective wings, profit if the index closes inside the box. High win rate by design; the question is overall expectancy after the occasional big loss. Not tradeable on FTMO or other prop firms (they ban options); needs a personal options account (e.g. Interactive Brokers). Test BEFORE opening an account. | Intraday SPX options history: ThetaData (~$40/mo, buy one month, download, cancel). End-of-day data (OptionsDX) is not enough for same-day trades. |
-| Other stock-based strategies to consider | e.g. post-earnings drift, index add/remove effects. To be scoped when stock testing starts. | earnings dates/surprises, index change lists |
+| Put-writing (sell S&P 500 puts monthly) | Decades of research (CBOE PUT index). Steady premium, big losses in crashes. | SPX/SPY options EOD history (OptionsDX) |
+| Covered calls (own index fund, sell calls) | Low risk, popular; caps upside in rallies. | Options EOD history + index prices |
+| The Wheel (sell puts; if assigned, sell calls) | Retail favourite; essentially put-writing in two steps. | Options EOD history, stock prices |
+| Earnings "IV crush" (sell options before earnings, buy back after) | Wins often; big earnings surprises are costly. Use defined-risk spreads. | Earnings dates + options prices around them |
+| Short volatility via VIX futures / VIX ETPs | Historically profitable from futures drifting down, but VERY dangerous (Feb 2018 wipe-outs). Small size, hard stops only. | VIX futures term structure history |
+| Post-earnings drift (buy beats / sell misses, hold weeks) | One of the most documented stock effects; may have weakened. Simple to automate. | Earnings dates, actual vs expected EPS, daily prices |
+| Merger arbitrage (buy the target below the offer price) | Earn the gap when deals complete; loses when deals break. | Announced deal list, offer prices, outcomes |
+| Index rebalancing (stocks added to/removed from the S&P 500) | Buying pressure before additions; effect has shrunk as it became known. | S&P index change announcements + dates |
+| Trend-following futures (managed-futures style, many markets) | Famous for making money in crashes (2008, 2022); long flat spells. | Daily futures/ETF prices across asset classes |
+| Published stock signals (OpenSourceAP/CrossSection) | ~200 academic signals with code and data; many shrank after publication, so re-test each. | `pip install` per the repo |
+| Tool: Heerozh/spectre | GPU factor backtester for testing across thousands of stocks; our own engines work too, just slower. | n/a |
+
+Priority suggestion for Stock Bot: 1) put-writing and post-earnings drift (best research, simple), 2) Ghost Box (needs ThetaData month), 3) IPO lock-up short, 4) the rest.
 
 ## Tested and dropped (do not re-test without a new reason)
 Currency momentum basket, VIX expected-move bands ("IV walls"), US news on S&P/Nasdaq/DAX/oil, oil inventory surprise,
