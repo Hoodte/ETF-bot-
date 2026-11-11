@@ -37,6 +37,7 @@ FTMO only offers a small set of large-cap stock CFDs, so these would run on a pe
 | Index rebalancing (stocks added to/removed from the S&P 500) | Buying pressure before additions; effect has shrunk as it became known. | S&P index change announcements + dates |
 | Trend-following futures (managed-futures style, many markets) | Famous for making money in crashes (2008, 2022); long flat spells. | Daily futures/ETF prices across asset classes |
 | Published stock signals (OpenSourceAP/CrossSection) | ~200 academic signals with code and data; many shrank after publication, so re-test each. | `pip install` per the repo |
+| Idea source: oxfordstrat.com (strategy library rated A/B/C/D) | Mostly classic technical strategies (Donchian, Dow theory, candlesticks, momentum, false breakouts). Use only A-rated ones as ideas and re-test with our rules; skip families already dropped (breakouts, ORB, candlestick patterns). | n/a |
 | Tool: Heerozh/spectre | GPU factor backtester for testing across thousands of stocks; our own engines work too, just slower. | n/a |
 
 Priority suggestion for Stock Bot: 1) put-writing and post-earnings drift (best research, simple), 2) Ghost Box (needs ThetaData month), 3) IPO lock-up short, 4) the rest.
