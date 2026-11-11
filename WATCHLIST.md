@@ -48,7 +48,7 @@ Currency momentum basket, VIX expected-move bands ("IV walls"), US news on S&P/N
 leader-follower catch-up (gold-silver, S&P-Nasdaq, S&P-DAX, EURUSD-GBPUSD, AUDUSD-AUDJPY), gold signal on silver (works but 0.76 correlated with gold),
 gold/silver ratio, carry with trend, month-end FX flows, options-expiry week, quarter-end rebalancing, overnight drift,
 intraday momentum, NY ORB v5 (user's TradingView script), gold entry timing (RSI, EMA20 rejection, prev-low sweep),
-gold take-profits (+1% to +5%), gold stacking (average down / pyramid), gold half-off split (smoother, less profit), gold tight trailing stops (3-5%, ATR), C28 daily Donchian/Turtle breakout (Instagram; only looked good on close-only data).
+gold take-profits (+1% to +5%), gold stacking (average down / pyramid), gold half-off split (smoother, less profit), gold tight trailing stops (3-5%, ATR), C28 daily Donchian/Turtle breakout (Instagram; only looked good on close-only data), volume-profile POC retest continuation (Instagram swift.trades0; round 20, losing on Nasdaq, S&P, BTC, ETH).
 Results: `results/2026-11-08/`, `results/daytrade/2026-11-10/`.
 
 ## Rules for any future test
