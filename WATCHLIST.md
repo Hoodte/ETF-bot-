@@ -38,6 +38,7 @@ FTMO only offers a small set of large-cap stock CFDs, so these would run on a pe
 | Trend-following futures (managed-futures style, many markets) | Famous for making money in crashes (2008, 2022); long flat spells. | Daily futures/ETF prices across asset classes |
 | Published stock signals (OpenSourceAP/CrossSection) | ~200 academic signals with code and data; many shrank after publication, so re-test each. | `pip install` per the repo |
 | Idea source: oxfordstrat.com (strategy library rated A/B/C/D) | Mostly classic technical strategies (Donchian, Dow theory, candlesticks, momentum, false breakouts). Use only A-rated ones as ideas and re-test with our rules; skip families already dropped (breakouts, ORB, candlestick patterns). | n/a |
+| Order flow (volume delta, order book imbalance, absorption, footprint, volume profile) | Needs real exchange data: not possible on FTMO forex/CFDs (no central volume). Fits crypto (free Binance trade + order book data) or index futures. Speed-sensitive: test only ideas that hold for minutes/hours, e.g. liquidation clusters, funding extremes, volume-profile levels. | Binance aggTrades/depth (free); CME futures tick data (paid) |
 | Tool: Heerozh/spectre | GPU factor backtester for testing across thousands of stocks; our own engines work too, just slower. | n/a |
 
 Priority suggestion for Stock Bot: 1) put-writing and post-earnings drift (best research, simple), 2) Ghost Box (needs ThetaData month), 3) IPO lock-up short, 4) the rest.
@@ -47,7 +48,7 @@ Currency momentum basket, VIX expected-move bands ("IV walls"), US news on S&P/N
 leader-follower catch-up (gold-silver, S&P-Nasdaq, S&P-DAX, EURUSD-GBPUSD, AUDUSD-AUDJPY), gold signal on silver (works but 0.76 correlated with gold),
 gold/silver ratio, carry with trend, month-end FX flows, options-expiry week, quarter-end rebalancing, overnight drift,
 intraday momentum, NY ORB v5 (user's TradingView script), gold entry timing (RSI, EMA20 rejection, prev-low sweep),
-gold take-profits (+1% to +5%), gold stacking (average down / pyramid), gold half-off split (smoother, less profit), gold tight trailing stops (3-5%, ATR).
+gold take-profits (+1% to +5%), gold stacking (average down / pyramid), gold half-off split (smoother, less profit), gold tight trailing stops (3-5%, ATR), C28 daily Donchian/Turtle breakout (Instagram; only looked good on close-only data).
 Results: `results/2026-11-08/`, `results/daytrade/2026-11-10/`.
 
 ## Rules for any future test
