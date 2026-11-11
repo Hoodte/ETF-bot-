@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|  FTMO_Plan_EA.mq5  v1.11                                         |
+//|  FTMO_Plan_EA.mq5  v1.12                                         |
 //|  Runs inside MT5 (same account as PineConnector):                |
 //|   A) US/CA economic-news surprise strategy (6 instruments)       |
 //|   B) Nasdaq lunch-RSI 1:3 strategy (replaces the Pine version)   |
@@ -23,7 +23,7 @@
 //  DATA: live/demo = MT5 economic calendar; Strategy Tester = news_events.csv (MQL5\Files).
 //+------------------------------------------------------------------+
 #property copyright "ETF-bot research"
-#property version   "1.11"
+#property version   "1.12"
 #property tester_file "news_events.csv"
 #include <Trade\Trade.mqh>
 
@@ -49,6 +49,7 @@ input bool   InpUseCsv        = false;    // force CSV events (always used in th
 input string InpCsvFile       = "news_events.csv";
 input int    InpCalCheckDays  = 14;       // at start-up, list the last N days of releases the EA can see (0 = off)
 input bool   InpPushReleases  = true;     // phone notification for every release the EA reads (traded or not)
+input bool   InpUseTVCalendar = true;     // read TradingView's calendar (same source as the backtest). Allow WebRequest for https://economic-calendar.tradingview.com
 input long   InpMagicNews     = 26110510;
 
 input group "B) Nasdaq lunch-RSI (do NOT also run the Pine Nasdaq script)"
@@ -91,6 +92,39 @@ struct NewsPos { ulong ticket; string sym; datetime opened; double entry; double
 NewsPos g_pos[];
 datetime g_evTime[]; string g_evCur[]; double g_evZ[]; int g_evNext = 0;
 datetime g_done[];
+datetime g_tvDone[]; datetime g_tvLastPoll = 0; bool g_tvWarned = false;
+// v1.12: surprise scale per release = std of (actual - forecast) over TradingView history 2015-2026 (same as the backtest)
+string g_sdKey[] = {
+   "CA|GDP Growth Rate Annualized",
+   "CA|Inflation Rate YoY",
+   "CA|Interest Rate",
+   "CA|Ivey PMI s.a",
+   "CA|Unemployment Rate",
+   "US|Building Permits Prel",
+   "US|Core Inflation Rate MoM",
+   "US|Core Inflation Rate YoY",
+   "US|Core PCE Price Index MoM",
+   "US|Durable Goods Orders MoM",
+   "US|Existing Home Sales",
+   "US|GDP Growth Rate QoQ 2nd Est",
+   "US|GDP Growth Rate QoQ Adv",
+   "US|GDP Growth Rate QoQ Final",
+   "US|Housing Starts",
+   "US|ISM Manufacturing PMI",
+   "US|ISM Services PMI",
+   "US|Inflation Rate MoM",
+   "US|Inflation Rate YoY",
+   "US|JOLTs Job Openings",
+   "US|Michigan Consumer Sentiment Prel",
+   "US|Non Farm Payrolls",
+   "US|PPI MoM",
+   "US|Personal Income MoM",
+   "US|Personal Spending MoM",
+   "US|Retail Sales MoM",
+   "US|Unemployment Rate"
+};
+double g_sdVal[] = { 2.28602, 0.197584, 0.083595, 5.58455, 0.434832, 0.0658545, 0.118319, 0.145804, 0.0680259, 2.05706, 0.143428, 0.255469, 0.887378, 0.21857, 0.0851814, 1.43448, 2.0732, 0.119649, 0.139459, 0.48094, 3.57679, 1670.4, 0.261461, 1.57016, 0.343479, 1.3097, 0.734341 };
+
 
 int g_hRsi = INVALID_HANDLE, g_hAtr = INVALID_HANDLE;
 datetime g_lastNasBar = 0;
@@ -180,10 +214,14 @@ int OnInit()
    ResetDay();
    Notify(StringFormat("EA started. news=%s nasdaq=%s guard=%s account=%s", InpTradeNews ? "on" : "off",
                        InpTradeNasdaq ? "on" : "off", InpGuardOn ? "on" : "off", netting ? "NETTING" : "hedging"));
-   if(InpTradeNews && !UseCsv() && InpCalCheckDays > 0) CalendarReport(InpCalCheckDays);
+   if(InpTradeNews && !UseCsv() && InpCalCheckDays > 0)
+     {
+      CalendarReport(InpCalCheckDays);
+      if(InpUseTVCalendar) TVReport(InpCalCheckDays);
+     }
    return INIT_SUCCEEDED;
   }
-// v1.11 diagnostic: list recent high-impact USD/CAD releases with MT5's actual, forecast and our z-score
+// v1.12 diagnostic: list recent high-impact USD/CAD releases with MT5's actual, forecast and our z-score
 void CalendarReport(int days)
   {
    datetime now = TimeTradeServer(); string curs[2] = {"USD", "CAD"};
@@ -252,7 +290,7 @@ void Step()
    UpdateSpreads();
    ManagePositions();
    if(g_locked || g_brake) return;
-   if(InpTradeNews) { if(UseCsv()) ProcessCsv(); else ProcessCalendar(); }
+   if(InpTradeNews) { if(UseCsv()) ProcessCsv(); else if(InpUseTVCalendar) ProcessTV(); else ProcessCalendar(); }
    if(InpTradeNasdaq) NasdaqStep();
   }
 
@@ -433,6 +471,131 @@ void ProcessCsv()
      }
    if(kUsd != 0 || kCad != 0) Execute(kUsd, kCad, TimeToString(t, TIME_DATE | TIME_MINUTES));
   }
+
+//+------------------------------------------------------------------+
+//  v1.12 TradingView calendar (same data as the backtest)
+double SdFor(string country, string title)
+  {
+   string k = country + "|" + title;
+   for(int i = 0; i < ArraySize(g_sdKey); i++) if(g_sdKey[i] == k) return g_sdVal[i];
+   return 0.0;
+  }
+string JVal(string obj, string key)
+  {
+   int p = StringFind(obj, "\"" + key + "\":");
+   if(p < 0) return "";
+   p += StringLen(key) + 3;
+   if(StringGetCharacter(obj, p) == '"')
+     { int e = StringFind(obj, "\"", p + 1); return (e < 0) ? "" : StringSubstr(obj, p + 1, e - p - 1); }
+   int e1 = StringFind(obj, ",", p), e2 = StringFind(obj, "}", p);
+   int e = (e1 < 0) ? e2 : ((e2 < 0) ? e1 : MathMin(e1, e2));
+   string v = (e < 0) ? StringSubstr(obj, p) : StringSubstr(obj, p, e - p);
+   StringTrimLeft(v); StringTrimRight(v);
+   return (v == "null") ? "" : v;
+  }
+datetime IsoToTime(string s)
+  {
+   string t = StringSubstr(s, 0, 19);
+   StringReplace(t, "-", "."); StringReplace(t, "T", " ");
+   return StringToTime(t);
+  }
+string IsoUTC(datetime u)
+  {
+   string d = TimeToString(u, TIME_DATE); StringReplace(d, ".", "-");
+   return d + "T" + TimeToString(u, TIME_SECONDS) + ".000Z";
+  }
+bool TVFetch(datetime fromU, datetime toU, string &js)
+  {
+   string url = "https://economic-calendar.tradingview.com/events?from=" + IsoUTC(fromU) + "&to=" + IsoUTC(toU) + "&countries=US,CA";
+   char post[], res[]; string hdr;
+   ResetLastError();
+   int code = WebRequest("GET", url, "Origin: https://www.tradingview.com\r\nUser-Agent: Mozilla/5.0\r\n", 5000, post, res, hdr);
+   if(code != 200)
+     {
+      if(!g_tvWarned)
+        {
+         Notify(StringFormat("TV calendar failed (code %d, err %d). Allow WebRequest for https://economic-calendar.tradingview.com. Using MT5 calendar.",
+                             code, GetLastError()));
+         g_tvWarned = true;
+        }
+      return false;
+     }
+   js = CharArrayToString(res, 0, WHOLE_ARRAY, CP_UTF8);
+   return true;
+  }
+// read every usable release in the JSON; returns how many
+int TVParse(string js, datetime &t[], string &cur[], string &name[], double &act[], double &fc[], double &z[])
+  {
+   int n = 0, p = StringFind(js, "\"id\":");
+   while(p >= 0)
+     {
+      int q = StringFind(js, "\"id\":", p + 5);
+      string o = (q < 0) ? StringSubstr(js, p) : StringSubstr(js, p, q - p);
+      p = q;
+      string imp = JVal(o, "importance"), ctry = JVal(o, "country"), title = JVal(o, "title");
+      string a = JVal(o, "actual"), f = JVal(o, "forecast");
+      if(imp != "1" || (ctry != "US" && ctry != "CA") || a == "" || f == "" || Excluded(title)) continue;
+      StringReplace(title, ",", " ");
+      double sd = SdFor(ctry, title);
+      if(sd <= 0) { PrintFormat("TV release %s %s skipped: no history scale", ctry, title); continue; }
+      double zz = (StringToDouble(a) - StringToDouble(f)) / sd;
+      if(Inverse(title)) zz = -zz;
+      ArrayResize(t, n + 1); ArrayResize(cur, n + 1); ArrayResize(name, n + 1); ArrayResize(act, n + 1); ArrayResize(fc, n + 1); ArrayResize(z, n + 1);
+      t[n] = IsoToTime(JVal(o, "date")); cur[n] = (ctry == "US") ? "USD" : "CAD"; name[n] = title;
+      act[n] = StringToDouble(a); fc[n] = StringToDouble(f); z[n] = zz; n++;
+     }
+   return n;
+  }
+bool TVIsDone(datetime t) { for(int i = 0; i < ArraySize(g_tvDone); i++) if(g_tvDone[i] == t) return true; return false; }
+void ProcessTV()
+  {
+   datetime nowU = TimeGMT();
+   MqlDateTime m; TimeToStruct(nowU, m);
+   int mm = m.min % 15;
+   if(mm < InpDelayMinutes || mm > InpDelayMinutes + 2) return;      // releases land on :00/:15/:30/:45
+   if(nowU - g_tvLastPoll < 20) return;
+   g_tvLastPoll = nowU;
+   string js;
+   if(!TVFetch(nowU - 45 * 60, nowU, js)) { ProcessCalendar(); return; }
+   datetime t[]; string cur[], name[]; double act[], fc[], z[];
+   int n = TVParse(js, t, cur, name, act, fc, z);
+   datetime times[]; int kU[], kC[]; int nt = 0;
+   for(int i = 0; i < n; i++)
+     {
+      if(nowU < t[i] + InpDelayMinutes * 60 || nowU > t[i] + InpDelayMinutes * 60 + 150 || TVIsDone(t[i])) continue;
+      int j = -1;
+      for(int q = 0; q < nt; q++) if(times[q] == t[i]) j = q;
+      if(j < 0) { ArrayResize(times, nt + 1); ArrayResize(kU, nt + 1); ArrayResize(kC, nt + 1); times[nt] = t[i]; kU[nt] = 0; kC[nt] = 0; j = nt++; }
+      PrintFormat("release (TV) %s %s actual=%.3f forecast=%.3f z=%.2f", cur[i], name[i], act[i], fc[i], z[i]);
+      LogLine(StringFormat("release,NEWS,%s,,,,,,%s z=%.2f (TV)", cur[i], name[i], z[i]));
+      if(InpPushReleases && !(bool)MQLInfoInteger(MQL_TESTER))
+         SendNotification(StringFormat("FTMO plan: %s %s a=%.2f f=%.2f z=%.2f %s", cur[i], name[i], act[i], fc[i], z[i],
+                          MathAbs(z[i]) > InpZThreshold ? "-> counts" : "-> too small, no trade"));
+      if(MathAbs(z[i]) > InpZThreshold) { if(cur[i] == "USD") kU[j] += (z[i] > 0 ? 1 : -1); else kC[j] += (z[i] > 0 ? 1 : -1); }
+     }
+   for(int q = 0; q < nt; q++)
+     {
+      int d = ArraySize(g_tvDone); ArrayResize(g_tvDone, d + 1); g_tvDone[d] = times[q];
+      if(kU[q] != 0 || kC[q] != 0) Execute(kU[q], kC[q], TimeToString(times[q], TIME_DATE | TIME_MINUTES) + " UTC (TV)");
+     }
+  }
+void TVReport(int days)
+  {
+   string js;
+   if(!TVFetch(TimeGMT() - days * 86400, TimeGMT(), js)) return;
+   datetime t[]; string cur[], name[]; double act[], fc[], z[];
+   int n = TVParse(js, t, cur, name, act, fc, z), big = 0; string summary = "";
+   for(int i = 0; i < n; i++)
+     {
+      if(MathAbs(z[i]) > InpZThreshold) big++;
+      PrintFormat("CALCHECK-TV %s %s UTC | %s | actual=%.3f forecast=%.3f z=%.2f%s", cur[i], TimeToString(t[i]), name[i], act[i], fc[i], z[i],
+                  MathAbs(z[i]) > InpZThreshold ? "  <-- would trade" : "");
+      if(StringFind(name[i], "Inflation Rate MoM") >= 0 && StringLen(summary) < 150)
+         summary += StringFormat(" %s a%.1f f%.1f z%.1f;", name[i], act[i], fc[i], z[i]);
+     }
+   Notify(StringFormat("TradingView calendar OK: %d releases in %dd, %d above z %.1f.%s", n, days, big, InpZThreshold, summary));
+  }
+
 bool IsDone(datetime t) { for(int i = 0; i < ArraySize(g_done); i++) if(g_done[i] == t) return true; return false; }
 bool Inverse(string name)  { return (StringFind(name, "Unemployment Rate") >= 0 || StringFind(name, "Jobless Claims") >= 0); }
 bool Excluded(string name)
