@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|  FTMO_Plan_EA.mq5  v1.10                                         |
+//|  FTMO_Plan_EA.mq5  v1.11                                         |
 //|  Runs inside MT5 (same account as PineConnector):                |
 //|   A) US/CA economic-news surprise strategy (6 instruments)       |
 //|   B) Nasdaq lunch-RSI 1:3 strategy (replaces the Pine version)   |
@@ -23,7 +23,7 @@
 //  DATA: live/demo = MT5 economic calendar; Strategy Tester = news_events.csv (MQL5\Files).
 //+------------------------------------------------------------------+
 #property copyright "ETF-bot research"
-#property version   "1.10"
+#property version   "1.11"
 #property tester_file "news_events.csv"
 #include <Trade\Trade.mqh>
 
@@ -47,6 +47,8 @@ input int    InpMinHistory    = 10;
 input double InpMaxSpreadMult = 2.5;      // skip a news trade if spread > this x normal spread
 input bool   InpUseCsv        = false;    // force CSV events (always used in the Strategy Tester)
 input string InpCsvFile       = "news_events.csv";
+input int    InpCalCheckDays  = 14;       // at start-up, list the last N days of releases the EA can see (0 = off)
+input bool   InpPushReleases  = true;     // phone notification for every release the EA reads (traded or not)
 input long   InpMagicNews     = 26110510;
 
 input group "B) Nasdaq lunch-RSI (do NOT also run the Pine Nasdaq script)"
@@ -178,7 +180,36 @@ int OnInit()
    ResetDay();
    Notify(StringFormat("EA started. news=%s nasdaq=%s guard=%s account=%s", InpTradeNews ? "on" : "off",
                        InpTradeNasdaq ? "on" : "off", InpGuardOn ? "on" : "off", netting ? "NETTING" : "hedging"));
+   if(InpTradeNews && !UseCsv() && InpCalCheckDays > 0) CalendarReport(InpCalCheckDays);
    return INIT_SUCCEEDED;
+  }
+// v1.11 diagnostic: list recent high-impact USD/CAD releases with MT5's actual, forecast and our z-score
+void CalendarReport(int days)
+  {
+   datetime now = TimeTradeServer(); string curs[2] = {"USD", "CAD"};
+   int seen = 0, big = 0; string summary = "";
+   for(int c = 0; c < 2; c++)
+     {
+      MqlCalendarValue vals[];
+      int n = CalendarValueHistory(vals, now - days * 86400, now, NULL, curs[c]);
+      if(n < 0) { PrintFormat("CALCHECK: CalendarValueHistory failed for %s, error %d", curs[c], GetLastError()); continue; }
+      for(int i = 0; i < n; i++)
+        {
+         MqlCalendarEvent ev;
+         if(!CalendarEventById(vals[i].event_id, ev)) continue;
+         if(ev.importance != CALENDAR_IMPORTANCE_HIGH || Excluded(ev.name)) continue;
+         bool ha = vals[i].HasActualValue(), hf = vals[i].HasForecastValue();
+         double z = (ha && hf) ? SurpriseZ(vals[i], ev) : 0.0;
+         seen++; if(MathAbs(z) > InpZThreshold) big++;
+         PrintFormat("CALCHECK %s %s | %s | actual=%s forecast=%s z=%.2f%s", curs[c], TimeToString(vals[i].time), ev.name,
+                     ha ? DoubleToString(vals[i].GetActualValue(), 3) : "none", hf ? DoubleToString(vals[i].GetForecastValue(), 3) : "none",
+                     z, MathAbs(z) > InpZThreshold ? "  <-- would trade" : "");
+         if(StringFind(ev.name, "CPI") >= 0 && StringLen(summary) < 150)
+            summary += StringFormat(" %s a%s f%s z%.1f;", ev.name, ha ? DoubleToString(vals[i].GetActualValue(), 1) : "-",
+                                    hf ? DoubleToString(vals[i].GetForecastValue(), 1) : "-", z);
+        }
+     }
+   Notify(StringFormat("Calendar check %dd: %d high-impact releases seen, %d above z %.1f.%s", days, seen, big, InpZThreshold, summary));
   }
 void OnDeinit(const int reason)
   {
@@ -441,12 +472,16 @@ void ProcessCalendar()
          MqlCalendarEvent ev;
          if(!CalendarEventById(vals[i].event_id, ev)) continue;
          if(ev.importance != CALENDAR_IMPORTANCE_HIGH || Excluded(ev.name)) continue;
-         if(!vals[i].HasActualValue() || !vals[i].HasForecastValue()) continue;
+         if(!vals[i].HasActualValue() || !vals[i].HasForecastValue())
+           { PrintFormat("release %s %s skipped: actual or forecast missing", curs[c], ev.name); continue; }
          double z = SurpriseZ(vals[i], ev);
          int j = -1;
          for(int q = 0; q < nt; q++) if(times[q] == t) j = q;
          if(j < 0) { ArrayResize(times, nt + 1); ArrayResize(kU, nt + 1); ArrayResize(kC, nt + 1); times[nt] = t; kU[nt] = 0; kC[nt] = 0; j = nt++; }
-         PrintFormat("release %s %s z=%.2f", curs[c], ev.name, z);
+         PrintFormat("release %s %s actual=%.3f forecast=%.3f z=%.2f", curs[c], ev.name, vals[i].GetActualValue(), vals[i].GetForecastValue(), z);
+         if(InpPushReleases && !(bool)MQLInfoInteger(MQL_TESTER))
+            SendNotification(StringFormat("FTMO plan: %s %s a=%.2f f=%.2f z=%.2f %s", curs[c], ev.name, vals[i].GetActualValue(),
+                             vals[i].GetForecastValue(), z, MathAbs(z) > InpZThreshold ? "-> counts" : "-> too small, no trade"));
          LogLine(StringFormat("release,NEWS,%s,,,,,,%s z=%.2f", curs[c], ev.name, z));
          if(MathAbs(z) > InpZThreshold) { if(c == 0) kU[j] += (z > 0 ? 1 : -1); else kC[j] += (z > 0 ? 1 : -1); }
         }
