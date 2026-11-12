@@ -9,6 +9,7 @@ Last updated: 10 Nov 2026. Live plan (unchanged): news-surprise EA + Nasdaq lunc
 ## Revisit with live data (after 2-3 months)
 | Item | Why parked | Results |
 |---|---|---|
+| Nasdaq smart early exit (meta-labelling, logistic model at +0.8R) | Out-of-sample gain +11.5R over 2021-26 (~+2R/yr, ~+$2k/yr per $100k), 4 of 6 years positive, bootstrap 3% chance of no gain; closes ~12% of trades early (mostly slow, barely-past-0.8R ones). Boosted-tree version overfit. Small but real-looking; re-check with live trades before building into the EA. | `results/daytrade/2026-11-12/metalabel*` |
 | Nasdaq lunch-RSI target 1:3 vs 1:4 | 1:4 better 2021-26, 1:3 better 2016-21 (where it was picked). Both in the same good zone; tighter targets clearly worse. | `results/2026-11-08` chat summary; script `results/daytrade/2026-11-10/nasdaq_targets_exits_tp.py` (run from the backtest-bot folder) |
 | News bot panic switch (pause when previous-day VIX > 35) | Improves 2016-20 (mainly March 2020), no harm 2021-26. Thresholds 25/30 hurt later periods. Optional safety catch. | `results/daytrade/2026-11-10/round17_vixfilter_results.md` |
 

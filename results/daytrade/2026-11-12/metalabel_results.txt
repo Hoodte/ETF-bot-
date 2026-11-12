@@ -1,0 +1,27 @@
+decision points: train 168, 2021-24 135, 2025-26 52; share where holding was better: 59%
+
+logistic: threshold chosen on 2016-20 = 0.50
+  2016-20 (train): always hold +195.7R | model +206.2R | closed early 12% of 168
+  2021-24: always hold +139.5R | model +150.7R | closed early 11% of 135
+  2025-26: always hold +50.6R | model +50.9R | closed early 13% of 52
+
+boosted trees: threshold chosen on 2016-20 = 0.60
+  2016-20 (train): always hold +195.7R | model +255.3R | closed early 42% of 168
+  2021-24: always hold +139.5R | model +141.7R | closed early 35% of 135
+  2025-26: always hold +50.6R | model +48.6R | closed early 50% of 52
+  2021-24: always hold +139.5R | model +141.7R | closed early 35% of 135
+  2025-26: always hold +50.6R | model +48.6R | closed early 50% of 52
+
+logistic coefficients (+ = more likely to be worth holding):
+  bars        -0.38
+  close_past  +0.35
+  nymin       +0.20
+  stop_pct    +0.18
+  range_atr   -0.09
+  rsi_entry   +0.09
+  day_ret     +0.06
+  pre_ret     -0.05
+  vol20       +0.01
+
+per-year gain vs always-hold (R): {2021: 6.5, 2022: -0.5, 2023: 1.6, 2024: 3.6, 2025: -0.1, 2026: 0.4}
+2021-26 gain +11.5R, bootstrap chance it's really <= 0: 3%
