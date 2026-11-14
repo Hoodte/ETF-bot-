@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|  FTMO_Plan_EA.mq5  v1.12                                         |
+//|  FTMO_Plan_EA.mq5  v1.13                                         |
 //|  Runs inside MT5 (same account as PineConnector):                |
 //|   A) US/CA economic-news surprise strategy (6 instruments)       |
 //|   B) Nasdaq lunch-RSI 1:3 strategy (replaces the Pine version)   |
@@ -20,10 +20,11 @@
 //   M15 bar that STARTS 11:30-13:29 New York closes with RSI(14) > 70 -> buy at market.
 //   Stop 1 x ATR(14), target 3 x ATR(14) of the signal bar. One trade per NY day. Flat at 15:55 NY.
 //   Risk InpNasRiskPct % of equity per trade.
+//  v1.13 SHADOW MODE: logs what 3 candidate exit ideas would have done. Trading is unchanged.
 //  DATA: live/demo = MT5 economic calendar; Strategy Tester = news_events.csv (MQL5\Files).
 //+------------------------------------------------------------------+
 #property copyright "ETF-bot research"
-#property version   "1.12"
+#property version   "1.13"
 #property tester_file "news_events.csv"
 #include <Trade\Trade.mqh>
 
@@ -73,6 +74,8 @@ input bool   InpSkipGoldIfNetting = true;
 input group "Alerts & log"
 input bool   InpPush          = true;     // MT5 push notifications (set your MetaQuotes ID in MT5 options)
 input string InpLogFile       = "ftmo_plan_log.csv";
+input bool   InpShadow        = true;     // v1.13: record what the candidate exit ideas would have done (no trading effect)
+input string InpShadowFile    = "ftmo_shadow.csv";
 
 input group "Time"
 input int    InpServerGMT     = -100;     // -100 = auto (GMT+2, +3 in US summer time, FTMO style)
@@ -657,6 +660,193 @@ void ProcessCalendar()
   }
 
 //+------------------------------------------------------------------+
+//  v1.13 SHADOW MODE - records what 3 candidate ideas WOULD have done.
+//  It never opens, closes or changes a trade. One "SHADOW" line per Nasdaq trade in the Experts log
+//  (+ raw numbers in InpShadowFile). Models trained on 2016-20 in results/daytrade/2026-11-14.
+//   trail     : trail 1R below the high once +1.5R reached (completed M15 bars)
+//   reassure  : entry model says weak -> use trail, strong -> hold as now
+//   smart     : at the first +0.8R bar, logistic model; p < 0.5 -> close at +0.8R
+//   weekstop  : skip the trade if this week's Nasdaq result is already >= +2R
+struct NasShadow
+  {
+   bool     active;
+   datetime entryBar, lastBar;
+   double   e, s0, tg, R, riskMoney;
+   double   rsiEntry, dayRet, preRet, vol20, stopPct;
+   double   logitReassure; bool weak;
+   bool     smartDone, hasDecision; double smartP;
+   double   trailStop, hi; bool trailOut; double trailGross;
+   int      nbars;
+   bool     weekSkip;
+   string   feat;
+  };
+NasShadow g_sh;
+
+double RS_MEAN[6]  = {1.14132, 3.698082, 8.20021, 0.813434, 74.822492, 31.484099};
+double RS_SCALE[6] = {0.318275, 1.13526, 10.789094, 5.237823, 4.351323, 29.723501};
+double RS_COEF[6]  = {-0.190852, -0.340189, 0.046984, -0.133004, 0.279707, -0.120408};
+double RS_ICPT = -1.420447;
+double RS_THR  = -1.418716;
+double SM_MEAN[9]  = {2.077381, 754.375, 0.188207, 74.781697, 0.694173, 0.374894, 0.114627, 0.077262, 1.112769};
+double SM_SCALE[9] = {2.901143, 61.550375, 0.092982, 4.413004, 0.384638, 0.300764, 0.058109, 0.450247, 0.45687};
+double SM_COEF[9]  = {-0.37655, 0.197862, 0.179035, 0.085431, 0.056815, -0.04748, 0.012537, 0.353262, -0.09367};
+double SM_ICPT = 0.452823;
+#define SH_WK "FTMO_SHADOW_WEEK"
+#define SH_WR "FTMO_SHADOW_WEEKR"
+
+int UTCWeekKey(datetime srv)
+  {
+   datetime u = ServerToUTC(srv);
+   MqlDateTime d; TimeToStruct(u, d);
+   datetime mon = u - ((d.day_of_week + 6) % 7) * 86400;
+   TimeToStruct(mon, d);
+   return d.year * 10000 + d.mon * 100 + d.day;
+  }
+
+void ShadowReset()
+  {
+   g_sh.active = false; g_sh.entryBar = 0; g_sh.lastBar = 0; g_sh.e = 0; g_sh.s0 = 0; g_sh.tg = 0; g_sh.R = 0; g_sh.riskMoney = 0;
+   g_sh.rsiEntry = 0; g_sh.dayRet = 0; g_sh.preRet = 0; g_sh.vol20 = 0; g_sh.stopPct = 0;
+   g_sh.logitReassure = 0; g_sh.weak = false; g_sh.smartDone = false; g_sh.hasDecision = false; g_sh.smartP = 0;
+   g_sh.trailStop = 0; g_sh.hi = 0; g_sh.trailOut = false; g_sh.trailGross = 0; g_sh.nbars = 0; g_sh.weekSkip = false; g_sh.feat = "";
+  }
+
+// called right after a Nasdaq buy fills. fill = entry price, sl/tp as sent, rsiSig = signal-bar RSI
+void ShadowOpen(double fill, double sl, double tp, double lots, double rsiSig)
+  {
+   ShadowReset();
+   MqlRates r[]; ArraySetAsSeries(r, true);
+   int n = CopyRates(InpUS100, PERIOD_M15, 0, 2200, r);        // r[0] = forming entry bar
+   if(n < 600 || fill - sl <= 0) { Print("SHADOW: not enough history - this trade not recorded"); return; }
+   double tv = SymbolInfoDouble(InpUS100, SYMBOL_TRADE_TICK_VALUE), ts = SymbolInfoDouble(InpUS100, SYMBOL_TRADE_TICK_SIZE);
+   g_sh.e = fill; g_sh.s0 = sl; g_sh.tg = tp; g_sh.R = fill - sl;
+   g_sh.riskMoney = lots * (g_sh.R / ts) * tv;
+   g_sh.entryBar = r[0].time; g_sh.lastBar = 0; g_sh.nbars = 0;
+   g_sh.trailStop = sl; g_sh.hi = -DBL_MAX;
+   // range ratio: mean(H-L) of the 26 bars before entry / of the 520 bars before entry
+   double a26 = 0, a520 = 0;
+   for(int i = 1; i <= 520; i++) { double rg = r[i].high - r[i].low; a520 += rg; if(i <= 26) a26 += rg; }
+   double volRatio = (a26 / 26) / (a520 / 520);
+   // NY session: today's 09:30 open and each NY day's last close (bar starting 09:30-15:59)
+   int today = NYDayKey(r[0].time);
+   double open930 = 0; int dkeys[]; double dclose[]; int nd = 0;
+   for(int i = 0; i < n; i++)
+     {
+      int m = NYMinutes(r[i].time), dk = NYDayKey(r[i].time);
+      if(dk == today && m == 570) open930 = r[i].open;
+      if(m >= 570 && m < 960)
+        {
+         if(nd == 0 || dkeys[nd - 1] != dk)
+           { if(nd >= 8) break; ArrayResize(dkeys, nd + 1); ArrayResize(dclose, nd + 1); dkeys[nd] = dk; dclose[nd] = r[i].close; nd++; }
+        }
+     }
+   // dkeys[0] = today (latest close so far), [1] = yesterday ... (newest first)
+   if(open930 <= 0 || nd < 6 || dkeys[0] != today) { Print("SHADOW: session data missing - this trade not recorded"); return; }
+   double R = g_sh.R;
+   double x[6];
+   x[0] = volRatio;
+   x[1] = (fill - open930) / R;
+   x[2] = (fill - dclose[5]) / R;
+   x[3] = (dclose[1] - dclose[2]) / R;
+   x[4] = rsiSig;
+   x[5] = NYMinutes(r[0].time) - 690;
+   double z = RS_ICPT;
+   for(int k = 0; k < 6; k++) z += RS_COEF[k] * (x[k] - RS_MEAN[k]) / RS_SCALE[k];
+   g_sh.logitReassure = z; g_sh.weak = (z < RS_THR);
+   // smart-exit entry features
+   g_sh.rsiEntry = rsiSig;
+   g_sh.dayRet = (fill / open930 - 1) * 100;
+   g_sh.preRet = (r[1].close / r[5].close - 1) * 100;
+   double pc[20], mu = 0;
+   for(int j = 0; j < 20; j++) { pc[j] = r[1 + j].close / r[2 + j].close - 1; mu += pc[j]; }
+   mu /= 20; double v = 0; for(int j = 0; j < 20; j++) v += (pc[j] - mu) * (pc[j] - mu);
+   g_sh.vol20 = MathSqrt(v / 19) * 100;
+   g_sh.stopPct = R / fill * 100;
+   // weekly stop: shadow week result so far
+   int wk = UTCWeekKey(TimeCurrent());
+   if(!GlobalVariableCheck(SH_WK) || (int)GlobalVariableGet(SH_WK) != wk) { GlobalVariableSet(SH_WK, wk); GlobalVariableSet(SH_WR, 0); }
+   g_sh.weekSkip = (GlobalVariableGet(SH_WR) >= 2.0);
+   g_sh.feat = StringFormat("volr %.3f daymv %.3f wk %.3f prev %.3f rsi %.2f mins %d", x[0], x[1], x[2], x[3], x[4], (int)x[5]);
+   g_sh.active = true;
+  }
+
+// one bar of the trade (completed, or the forming bar at close time when partial=true)
+void ShadowBar(datetime t, double o, double h, double l, double c, bool partial)
+  {
+   double e = g_sh.e, R = g_sh.R;
+   if(!g_sh.trailOut)
+     {
+      if(l <= g_sh.trailStop) { g_sh.trailOut = true; g_sh.trailGross = ((t > g_sh.entryBar ? MathMin(o, g_sh.trailStop) : g_sh.trailStop) - e) / R; }
+      else if(h >= g_sh.tg) { g_sh.trailOut = true; g_sh.trailGross = (g_sh.tg - e) / R; }
+      else if(!partial)
+        {
+         g_sh.hi = MathMax(g_sh.hi, h);
+         if(g_sh.hi >= e + 1.5 * R) g_sh.trailStop = MathMax(g_sh.trailStop, g_sh.hi - R);
+        }
+     }
+   if(!g_sh.smartDone && !partial)
+     {
+      if(l <= g_sh.s0) g_sh.smartDone = true;
+      else if(h >= e + 0.8 * R)
+        {
+         double atr[1]; int sh = iBarShift(InpUS100, PERIOD_M15, t, true);
+         double atrv = (sh >= 0 && CopyBuffer(g_hAtr, 0, sh, 1, atr) == 1) ? atr[0] : 0;
+         double x[9];
+         x[0] = g_sh.nbars; x[1] = NYMinutes(t); x[2] = g_sh.stopPct; x[3] = g_sh.rsiEntry; x[4] = g_sh.dayRet;
+         x[5] = g_sh.preRet; x[6] = g_sh.vol20; x[7] = (c - e) / R - 0.8; x[8] = atrv > 0 ? (h - l) / atrv : 1.0;
+         double z = SM_ICPT;
+         for(int k = 0; k < 9; k++) z += SM_COEF[k] * (x[k] - SM_MEAN[k]) / SM_SCALE[k];
+         g_sh.smartP = 1.0 / (1.0 + MathExp(-z));
+         g_sh.smartDone = true; g_sh.hasDecision = true;
+         PrintFormat("SHADOW note: +0.8R reached, smart-exit says %s (p=%.2f)", g_sh.smartP < 0.5 ? "CLOSE" : "HOLD", g_sh.smartP);
+        }
+     }
+   if(!partial) { g_sh.lastBar = t; g_sh.nbars++; }
+  }
+
+// process completed bars not yet seen (from the entry bar on)
+void ShadowCatchUp()
+  {
+   if(!g_sh.active) return;
+   int sh = iBarShift(InpUS100, PERIOD_M15, g_sh.entryBar, false);
+   for(int i = sh; i >= 1; i--)
+     {
+      datetime t = iTime(InpUS100, PERIOD_M15, i);
+      if(t < g_sh.entryBar || t <= g_sh.lastBar) continue;
+      ShadowBar(t, iOpen(InpUS100, PERIOD_M15, i), iHigh(InpUS100, PERIOD_M15, i), iLow(InpUS100, PERIOD_M15, i), iClose(InpUS100, PERIOD_M15, i), false);
+     }
+  }
+
+void ShadowClose(double pnl, double exitPrice)
+  {
+   if(!g_sh.active) { Print("SHADOW: trade closed but not recorded (EA restarted during the trade)"); return; }
+   ShadowCatchUp();
+   ShadowBar(iTime(InpUS100, PERIOD_M15, 0), iOpen(InpUS100, PERIOD_M15, 0), iHigh(InpUS100, PERIOD_M15, 0), iLow(InpUS100, PERIOD_M15, 0), 0, true);
+   double actual = g_sh.riskMoney > 0 ? pnl / g_sh.riskMoney : 0;
+   double cost = (exitPrice - g_sh.e) / g_sh.R - actual;                  // costs in R (spread, commission, swap)
+   double trail = g_sh.trailOut ? g_sh.trailGross - cost : actual;
+   double reass = g_sh.weak ? trail : actual;
+   bool smartClose = g_sh.hasDecision && g_sh.smartP < 0.5;
+   double smart = smartClose ? 0.8 - cost : actual;
+   double week = g_sh.weekSkip ? 0 : actual;
+   GlobalVariableSet(SH_WR, GlobalVariableGet(SH_WR) + week);
+   string d = TimeToString(g_sh.entryBar, TIME_DATE);
+   PrintFormat("SHADOW %s | actual %+.2fR | trail %+.2fR | entry %s %+.2fR | smart %s %+.2fR | weekstop %s %+.2fR",
+               d, actual, trail, g_sh.weak ? "WEAK" : "STRONG", reass,
+               !g_sh.hasDecision ? "n/a" : (smartClose ? "CLOSE" : "HOLD"), smart, g_sh.weekSkip ? "SKIP" : "ok", week);
+   int h = FileOpen(InpShadowFile, FILE_READ | FILE_WRITE | FILE_TXT | FILE_ANSI | FILE_SHARE_READ);
+   if(h != INVALID_HANDLE)
+     {
+      if(FileSize(h) == 0) FileWriteString(h, "entry_bar,entry,stop,target,actualR,costR,trailR,reassure_logit,weak,smart_p,smart_close,week_skip,features\r\n");
+      FileSeek(h, 0, SEEK_END);
+      FileWriteString(h, StringFormat("%s,%.2f,%.2f,%.2f,%.3f,%.3f,%.3f,%.4f,%d,%.4f,%d,%d,%s\r\n", TimeToString(g_sh.entryBar), g_sh.e, g_sh.s0, g_sh.tg,
+                                      actual, cost, trail, g_sh.logitReassure, (int)g_sh.weak, g_sh.hasDecision ? g_sh.smartP : -1.0, (int)smartClose, (int)g_sh.weekSkip, g_sh.feat));
+      FileClose(h);
+     }
+   g_sh.active = false;
+  }
+
+//+------------------------------------------------------------------+
 //  B) Nasdaq lunch-RSI
 bool HasNasPosition()
   {
@@ -683,6 +873,7 @@ void NasdaqStep()
    datetime bar0 = iTime(InpUS100, PERIOD_M15, 0);
    if(bar0 == 0 || bar0 == g_lastNasBar) return;          // act once, right after a 15m bar closes
    g_lastNasBar = bar0;
+   if(InpShadow && g_sh.active) ShadowCatchUp();
    datetime sigBar = iTime(InpUS100, PERIOD_M15, 1);
    int m = NYMinutes(sigBar);
    if(m < 11 * 60 + 30 || m >= 13 * 60 + 30) return;
@@ -705,6 +896,7 @@ void NasdaqStep()
    if(trade.Buy(lots, InpUS100, 0, sl, tp, "NASLUNCH"))
      {
       g_nasTradedDay = dayKey;
+      if(InpShadow) ShadowOpen(trade.ResultPrice() > 0 ? trade.ResultPrice() : ask, sl, tp, lots, rsi[0]);
       LogLine(StringFormat("open,NASDAQ,%s,1,%.2f,%s,%s,%d,rsi %.1f atr %.2f", InpUS100, lots, DoubleToString(ask, digits),
                            DoubleToString(trade.ResultPrice(), digits), (int)SymbolInfoInteger(InpUS100, SYMBOL_SPREAD), rsi[0], atr[0]));
       Notify(StringFormat("NASDAQ BUY %.2f lots, SL %s TP %s", lots, DoubleToString(sl, digits), DoubleToString(tp, digits)));
@@ -728,5 +920,6 @@ void OnTradeTransaction(const MqlTradeTransaction &trans, const MqlTradeRequest 
    LogLine(StringFormat("close,%s,%s,,%.2f,,%s,,pnl %.2f", mg == InpMagicNas ? "NASDAQ" : "NEWS", sym,
                         HistoryDealGetDouble(trans.deal, DEAL_VOLUME),
                         DoubleToString(HistoryDealGetDouble(trans.deal, DEAL_PRICE), digits), pnl));
+   if(InpShadow && mg == InpMagicNas) ShadowClose(pnl, HistoryDealGetDouble(trans.deal, DEAL_PRICE));
   }
 //+------------------------------------------------------------------+
