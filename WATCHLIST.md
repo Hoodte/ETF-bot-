@@ -11,6 +11,10 @@ Last updated: 10 Nov 2026. Live plan (unchanged): news-surprise EA + Nasdaq lunc
 |---|---|---|
 | Nasdaq smart early exit (meta-labelling, logistic model at +0.8R) | Out-of-sample gain +11.5R over 2021-26 (~+2R/yr, ~+$2k/yr per $100k), 4 of 6 years positive, bootstrap 3% chance of no gain; closes ~12% of trades early (mostly slow, barely-past-0.8R ones). Boosted-tree version overfit. Small but real-looking; re-check with live trades before building into the EA. | `results/daytrade/2026-11-12/metalabel*` |
 | Nasdaq lunch-RSI target 1:3 vs 1:4 | 1:4 better 2021-26, 1:3 better 2016-21 (where it was picked). Both in the same good zone; tighter targets clearly worse. | `results/2026-11-08` chat summary; script `results/daytrade/2026-11-10/nasdaq_targets_exits_tp.py` (run from the backtest-bot folder) |
+| Nasdaq reassurance exit (entry score -> trail weak trades after +1.5R) | +12.3R 2021-26 vs current, beats random picks (4%), but LOST -8.4R in its 2016-20 training years. In EA v1.13 shadow mode. | `results/daytrade/2026-11-14/reassurance_exit*` |
+| Nasdaq weekly stop (no more Nasdaq trades once week is +2R) | +9.8R over 10y, positive in all periods, but only ~4 skipped trades/yr; bootstrap 17% chance of no gain. In v1.13 shadow mode. | `results/daytrade/2026-11-14/weekly_state.py` |
+| Order flow exits for Nasdaq (NQ futures delta/CVD divergence, absorption, stacked imbalances, delta confirm, value-area stretch at +0.8R) | Needs NQ tick data with aggressor side (Databento, $125 free credit). CFD has no real volume. Pre-register the 5 signals, test each alone. Planned 15 Nov 2026. | - |
+| Gamma exposure (GEX) regime filter for Nasdaq | Idea (15 Nov): trade lunch-RSI only on dealer short-gamma (trend-friendly) days. Needs historical options OI/GEX (paid) or a cheap proxy (e.g. VIX term structure). Check data cost after the order-flow test. | - |
 | News bot panic switch (pause when previous-day VIX > 35) | Improves 2016-20 (mainly March 2020), no harm 2021-26. Thresholds 25/30 hurt later periods. Optional safety catch. | `results/daytrade/2026-11-10/round17_vixfilter_results.md` |
 
 ## Watch-list strategies (not good enough yet)
