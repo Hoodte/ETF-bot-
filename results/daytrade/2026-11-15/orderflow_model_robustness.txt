@@ -1,0 +1,18 @@
+Robustness (test 2021-26 gain, R):  C x threshold
+ C=0.1: thr0.45: price +5.3 / +OF +30.8 | thr0.5: price +7.7 / +OF +16.9 | thr0.55: price +15.9 / +OF +20.0
+ C=0.5: thr0.45: price +5.7 / +OF +20.5 | thr0.5: price +11.5 / +OF +21.4 | thr0.55: price +16.5 / +OF +13.8
+ C=2.0: thr0.45: price +7.5 / +OF +23.7 | thr0.5: price +13.2 / +OF +22.2 | thr0.55: price +20.6 / +OF +8.0
+
+Per year (test): price-only vs +orderflow
+ 2021: +6.5 vs +8.1  (n=39)
+ 2022: -0.5 vs +1.5  (n=26)
+ 2023: +1.6 vs +9.2  (n=38)
+ 2024: +3.6 vs -0.9  (n=32)
+ 2025: -0.1 vs +1.9  (n=28)
+ 2026: +0.4 vs +1.6  (n=24)
+
+p(model+OF test gain <= 0) = 0.027
+p(+OF no better than price-only) = 0.154
+
+standardised coefs: {'bars': np.float64(-0.49), 'nymin': np.float64(0.27), 'stop_pct': np.float64(-0.01), 'rsi_entry': np.float64(-0.04), 'day_ret': np.float64(0.14), 'pre_ret': np.float64(0.08), 'vol20': np.float64(-0.04), 'close_past': np.float64(0.28), 'range_atr': np.float64(-0.04), 'of_bar': np.float64(-0.52), 'of_cvd': np.float64(0.17), 'of_stack': np.float64(-0.23), 'of_top': np.float64(-0.15), 'of_stretch': np.float64(0.88)}
+test trades closed early: 71 of 187; their original outcomes: mean hold +0.46R, share losers 44%
