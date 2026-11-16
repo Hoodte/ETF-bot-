@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|  FTMO_Plan_EA.mq5  v1.13                                         |
+//|  FTMO_Plan_EA.mq5  v1.14                                         |
 //|  Runs inside MT5 (same account as PineConnector):                |
 //|   A) US/CA economic-news surprise strategy (6 instruments)       |
 //|   B) Nasdaq lunch-RSI 1:3 strategy (replaces the Pine version)   |
@@ -20,11 +20,13 @@
 //   M15 bar that STARTS 11:30-13:29 New York closes with RSI(14) > 70 -> buy at market.
 //   Stop 1 x ATR(14), target 3 x ATR(14) of the signal bar. One trade per NY day. Flat at 15:55 NY.
 //   Risk InpNasRiskPct % of equity per trade.
-//  v1.13 SHADOW MODE: logs what 3 candidate exit ideas would have done. Trading is unchanged.
+//  v1.13 SHADOW MODE: logs what 3 candidate exit ideas would have done.
+//  v1.14 GOLD macro composite runs inside the EA (replaces the TradingView/PineConnector gold alerts),
+//        Nasdaq improvements behind InpNasImprove (default OFF), optional stop at challenge target.
 //  DATA: live/demo = MT5 economic calendar; Strategy Tester = news_events.csv (MQL5\Files).
 //+------------------------------------------------------------------+
 #property copyright "ETF-bot research"
-#property version   "1.13"
+#property version   "1.14"
 #property tester_file "news_events.csv"
 #include <Trade\Trade.mqh>
 
@@ -70,6 +72,21 @@ input double InpStartBalance  = 100000;
 input bool   InpGuardAll      = true;     // guard closes ALL positions (incl. PineConnector gold)
 input bool   InpResetBrake    = false;    // set true once to clear a triggered brake
 input bool   InpSkipGoldIfNetting = true;
+
+input group "D) Gold macro composite (do NOT also run the TradingView/PineConnector gold alerts)"
+input bool   InpTradeGold     = true;     // needs WebRequest for https://query1.finance.yahoo.com and https://publicreporting.cftc.gov
+input double InpGoldMult      = 0.75;     // plan size multiplier (as in the research plan)
+input double InpGoldTgtVol    = 0.10;     // target volatility
+input double InpGoldCap       = 1.5;      // max volatility scale
+input double InpGoldStopPct   = 5.0;      // stop % below entry
+input double InpGoldTrailPct  = 10.0;     // trailing stop % below the highest price since entry (0 = off)
+input bool   InpGoldStatusPush = true;    // daily phone message with the 3 votes (compare with TradingView)
+input long   InpMagicGold     = 26110512;
+
+input group "E) Improvements"
+input bool   InpNasImprove    = false;    // Nasdaq: smart exit + weak-trade trail + weekly +2R stop (OFF until shadow results confirm)
+input bool   InpStopAtTarget  = false;    // challenge: stop all trading once equity reaches the target
+input double InpTargetPct     = 10.0;     // challenge target % above start balance
 
 input group "Alerts & log"
 input bool   InpPush          = true;     // MT5 push notifications (set your MetaQuotes ID in MT5 options)
@@ -132,6 +149,8 @@ double g_sdVal[] = { 2.28602, 0.197584, 0.083595, 5.58455, 0.434832, 0.0658545, 
 int g_hRsi = INVALID_HANDLE, g_hAtr = INVALID_HANDLE;
 datetime g_lastNasBar = 0;
 int g_nasTradedDay = -1;
+bool   g_nasSmartClose = false;   // v1.14 improvements: set by the shadow model, acted on in NasdaqStep
+double g_nasNewSL = 0;
 
 //+------------------------------------------------------------------+
 //  time helpers
@@ -205,6 +224,7 @@ int OnInit()
       g_hAtr = iATR(InpUS100, PERIOD_M15, 14);
       if(g_hRsi == INVALID_HANDLE || g_hAtr == INVALID_HANDLE) { Print("ERROR: indicator handles"); return INIT_FAILED; }
      }
+   if(InpTradeGold && !SymbolSelect(InpXAUUSD, true)) { PrintFormat("ERROR: %s not found", InpXAUUSD); return INIT_FAILED; }
    if(InpResetBrake) GlobalVariableDel(BRAKE_GV);
    g_brake = GlobalVariableCheck(BRAKE_GV) && !(bool)MQLInfoInteger(MQL_TESTER);
    if(g_brake) Notify("overall loss brake is ACTIVE - no trading (set InpResetBrake=true to clear)");
@@ -215,8 +235,10 @@ int OnInit()
      }
    EventSetTimer(5);
    ResetDay();
-   Notify(StringFormat("EA started. news=%s nasdaq=%s guard=%s account=%s", InpTradeNews ? "on" : "off",
-                       InpTradeNasdaq ? "on" : "off", InpGuardOn ? "on" : "off", netting ? "NETTING" : "hedging"));
+   Notify(StringFormat("EA v1.14 started. news=%s nasdaq=%s gold=%s improve=%s guard=%s account=%s", InpTradeNews ? "on" : "off",
+                       InpTradeNasdaq ? "on" : "off", InpTradeGold ? "on" : "off", InpNasImprove ? "ON" : "off",
+                       InpGuardOn ? "on" : "off", netting ? "NETTING" : "hedging"));
+   if(InpTradeGold) GoldEvaluate(false);      // show today's 3 votes (no trading at start-up)
    if(InpTradeNews && !UseCsv() && InpCalCheckDays > 0)
      {
       CalendarReport(InpCalCheckDays);
@@ -293,6 +315,14 @@ void Step()
    UpdateSpreads();
    ManagePositions();
    if(g_locked || g_brake) return;
+   if(InpStopAtTarget && AccountInfoDouble(ACCOUNT_EQUITY) >= InpStartBalance * (1.0 + InpTargetPct / 100.0))
+     {
+      static bool told = false;
+      CloseAll();
+      if(!told) { Notify(StringFormat("CHALLENGE TARGET reached (+%.1f%%) - all positions closed, trading stopped", InpTargetPct)); told = true; }
+      return;
+     }
+   if(InpTradeGold) GoldStep();
    if(InpTradeNews) { if(UseCsv()) ProcessCsv(); else if(InpUseTVCalendar) ProcessTV(); else ProcessCalendar(); }
    if(InpTradeNasdaq) NasdaqStep();
   }
@@ -334,7 +364,7 @@ void CloseAll()
       ulong t = PositionGetTicket(i);
       if(t == 0) continue;
       long mg = PositionGetInteger(POSITION_MAGIC);
-      if(!InpGuardAll && mg != InpMagicNews && mg != InpMagicNas) continue;
+      if(!InpGuardAll && mg != InpMagicNews && mg != InpMagicNas && mg != InpMagicGold) continue;
       trade.PositionClose(t);
      }
    ArrayResize(g_pos, 0);
@@ -782,6 +812,7 @@ void ShadowBar(datetime t, double o, double h, double l, double c, bool partial)
         {
          g_sh.hi = MathMax(g_sh.hi, h);
          if(g_sh.hi >= e + 1.5 * R) g_sh.trailStop = MathMax(g_sh.trailStop, g_sh.hi - R);
+         if(InpNasImprove && g_sh.weak && g_sh.trailStop > g_sh.s0) g_nasNewSL = g_sh.trailStop;
         }
      }
    if(!g_sh.smartDone && !partial)
@@ -798,6 +829,7 @@ void ShadowBar(datetime t, double o, double h, double l, double c, bool partial)
          for(int k = 0; k < 9; k++) z += SM_COEF[k] * (x[k] - SM_MEAN[k]) / SM_SCALE[k];
          g_sh.smartP = 1.0 / (1.0 + MathExp(-z));
          g_sh.smartDone = true; g_sh.hasDecision = true;
+         if(InpNasImprove && g_sh.smartP < 0.5) g_nasSmartClose = true;
          PrintFormat("SHADOW note: +0.8R reached, smart-exit says %s (p=%.2f)", g_sh.smartP < 0.5 ? "CLOSE" : "HOLD", g_sh.smartP);
         }
      }
@@ -830,6 +862,7 @@ void ShadowClose(double pnl, double exitPrice)
    double smart = smartClose ? 0.8 - cost : actual;
    double week = g_sh.weekSkip ? 0 : actual;
    GlobalVariableSet(SH_WR, GlobalVariableGet(SH_WR) + week);
+   NasWeekAdd(g_sh.entryBar, actual);
    string d = TimeToString(g_sh.entryBar, TIME_DATE);
    PrintFormat("SHADOW %s | actual %+.2fR | trail %+.2fR | entry %s %+.2fR | smart %s %+.2fR | weekstop %s %+.2fR",
                d, actual, trail, g_sh.weak ? "WEAK" : "STRONG", reass,
@@ -844,6 +877,292 @@ void ShadowClose(double pnl, double exitPrice)
       FileClose(h);
      }
    g_sh.active = false;
+  }
+
+//+------------------------------------------------------------------+
+//  D) GOLD macro composite vol10 (v1.14) - replaces the TradingView/PineConnector gold script.
+//  Same data as the research (etfbot/goldquant.py "macro_composite_vol10"):
+//   1 dollar weak:  ICE dollar index (Yahoo DX-Y.NYB) daily close < its 50-day average
+//   2 TIPS rising:  TIP ETF (Yahoo, dividend-adjusted close) 20-day change > 0
+//   3 not crowded:  CFTC gold (088691) managed money (long-short)/open interest, percentile vs the
+//                   previous reports in a 156-report window (min 52); report used 6 days after its date
+//   LONG when >= 2 votes. Exposure = 0.75 x min(1.5, 10% / gold 20-day vol) x equity (half below -5%).
+//   Evaluated once a day at 23:05 UTC (Sun-Thu) on completed daily closes. Exit when the signal turns off.
+//   5% stop from entry + 10% trailing stop from the highest price since entry.
+//   After a stop-out: no re-entry until the signal has been OFF at an evaluation (as tested).
+datetime g_goldTrailBar = 0;
+bool     g_goldWarned = false;
+string   GOLD_EVAL_GV = "FTMOPLAN_GOLD_EVAL", GOLD_ARMED_GV = "FTMOPLAN_GOLD_ARMED";
+
+bool HttpGet(string url, string &body)
+  {
+   char post[], res[]; string hdr;
+   ResetLastError();
+   int code = WebRequest("GET", url, "User-Agent: Mozilla/5.0\r\nAccept: application/json\r\n", 10000, post, res, hdr);
+   if(code != 200)
+     {
+      if(!g_goldWarned)
+        {
+         Notify(StringFormat("GOLD data failed (code %d, err %d). Allow WebRequest for https://query1.finance.yahoo.com and https://publicreporting.cftc.gov", code, GetLastError()));
+         g_goldWarned = true;
+        }
+      return false;
+     }
+   body = CharArrayToString(res, 0, WHOLE_ARRAY, CP_UTF8);
+   return true;
+  }
+
+// numbers inside the JSON array that starts right after `key`
+int JArray(string js, string key, int from, double &out[])
+  {
+   ArrayResize(out, 0);
+   int p = StringFind(js, key, from);
+   if(p < 0) return 0;
+   p = StringFind(js, "[", p);
+   int e = StringFind(js, "]", p);
+   if(p < 0 || e < 0) return 0;
+   string parts[];
+   int n = StringSplit(StringSubstr(js, p + 1, e - p - 1), ',', parts);
+   ArrayResize(out, n);
+   for(int i = 0; i < n; i++)
+     {
+      string s = parts[i]; StringTrimLeft(s); StringTrimRight(s);
+      out[i] = (s == "null" || s == "") ? EMPTY_VALUE : StringToDouble(s);
+     }
+   return n;
+  }
+
+datetime DateKeyToTime(int k) { MqlDateTime d; ZeroMemory(d); d.year = k / 10000; d.mon = (k / 100) % 100; d.day = k % 100; return StructToTime(d); }
+int DateKey(datetime t) { MqlDateTime d; TimeToStruct(t, d); return d.year * 10000 + d.mon * 100 + d.day; }
+
+// daily closes (exchange-local date <= cutoffKey), oldest first
+int YahooDaily(string sym, int cutoffKey, double &cl[])
+  {
+   string js;
+   ArrayResize(cl, 0);
+   if(!HttpGet("https://query1.finance.yahoo.com/v8/finance/chart/" + sym + "?range=1y&interval=1d", js)) return 0;
+   double ts[], adj[], raw[];
+   int n = JArray(js, "\"timestamp\":", 0, ts);
+   string off = JVal(js, "gmtoffset");
+   long gmtoff = (long)StringToInteger(off);
+   int a = JArray(js, "\"adjclose\":[{\"adjclose\":", 0, adj);
+   int q = StringFind(js, "\"quote\":");
+   int r = JArray(js, "\"close\":", q < 0 ? 0 : q, raw);
+   bool useAdj = (a == n && n > 0);
+   if(n == 0 || (!useAdj && r != n)) return 0;
+   for(int i = 0; i < n; i++)
+     {
+      double v = useAdj ? adj[i] : raw[i];
+      if(v == EMPTY_VALUE || v <= 0) continue;
+      if(DateKey((datetime)((long)ts[i] + gmtoff)) > cutoffKey) continue;
+      int k = ArraySize(cl); ArrayResize(cl, k + 1); cl[k] = v;
+     }
+   return ArraySize(cl);
+  }
+
+// COT percentile for the signal date; returns -1 if not enough data
+double CotPercentile(datetime sigDate, double &lastNet)
+  {
+   string js;
+   string url = "https://publicreporting.cftc.gov/resource/72hh-3qpy.json?$select=report_date_as_yyyy_mm_dd,m_money_positions_long_all,m_money_positions_short_all,open_interest_all"
+                "&cftc_contract_market_code=088691&$order=report_date_as_yyyy_mm_dd%20DESC&$limit=200";
+   if(!HttpGet(url, js)) return -1;
+   string objs[];
+   int n = StringSplit(js, '}', objs);
+   double net[]; datetime dt[];
+   for(int i = 0; i < n; i++)
+     {
+      string d = JVal(objs[i], "report_date_as_yyyy_mm_dd");
+      if(d == "") continue;
+      datetime rd = IsoToTime(d);
+      if(rd + 6 * 86400 > sigDate) continue;                  // not yet usable on the signal date
+      double L = StringToDouble(JVal(objs[i], "m_money_positions_long_all"));
+      double S = StringToDouble(JVal(objs[i], "m_money_positions_short_all"));
+      double OI = StringToDouble(JVal(objs[i], "open_interest_all"));
+      if(OI <= 0) continue;
+      bool dup = false;
+      for(int j = 0; j < ArraySize(dt); j++) if(dt[j] == rd) { dup = true; break; }
+      if(dup) continue;
+      int k = ArraySize(net); ArrayResize(net, k + 1); ArrayResize(dt, k + 1);
+      net[k] = (L - S) / OI; dt[k] = rd;                     // newest first
+     }
+   int m = MathMin(ArraySize(net), 156);
+   if(m < 52) return -1;
+   lastNet = net[0];
+   double below = 0;
+   for(int i = 1; i < m; i++) if(net[i] < net[0]) below += 1;
+   return below / (m - 1);
+  }
+
+bool GoldPosition(ulong &ticket)
+  {
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+     {
+      ulong t = PositionGetTicket(i);
+      if(t != 0 && PositionGetInteger(POSITION_MAGIC) == InpMagicGold && PositionGetString(POSITION_SYMBOL) == InpXAUUSD)
+        { ticket = t; return true; }
+     }
+   return false;
+  }
+
+double GoldAnnVol()
+  {
+   double c[];
+   if(CopyClose(InpXAUUSD, PERIOD_D1, 1, 21, c) != 21) return 0;
+   double r[20], mu = 0;
+   for(int i = 0; i < 20; i++) { r[i] = c[i + 1] / c[i] - 1; mu += r[i]; }
+   mu /= 20; double v = 0;
+   for(int i = 0; i < 20; i++) v += (r[i] - mu) * (r[i] - mu);
+   return MathSqrt(v / 19) * MathSqrt(252);
+  }
+
+// returns 1 = LONG, 0 = FLAT, -1 = data problem
+int GoldSignal(datetime nowU, string &status, double &expo)
+  {
+   datetime sigDate = (datetime)(DateKeyToTime(DateKey(nowU + 3600)));  // the day this decision applies to
+   int cutoff = DateKey(sigDate - 86400);
+   double dxy[], tip[];
+   int nd = YahooDaily("DX-Y.NYB", cutoff, dxy), nt = YahooDaily("TIP", cutoff, tip);
+   double lastNet = 0;
+   double pct = CotPercentile(sigDate, lastNet);
+   if(nd < 50 || nt < 21 || pct < 0)
+     { status = StringFormat("GOLD data missing (dxy %d, tip %d, cot %s) - no change", nd, nt, pct < 0 ? "n/a" : "ok"); return -1; }
+   double sma = 0;
+   for(int i = nd - 50; i < nd; i++) sma += dxy[i];
+   sma /= 50;
+   bool v1 = dxy[nd - 1] < sma;
+   double tipChg = tip[nt - 1] / tip[nt - 21] - 1;
+   bool v2 = tipChg > 0;
+   bool v3 = pct < 0.70;
+   int votes = (v1 ? 1 : 0) + (v2 ? 1 : 0) + (v3 ? 1 : 0);
+   double vol = GoldAnnVol();
+   expo = (vol > 0) ? InpGoldMult * MathMin(InpGoldCap, InpGoldTgtVol / vol) * SizeMult() : 0;
+   status = StringFormat("GOLD %s: DXY %.2f vs avg %.2f %s | TIP 20d %+.2f%% %s | COT pct %.2f %s | %d/3 -> %s, size %.2fx",
+                         TimeToString(sigDate, TIME_DATE), dxy[nd - 1], sma, v1 ? "YES" : "no", tipChg * 100, v2 ? "YES" : "no",
+                         pct, v3 ? "YES" : "no", votes, votes >= 2 ? "LONG" : "FLAT", expo);
+   return votes >= 2 ? 1 : 0;
+  }
+
+void GoldEvaluate(bool doTrade)
+  {
+   datetime nowU = TimeGMT();
+   string status; double expo = 0;
+   int sig = GoldSignal(nowU, status, expo);
+   Print(status);
+   if(InpGoldStatusPush) Notify(status);
+   LogLine("gold_status,XAU,,,,,,," + status);
+   if(!doTrade || sig < 0) return;
+   ulong tk = 0;
+   bool has = GoldPosition(tk);
+   if(!GlobalVariableCheck(GOLD_ARMED_GV)) GlobalVariableSet(GOLD_ARMED_GV, 1);
+   if(sig == 0)
+     {
+      GlobalVariableSet(GOLD_ARMED_GV, 1);                   // signal off -> a later fresh signal may enter
+      if(has && trade.PositionClose(tk)) Notify("GOLD exit: signal turned off");
+      GlobalVariableSet(GOLD_EVAL_GV, DateKey(nowU));
+      return;
+     }
+   if(has) { GlobalVariableSet(GOLD_EVAL_GV, DateKey(nowU)); return; }
+   if(GlobalVariableGet(GOLD_ARMED_GV) < 0.5)
+     {
+      Print("GOLD signal on, but waiting for a fresh signal after the last stop-out (as tested)");
+      GlobalVariableSet(GOLD_EVAL_GV, DateKey(nowU));
+      return;
+     }
+   double ask = SymbolInfoDouble(InpXAUUSD, SYMBOL_ASK);
+   double cs = SymbolInfoDouble(InpXAUUSD, SYMBOL_TRADE_CONTRACT_SIZE);
+   if(ask <= 0 || cs <= 0 || expo <= 0) return;
+   double lots = NormLots(InpXAUUSD, expo * AccountInfoDouble(ACCOUNT_EQUITY) / (ask * cs));
+   if(lots <= 0) { Print("GOLD skip: size too small"); GlobalVariableSet(GOLD_EVAL_GV, DateKey(nowU)); return; }
+   int digits = (int)SymbolInfoInteger(InpXAUUSD, SYMBOL_DIGITS);
+   double sl = NormalizeDouble(ask * (1.0 - InpGoldStopPct / 100.0), digits);
+   trade.SetExpertMagicNumber(InpMagicGold);
+   if(trade.Buy(lots, InpXAUUSD, 0, sl, 0, "GOLDMACRO"))
+     {
+      GlobalVariableSet(GOLD_EVAL_GV, DateKey(nowU));
+      LogLine(StringFormat("open,GOLD,%s,1,%.2f,%s,%s,,expo %.2f", InpXAUUSD, lots, DoubleToString(ask, digits),
+                           DoubleToString(trade.ResultPrice(), digits), expo));
+      Notify(StringFormat("GOLD BUY %.2f lots (%.2fx equity), stop %s", lots, expo, DoubleToString(sl, digits)));
+     }
+   else PrintFormat("GOLD order failed: %d - will retry", trade.ResultRetcode());
+  }
+
+void GoldStep()
+  {
+   datetime nowU = TimeGMT();
+   MqlDateTime d; TimeToStruct(nowU, d);
+   // 1) daily decision, Sun-Thu at 23:05 UTC (after the US closes), once per UTC day; retry every 5 min if it fails
+   static datetime lastTry = 0;
+   if(d.day_of_week <= 4 && d.hour * 60 + d.min >= 23 * 60 + 5 &&
+      (!GlobalVariableCheck(GOLD_EVAL_GV) || (int)GlobalVariableGet(GOLD_EVAL_GV) != DateKey(nowU)) &&
+      nowU - lastTry >= 300)
+     {
+      lastTry = nowU;
+      GoldEvaluate(true);
+     }
+   // 2) 10% trailing stop from the highest price since entry, checked once per new hourly bar
+   ulong tk = 0;
+   if(InpGoldTrailPct <= 0 || !GoldPosition(tk)) return;
+   datetime hb = iTime(InpXAUUSD, PERIOD_H1, 0);
+   if(hb == g_goldTrailBar) return;
+   g_goldTrailBar = hb;
+   if(!PositionSelectByTicket(tk)) return;
+   datetime opened = (datetime)PositionGetInteger(POSITION_TIME);
+   int sh = iBarShift(InpXAUUSD, PERIOD_H1, opened, false);
+   if(sh < 1) return;
+   int hiIdx = iHighest(InpXAUUSD, PERIOD_H1, MODE_HIGH, sh, 1);
+   if(hiIdx < 0) return;
+   double hi = iHigh(InpXAUUSD, PERIOD_H1, hiIdx);
+   int digits = (int)SymbolInfoInteger(InpXAUUSD, SYMBOL_DIGITS);
+   double newSl = NormalizeDouble(hi * (1.0 - InpGoldTrailPct / 100.0), digits);
+   double curSl = PositionGetDouble(POSITION_SL);
+   double bid = SymbolInfoDouble(InpXAUUSD, SYMBOL_BID);
+   if(newSl > curSl + 10 * SymbolInfoDouble(InpXAUUSD, SYMBOL_POINT) && newSl < bid)
+     {
+      if(trade.PositionModify(tk, newSl, PositionGetDouble(POSITION_TP)))
+         Notify(StringFormat("GOLD trailing stop raised to %s (10%% below high %s)", DoubleToString(newSl, digits), DoubleToString(hi, digits)));
+     }
+  }
+
+//+------------------------------------------------------------------+
+//  E) Nasdaq improvements (v1.14) - live versions of the shadow ideas, used only when InpNasImprove = true
+string NAS_WK_GV = "FTMOPLAN_NAS_WEEK", NAS_WR_GV = "FTMOPLAN_NAS_WEEKR";
+
+bool NasWeekDone()
+  {
+   int wk = UTCWeekKey(TimeCurrent());
+   if(!GlobalVariableCheck(NAS_WK_GV) || (int)GlobalVariableGet(NAS_WK_GV) != wk) return false;
+   return GlobalVariableGet(NAS_WR_GV) >= 2.0;
+  }
+void NasWeekAdd(datetime entryBar, double r)
+  {
+   int wk = UTCWeekKey(entryBar);
+   if(!GlobalVariableCheck(NAS_WK_GV) || (int)GlobalVariableGet(NAS_WK_GV) != wk) { GlobalVariableSet(NAS_WK_GV, wk); GlobalVariableSet(NAS_WR_GV, 0); }
+   GlobalVariableSet(NAS_WR_GV, GlobalVariableGet(NAS_WR_GV) + r);
+  }
+void NasApplyImprovements()
+  {
+   if(!InpNasImprove) { g_nasSmartClose = false; g_nasNewSL = 0; return; }
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+     {
+      ulong t = PositionGetTicket(i);
+      if(t == 0 || PositionGetInteger(POSITION_MAGIC) != InpMagicNas) continue;
+      if(g_nasSmartClose)
+        {
+         if(trade.PositionClose(t)) Notify("NASDAQ smart exit: model says likely reversal at +0.8R - closed");
+         continue;
+        }
+      if(g_nasNewSL > 0 && g_nasNewSL > PositionGetDouble(POSITION_SL))
+        {
+         int digits = (int)SymbolInfoInteger(InpUS100, SYMBOL_DIGITS);
+         double bid = SymbolInfoDouble(InpUS100, SYMBOL_BID);
+         double sl = NormalizeDouble(g_nasNewSL, digits);
+         if(bid <= sl) { if(trade.PositionClose(t)) Notify("NASDAQ trail (weak trade): closed at the trailing level"); }
+         else if(trade.PositionModify(t, sl, PositionGetDouble(POSITION_TP)))
+            Notify(StringFormat("NASDAQ trail (weak trade): stop raised to %s", DoubleToString(sl, digits)));
+        }
+     }
+   g_nasSmartClose = false; g_nasNewSL = 0;
   }
 
 //+------------------------------------------------------------------+
@@ -873,7 +1192,8 @@ void NasdaqStep()
    datetime bar0 = iTime(InpUS100, PERIOD_M15, 0);
    if(bar0 == 0 || bar0 == g_lastNasBar) return;          // act once, right after a 15m bar closes
    g_lastNasBar = bar0;
-   if(InpShadow && g_sh.active) ShadowCatchUp();
+   if((InpShadow || InpNasImprove) && g_sh.active) ShadowCatchUp();
+   NasApplyImprovements();
    datetime sigBar = iTime(InpUS100, PERIOD_M15, 1);
    int m = NYMinutes(sigBar);
    if(m < 11 * 60 + 30 || m >= 13 * 60 + 30) return;
@@ -882,6 +1202,12 @@ void NasdaqStep()
    double rsi[1], atr[1];
    if(CopyBuffer(g_hRsi, 0, 1, 1, rsi) != 1 || CopyBuffer(g_hAtr, 0, 1, 1, atr) != 1) return;
    if(rsi[0] <= InpNasRsiLevel || atr[0] <= 0) return;
+   if(InpNasImprove && NasWeekDone())
+     {
+      g_nasTradedDay = dayKey;
+      Notify("NASDAQ signal skipped: this week's Nasdaq result is already +2R (weekly stop)");
+      return;
+     }
    double ask = SymbolInfoDouble(InpUS100, SYMBOL_ASK);
    double tv = SymbolInfoDouble(InpUS100, SYMBOL_TRADE_TICK_VALUE);
    double ts = SymbolInfoDouble(InpUS100, SYMBOL_TRADE_TICK_SIZE);
@@ -896,7 +1222,7 @@ void NasdaqStep()
    if(trade.Buy(lots, InpUS100, 0, sl, tp, "NASLUNCH"))
      {
       g_nasTradedDay = dayKey;
-      if(InpShadow) ShadowOpen(trade.ResultPrice() > 0 ? trade.ResultPrice() : ask, sl, tp, lots, rsi[0]);
+      if(InpShadow || InpNasImprove) ShadowOpen(trade.ResultPrice() > 0 ? trade.ResultPrice() : ask, sl, tp, lots, rsi[0]);
       LogLine(StringFormat("open,NASDAQ,%s,1,%.2f,%s,%s,%d,rsi %.1f atr %.2f", InpUS100, lots, DoubleToString(ask, digits),
                            DoubleToString(trade.ResultPrice(), digits), (int)SymbolInfoInteger(InpUS100, SYMBOL_SPREAD), rsi[0], atr[0]));
       Notify(StringFormat("NASDAQ BUY %.2f lots, SL %s TP %s", lots, DoubleToString(sl, digits), DoubleToString(tp, digits)));
@@ -911,15 +1237,20 @@ void OnTradeTransaction(const MqlTradeTransaction &trans, const MqlTradeRequest 
    if(trans.type != TRADE_TRANSACTION_DEAL_ADD) return;
    if(!HistoryDealSelect(trans.deal)) return;
    long mg = HistoryDealGetInteger(trans.deal, DEAL_MAGIC);
-   if(mg != InpMagicNews && mg != InpMagicNas) return;
+   if(mg != InpMagicNews && mg != InpMagicNas && mg != InpMagicGold) return;
    if(HistoryDealGetInteger(trans.deal, DEAL_ENTRY) != DEAL_ENTRY_OUT) return;
+   if(mg == InpMagicGold && HistoryDealGetInteger(trans.deal, DEAL_REASON) == DEAL_REASON_SL)
+     {
+      GlobalVariableSet(GOLD_ARMED_GV, 0);
+      Notify("GOLD stopped out - waiting for the signal to turn off and on again before re-entering");
+     }
    string sym = HistoryDealGetString(trans.deal, DEAL_SYMBOL);
    double pnl = HistoryDealGetDouble(trans.deal, DEAL_PROFIT) + HistoryDealGetDouble(trans.deal, DEAL_SWAP) +
                 HistoryDealGetDouble(trans.deal, DEAL_COMMISSION);
    int digits = (int)SymbolInfoInteger(sym, SYMBOL_DIGITS);
-   LogLine(StringFormat("close,%s,%s,,%.2f,,%s,,pnl %.2f", mg == InpMagicNas ? "NASDAQ" : "NEWS", sym,
+   LogLine(StringFormat("close,%s,%s,,%.2f,,%s,,pnl %.2f", mg == InpMagicNas ? "NASDAQ" : (mg == InpMagicGold ? "GOLD" : "NEWS"), sym,
                         HistoryDealGetDouble(trans.deal, DEAL_VOLUME),
                         DoubleToString(HistoryDealGetDouble(trans.deal, DEAL_PRICE), digits), pnl));
-   if(InpShadow && mg == InpMagicNas) ShadowClose(pnl, HistoryDealGetDouble(trans.deal, DEAL_PRICE));
+   if((InpShadow || InpNasImprove) && mg == InpMagicNas) ShadowClose(pnl, HistoryDealGetDouble(trans.deal, DEAL_PRICE));
   }
 //+------------------------------------------------------------------+
