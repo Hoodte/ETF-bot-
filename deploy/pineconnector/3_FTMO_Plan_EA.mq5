@@ -23,6 +23,8 @@
 //  v1.13 SHADOW MODE: logs what 3 candidate exit ideas would have done.
 //  v1.14 GOLD macro composite runs inside the EA (replaces the TradingView/PineConnector gold alerts),
 //        Nasdaq improvements behind InpNasImprove (default OFF), optional stop at challenge target.
+//        Safety fix: equity 0 while (re)connecting is ignored (it used to trigger the brake + zero divide);
+//        brake / gold / weekly memory is kept per account login.
 //  DATA: live/demo = MT5 economic calendar; Strategy Tester = news_events.csv (MQL5\Files).
 //+------------------------------------------------------------------+
 #property copyright "ETF-bot research"
@@ -107,6 +109,8 @@ double g_dayStartEq = 0;
 bool   g_locked = false;
 bool   g_brake = false;
 string BRAKE_GV = "FTMOPLAN_BRAKE";
+string   GOLD_EVAL_GV = "FTMOPLAN_GOLD_EVAL", GOLD_ARMED_GV = "FTMOPLAN_GOLD_ARMED";
+string NAS_WK_GV = "FTMOPLAN_NAS_WEEK", NAS_WR_GV = "FTMOPLAN_NAS_WEEKR";
 
 struct NewsPos { ulong ticket; string sym; datetime opened; double entry; double risk; int dir; bool be; };
 NewsPos g_pos[];
@@ -225,6 +229,10 @@ int OnInit()
       if(g_hRsi == INVALID_HANDLE || g_hAtr == INVALID_HANDLE) { Print("ERROR: indicator handles"); return INIT_FAILED; }
      }
    if(InpTradeGold && !SymbolSelect(InpXAUUSD, true)) { PrintFormat("ERROR: %s not found", InpXAUUSD); return INIT_FAILED; }
+   string acct = IntegerToString(AccountInfoInteger(ACCOUNT_LOGIN));
+   BRAKE_GV = "FTMOPLAN_BRAKE_" + acct;
+   GOLD_EVAL_GV = "FTMOPLAN_GOLD_EVAL_" + acct; GOLD_ARMED_GV = "FTMOPLAN_GOLD_ARMED_" + acct;
+   NAS_WK_GV = "FTMOPLAN_NAS_WEEK_" + acct;     NAS_WR_GV = "FTMOPLAN_NAS_WEEKR_" + acct;
    if(InpResetBrake) GlobalVariableDel(BRAKE_GV);
    g_brake = GlobalVariableCheck(BRAKE_GV) && !(bool)MQLInfoInteger(MQL_TESTER);
    if(g_brake) Notify("overall loss brake is ACTIVE - no trading (set InpResetBrake=true to clear)");
@@ -309,8 +317,13 @@ bool LoadCsv()
 void OnTick()  { Step(); }
 void OnTimer() { Step(); }
 
+bool AccountReady()
+  {
+   return TerminalInfoInteger(TERMINAL_CONNECTED) && AccountInfoDouble(ACCOUNT_EQUITY) > 0 && AccountInfoDouble(ACCOUNT_BALANCE) > 0;
+  }
 void Step()
   {
+   if(!AccountReady()) return;                       // reconnecting: equity can read 0 - never act on that
    Guard();
    UpdateSpreads();
    ManagePositions();
@@ -334,14 +347,16 @@ void ResetDay()
    MqlDateTime d; TimeToStruct(TimeCurrent(), d);
    d.hour = 0; d.min = 0; d.sec = 0;
    g_dayStart = StructToTime(d);
-   g_dayStartEq = AccountInfoDouble(ACCOUNT_EQUITY);
+   double eq = AccountInfoDouble(ACCOUNT_EQUITY);
+   if(eq > 0) g_dayStartEq = eq;
    g_locked = false;
   }
 void Guard()
   {
-   if(!InpGuardOn) return;
-   if(TimeCurrent() >= g_dayStart + 86400) ResetDay();
+   if(!InpGuardOn || !AccountReady()) return;
+   if(TimeCurrent() >= g_dayStart + 86400 || g_dayStartEq <= 0) ResetDay();
    double eq = AccountInfoDouble(ACCOUNT_EQUITY);
+   if(eq <= 0 || g_dayStartEq <= 0) return;
    if(!g_brake && eq <= InpStartBalance * (1.0 - InpBrakePct / 100.0))
      {
       g_brake = true;
@@ -892,7 +907,6 @@ void ShadowClose(double pnl, double exitPrice)
 //   After a stop-out: no re-entry until the signal has been OFF at an evaluation (as tested).
 datetime g_goldTrailBar = 0;
 bool     g_goldWarned = false;
-string   GOLD_EVAL_GV = "FTMOPLAN_GOLD_EVAL", GOLD_ARMED_GV = "FTMOPLAN_GOLD_ARMED";
 
 bool HttpGet(string url, string &body)
   {
@@ -1126,7 +1140,6 @@ void GoldStep()
 
 //+------------------------------------------------------------------+
 //  E) Nasdaq improvements (v1.14) - live versions of the shadow ideas, used only when InpNasImprove = true
-string NAS_WK_GV = "FTMOPLAN_NAS_WEEK", NAS_WR_GV = "FTMOPLAN_NAS_WEEKR";
 
 bool NasWeekDone()
   {
